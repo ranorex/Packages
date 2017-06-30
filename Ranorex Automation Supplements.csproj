@@ -50,6 +50,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ranorex.Core" />
+    <Reference Include="Ranorex.PDF">
+      <HintPath>libs\Ranorex.PDF.dll</HintPath>
+    </Reference>
     <Reference Include="Ranorex.Plugin.Cef" />
     <Reference Include="Ranorex.Plugin.ChromeWeb" />
     <Reference Include="Ranorex.Plugin.Flex" />
@@ -101,6 +104,15 @@
     </Compile>
     <Compile Include="Ranorex_Helper_Image.cs">
       <id>3d9709f2-0cf1-46bd-aa1a-14c0617cecce</id>
+    </Compile>
+    <Compile Include="Ranorex_Helper_Reporting.cs">
+      <id>1afa5067-cb41-4bf9-916b-9bb10c3343fa</id>
+    </Compile>
+    <Compile Include="Ranorex_Helper_ReportToPdf.cs">
+      <id>ead7a19f-683d-491e-acd2-1f69f824df8c</id>
+    </Compile>
+    <Compile Include="Ranorex_Helper_ReportSendByMail.cs">
+      <id>c9bde2cb-ec10-4431-b051-cd5f6872d30f</id>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
