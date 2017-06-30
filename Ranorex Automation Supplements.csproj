@@ -115,6 +115,11 @@
       <id>c9bde2cb-ec10-4431-b051-cd5f6872d30f</id>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <id>443798fe-2025-4b7f-80b1-efb66f85d096</id>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RanorexTargetsPath)" Condition="Exists('$(RanorexTargetsPath)')" />
 </Project>
