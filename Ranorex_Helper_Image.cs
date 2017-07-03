@@ -10,7 +10,7 @@ using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Testing;
 
-namespace Ranorex.AutomationSupplements
+namespace Ranorex.AutomationHelpers
 {
     /// <summary>
     /// Description of Ranorex_Helper_Image.

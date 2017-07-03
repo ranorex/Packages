@@ -3,7 +3,7 @@ using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 using System;
 
-namespace Ranorex.AutomationSupplements
+namespace Ranorex.AutomationHelpers
 {
 	/// <summary>
 	/// Allows conversion of Ranorex report files to PDF

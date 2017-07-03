@@ -6,8 +6,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>Ranorex.AutomationSupplements</RootNamespace>
-    <AssemblyName>Ranorex Automation Supplements</AssemblyName>
+    <RootNamespace>Ranorex.AutomationHelpers</RootNamespace>
+    <AssemblyName>Ranorex Automation Helpers</AssemblyName>
     <RanorexVersion>7.2</RanorexVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <RanorexTargetsPath>$(MSBuildExtensionsPath)\Ranorex$(RanorexVersion)\Ranorex.MSBuild.Targets</RanorexTargetsPath>

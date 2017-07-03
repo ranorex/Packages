@@ -14,7 +14,7 @@ using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
-namespace Ranorex.AutomationSupplements
+namespace Ranorex.AutomationHelpers
 {
 	/// <summary>
 	/// A collection of usefull general helper methods.

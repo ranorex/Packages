@@ -1,4 +1,4 @@
-# Ranorex Automation Supplements
+# Ranorex Automation Helpers
 
 Makes Ranorex even greater!
 
@@ -12,11 +12,11 @@ Makes Ranorex even greater!
 
 #### Studio
 
-If you are using Ranorex Studio 7.2+ you just have to click "Add Ranorex Automation Supplements" in the Solution Explorer. This will create a new project
+If you are using Ranorex Studio 7.2+ you just have to click "Add Automation Helpers" in the Solution Explorer or via ContextMenu. This will create a new project...
 
 #### Clone
 
-Clone and reference this project into your existing Ranorex Test Suite Solution.
+Clone and add this project into your existing Ranorex Test Suite Solution.
 
 #### NuGet
 

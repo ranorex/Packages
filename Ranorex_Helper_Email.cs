@@ -12,7 +12,7 @@ using Ranorex.Core;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 
-namespace Ranorex.AutomationSupplements
+namespace Ranorex.AutomationHelpers
 {
     /// <summary>
     /// Description of RanorexEmailHelper.
