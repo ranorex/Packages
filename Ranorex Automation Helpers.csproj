@@ -50,9 +50,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ranorex.Core" />
-    <Reference Include="Ranorex.PDF">
-      <HintPath>libs\Ranorex.PDF.dll</HintPath>
-    </Reference>
     <Reference Include="Ranorex.Plugin.Cef" />
     <Reference Include="Ranorex.Plugin.ChromeWeb" />
     <Reference Include="Ranorex.Plugin.Flex" />
