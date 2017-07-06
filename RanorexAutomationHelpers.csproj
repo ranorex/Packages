@@ -50,6 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ranorex.Core" />
+    <Reference Include="Ranorex.PDF" />
     <Reference Include="Ranorex.Plugin.Cef" />
     <Reference Include="Ranorex.Plugin.ChromeWeb" />
     <Reference Include="Ranorex.Plugin.Flex" />
@@ -113,6 +114,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="README.md">
       <id>443798fe-2025-4b7f-80b1-efb66f85d096</id>
     </None>
