@@ -25,6 +25,5 @@
     </metadata>
     <files>
         <file src="Ranorex_Helper*.cs" target="content" />
-        <file src=".gitignore" target="content" />
     </files>
 </package>
