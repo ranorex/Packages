@@ -106,9 +106,8 @@ namespace Ranorex.AutomationHelpers
 		/// <param name="Subject">Email subject</param>
 		/// <param name="Message">Email message</param>
 		/// <param name="To">Email recipient</param>
-		/// <param name="Attach">Defines the format of the attached report.</param>
 		[UserCodeMethod]
-		public static void SendResultOnSuccess(string Subject, string Message, string To, string Attach)
+		public static void SendResultOnSuccess(string Subject, string Message, string To)
 		{
 			// Delegate must be registered only once
 			// Email will be sent at the very end of the testsuite
