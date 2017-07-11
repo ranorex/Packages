@@ -150,60 +150,6 @@ namespace Ranorex.AutomationHelpers
 		public static void WordCompare() {
 		}
 
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void PdfCompare() {
-		}
-
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void ReplaceFileContents() {
-		}
-
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void checkFileContent() {
-		}
-
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void checkFileContentForPattern() {
-		}
-
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void readRessourceFile() {
-		}
-
-
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void deleteFiles() {
-		}
-        
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-		public static void checkFileExists() {
-		}
         
         private static string getPathForFile(string path)
         {
