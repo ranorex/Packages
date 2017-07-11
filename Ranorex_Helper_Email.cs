@@ -41,20 +41,6 @@ namespace Ranorex.AutomationHelpers
         
 		#endregion
         
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        /// <remarks>You should not call this method directly, instead pass the module
-        /// instance to the <see cref="TestModuleRunner.Run(ITestModule)"/> method
-        /// that will in turn invoke this method.</remarks>
-        void ITestModule.Run()
-        {
-			//DoSendMail();
-
-			Mouse.DefaultMoveTime = 300;
-            Keyboard.DefaultKeyPressTime = 100;
-            Delay.SpeedFactor = 1.0;
-        }
         		
 		[UserCodeMethod]
 		public static void SendMail(string Subject, string Message, string To, string From, string ServerHostname, string ServerPort, bool SSL = false, string Username = "", string Password = "")
