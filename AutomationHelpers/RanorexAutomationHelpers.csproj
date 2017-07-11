@@ -100,12 +100,6 @@
     <Compile Include="Ranorex_Helper_General.cs">
       <id>a6897c8e-14ec-4fd8-809c-a4b5ca06fb63</id>
     </Compile>
-    <Compile Include="Ranorex_Helper_Image.cs">
-      <id>3d9709f2-0cf1-46bd-aa1a-14c0617cecce</id>
-    </Compile>
-    <Compile Include="Ranorex_Helper_Reporting.cs">
-      <id>1afa5067-cb41-4bf9-916b-9bb10c3343fa</id>
-    </Compile>
     <Compile Include="Ranorex_Helper_ReportToPdf.cs">
       <id>ead7a19f-683d-491e-acd2-1f69f824df8c</id>
     </Compile>
@@ -115,9 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="README.md">
-      <id>443798fe-2025-4b7f-80b1-efb66f85d096</id>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RanorexTargetsPath)" Condition="Exists('$(RanorexTargetsPath)')" />
