@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using Ranorex.AutomationHelpers.Modules;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -16,7 +15,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         ///     Send an email.
         /// </summary>
         /// <param name="subject">Email subject</param>
-        /// <param name="message">Email message</param>
+        /// <param name="body">Email message</param>
         /// <param name="to">Email recipient</param>
         /// <param name="from">Email sender</param>
         /// <param name="serverHostname">Server hostname</param>
@@ -27,7 +26,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void SendMail(
             string subject,
-            string message,
+            string body,
             string to,
             string from,
             string serverHostname,
@@ -44,7 +43,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     EnableSsl = useSSL
                 };
 
-                smtp.Send(from, to, subject, message);
+                smtp.Send(from, to, subject, body);
 
                 Report.Success("Email has been sent to '" + to + "'.");
             }

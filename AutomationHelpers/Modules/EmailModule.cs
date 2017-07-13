@@ -1,8 +1,6 @@
 ﻿//TODO: Add Header
 
 using System;
-using System.Net;
-using System.Net.Mail;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
@@ -13,7 +11,7 @@ namespace Ranorex.AutomationHelpers.Modules
     ///     Used to send emails from a testsuite.
     /// </summary>
     [TestModule("D8198CC7-82F5-46B2-81E7-3ED789544877", ModuleType.UserCode)]
-    public sealed class EmailModule : ITestModule
+    public class EmailModule : ITestModule
     {
         private bool sendResultOnFailure;
         private bool sendResultOnSuccess;
@@ -24,7 +22,7 @@ namespace Ranorex.AutomationHelpers.Modules
         public EmailModule()
         {
             this.From = "";
-            this.Message = "";
+            this.Body = "";
             this.Password = "";
             this.sendResultOnSuccess = false;
 
@@ -41,10 +39,10 @@ namespace Ranorex.AutomationHelpers.Modules
         public string From { get; set; }
 
         /// <summary>
-        ///     Gets or sets the value of the Email message.
+        ///     Gets or sets the value of the Email body.
         /// </summary>
         [TestVariable("ef2dc4ee-14a8-483f-92ad-f2c6bd6d67db")]
-        public string Message { get; set; }
+        public string Body { get; set; }
 
         /// <summary>
         ///     Gets or sets the value of the user password when connecting to the email-server.
@@ -139,7 +137,7 @@ namespace Ranorex.AutomationHelpers.Modules
         {
             EmailLibrary.SendMail(
                 this.Subject,
-                this.Message,
+                this.Body,
                 this.To,
                 this.From,
                 this.ServerHostname,
