@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using Ranorex.AutomationHelpers.UserCodeCollections;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 
@@ -17,55 +18,27 @@ namespace Ranorex.AutomationHelpers.Modules
     [TestModule("bdd84fdb-489b-4f45-a31e-504ddeee15bf", ModuleType.Recording, 1)]
     public class SendReportViaEmailModule : EmailModule, ITestModule
     {
-
+        /// <summary>
+        /// Constructs a new instance.
+        /// </summary>
         public SendReportViaEmailModule()
             : base()
         {
-
+            // Do not delete - a parameterless constructor is required!
         }
 
         public new void Run()
         {
-            try
-            {
-                var client = new SmtpClient(this.ServerHostname, int.Parse(this.ServerPort))
-                {
-                    Credentials = new NetworkCredential(this.Username, this.Password),
-                    EnableSsl = bool.Parse(this.UseSSL),
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                };
-
-                var message = new MailMessage(this.From, this.To)
-                {
-                    Subject = this.Subject,
-                    Body = this.Body
-                };
-
-                AddZippedReportToMessageAttachments(message);
-
-                client.Send(message);
-
-                Report.Success("Report has been sent to '" + this.To + "' via email.");
-            }
-            catch (Exception ex)
-            {
-                Report.Failure("Mail Error: " + ex);
-            }
-        }
-
-        private static void AddZippedReportToMessageAttachments(MailMessage message)
-        {
-            string zippedFilename = TestReport.ReportEnvironment.ReportName + ".rxzlog";
-
-            if (System.IO.File.Exists(zippedFilename))
-            {
-                System.Net.Mail.Attachment attachement = new System.Net.Mail.Attachment(zippedFilename);
-                message.Attachments.Add(attachement);
-            }
-            else
-            {
-                Report.Warn($"The zipped report '{zippedFilename}' does not exist. Please make sure the path is correct.");
-            }
+            EmailLibrary.SendReportViaMail(
+                subject: this.Subject,
+                body: this.Body,
+                to: this.To,
+                from: this.From,
+                serverHostname: this.ServerHostname,
+                serverPort: int.Parse(this.ServerPort),
+                useSSL: bool.Parse(this.UseSSL),
+                username: this.Username,
+                password: this.Password);
         }
     }
 }
