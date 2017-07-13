@@ -1,4 +1,7 @@
-﻿using Ranorex.AutomationHelpers.Modules;
+﻿using System;
+using System.Net;
+using System.Net.Mail;
+using Ranorex.AutomationHelpers.Modules;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -33,19 +36,23 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             string username = "",
             string password = "")
         {
-            var SM = new EmailModule
+            try
             {
-                From = from,
-                Message = message,
-                Password = password,
-                ServerHostname = serverHostname,
-                ServerPort = serverPort,
-                Subject = subject,
-                To = to,
-                UseSSL = useSSL.ToString(),
-                Username = username
-            };
-            SM.Run();
+                var smtp = new SmtpClient(serverHostname, int.Parse(serverPort))
+                {
+                    Credentials = new NetworkCredential(username, password),
+                    EnableSsl = useSSL
+                };
+
+                smtp.Send(from, to, subject, message);
+
+                Report.Success("Email has been sent to '" + to + "'.");
+            }
+            catch (Exception ex)
+            {
+                Report.Failure("Mail Error: " + ex);
+            }
+
         }
     }
 }
