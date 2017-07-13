@@ -3,6 +3,7 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using Ranorex.AutomationHelpers.UserCodeCollections;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 
@@ -136,22 +137,16 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void DoSendMail()
         {
-            try
-            {
-                var smtp = new SmtpClient(this.ServerHostname, int.Parse(this.ServerPort))
-                {
-                    Credentials = new NetworkCredential(this.Username, this.Password),
-                    EnableSsl = true
-                };
-
-                smtp.Send(this.From, this.To, this.Subject, this.Message);
-
-                Report.Success("Email has been sent to '" + this.To + "'.");
-            }
-            catch (Exception ex)
-            {
-                Report.Failure("Mail Error: " + ex);
-            }
+            EmailLibrary.SendMail(
+                this.Subject,
+                this.Message,
+                this.To,
+                this.From,
+                this.ServerHostname,
+                this.ServerPort,
+                bool.Parse(this.UseSSL),
+                this.Username,
+                this.Password);
         }
 
         private void OnTestSuiteCompletedSendResultOnFailure(object sender, EventArgs e)
