@@ -57,7 +57,7 @@ namespace Ranorex.AutomationHelpers.Modules
         [TestVariable("07580bd9-744c-4666-83a6-ba22c0c8d909")]
         public string SendResultOnFailure
         {
-            get => this.sendResultOnFailure.ToString();
+            get { return this.sendResultOnFailure.ToString(); }
             set
             {
                 TestSuite.TestSuiteCompleted -= this.OnTestSuiteCompletedSendResultOnFailure;
@@ -77,7 +77,7 @@ namespace Ranorex.AutomationHelpers.Modules
         [TestVariable("670a378a-e239-43e7-8325-c216fd11f190")]
         public string SendResultOnSuccess
         {
-            get => this.sendResultOnSuccess.ToString();
+            get { return this.sendResultOnSuccess.ToString(); }
             set
             {
                 TestSuite.TestSuiteCompleted -= this.OnTestSuiteCompletedSendResultOnSuccess;
@@ -89,6 +89,7 @@ namespace Ranorex.AutomationHelpers.Modules
                 }
             }
         }
+
         /// <summary>
         ///     Gets or sets the value of the email-server hostname.
         /// </summary>
@@ -154,6 +155,7 @@ namespace Ranorex.AutomationHelpers.Modules
                 this.DoSendMail();
             }
         }
+
         private void OnTestSuiteCompletedSendResultOnSuccess(object sender, EventArgs e)
         {
             if (TestReport.CurrentTestSuiteActivity.Status == ActivityStatus.Success)
