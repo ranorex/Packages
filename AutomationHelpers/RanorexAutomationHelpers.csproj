@@ -91,6 +91,7 @@
     <Compile Include="AssemblyInfo.cs">
       <id>13d5e985-b6c1-4bec-84de-4a367b7117f8</id>
     </Compile>
+    <Compile Include="Modules\ReportToPDFModule.cs" />
     <Compile Include="Modules\SendReportViaEmailModule.cs" />
     <Compile Include="UserCodeCollections\EmailLibrary.cs" />
     <Compile Include="Modules\EmailModule.cs">
