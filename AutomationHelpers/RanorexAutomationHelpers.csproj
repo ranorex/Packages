@@ -110,6 +110,8 @@
       <id>c9bde2cb-ec10-4431-b051-cd5f6872d30f</id>
     </Compile>
     <Compile Include="UserCodeCollections\FileLibrary.cs" />
+    <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs" />
+    <Compile Include="UserCodeCollections\SystemLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
