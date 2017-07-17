@@ -94,9 +94,6 @@
     <Compile Include="Modules\ReportToPDFModule.cs">
       <id>e71a1a8b-dc03-4ca0-8204-0b55bd6ba0a0</id>
     </Compile>
-    <Compile Include="Modules\SendReportViaEmailModule.cs">
-      <id>0fce2cc0-704c-4149-a632-47a9999c9b47</id>
-    </Compile>
     <Compile Include="UserCodeCollections\EmailLibrary.cs">
       <id>9faa4683-dc20-40d7-9d04-211fd2d43c46</id>
     </Compile>

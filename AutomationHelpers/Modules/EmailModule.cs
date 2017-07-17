@@ -15,6 +15,7 @@ namespace Ranorex.AutomationHelpers.Modules
     {
         private bool sendResultOnFailure;
         private bool sendResultOnSuccess;
+        private bool sendZippedReportOnComplete;
 
         /// <summary>
         ///     Constructs a new instance.
@@ -126,6 +127,25 @@ namespace Ranorex.AutomationHelpers.Modules
         [TestVariable("c898ee67-ee7f-4258-ab69-d855b0d92274")]
         public string UseSSL { get; set; }
 
+        /// <summary>
+        ///     Gets or sets whether the email should send the report in an attachement, when the TestSuite finishes.
+        /// </summary>
+        [TestVariable("154c39b9-9dd8-4f75-934e-973ef4c5de5b")]
+        public string SendZippedReportOnComplete
+        {
+            get { return this.sendZippedReportOnComplete.ToString(); }
+            set
+            {
+                TestSuite.TestSuiteCompleted -= this.OnTestSuiteCompletedSendZippedReport;
+                this.sendZippedReportOnComplete = bool.Parse(value);
+
+                if (this.sendZippedReportOnComplete)
+                {
+                    TestSuite.TestSuiteCompleted += this.OnTestSuiteCompletedSendZippedReport;
+                }
+            }
+        }
+
         public void Run()
         {
             if (!this.sendResultOnFailure && !this.sendResultOnSuccess)
@@ -162,6 +182,28 @@ namespace Ranorex.AutomationHelpers.Modules
             {
                 this.DoSendMail();
             }
+        }
+
+        private void OnTestSuiteCompletedSendZippedReport(object sender, EventArgs e)
+        {
+            // zip the current report
+            var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
+            var name = TestReport.ReportEnvironment.ReportName;
+
+            TestReport.SaveReport();
+            Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+
+            // send ziped report
+            EmailLibrary.SendReportViaMail(
+                subject: this.Subject,
+                body: this.Body,
+                to: this.To,
+                from: this.From,
+                serverHostname: this.ServerHostname,
+                serverPort: int.Parse(this.ServerPort),
+                useSSL: bool.Parse(this.UseSSL),
+                username: this.Username,
+                password: this.Password);
         }
     }
 }
