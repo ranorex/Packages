@@ -139,6 +139,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         public static void WordCompare()
         {
             // TODO: Implement/specify
+            throw new NotImplementedException();
         }
 
         private static string getPathForFile(string path)

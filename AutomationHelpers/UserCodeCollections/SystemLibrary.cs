@@ -42,12 +42,13 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Starts a new timer.
         /// </summary>
         /// <param name="timerName">Name of the timer</param>
+        /// <exception cref="ArgumentException"> if timer with given name already exists </exception>
         [UserCodeMethod]
         public static void StartTimer(string timerName)
         {
             if (timers.ContainsKey(timerName))
             {
-                timers.Remove(timerName);
+                throw new ArgumentException($"Timer with name '{timerName}' already exists");
             }
 
             timers.Add(timerName, System.DateTime.Now);
@@ -58,6 +59,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Stops a timer.
         /// </summary>
         /// <param name="timerName">Name of the timer to stop.</param>
+        /// <exception cref="Exception"></exception>
         [UserCodeMethod]
         public static TimeSpan StopTimer(string timerName)
         {
@@ -72,12 +74,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 Report.Log(
                     level: ReportLevel.Info,
                     category: "Timer",
-                    message: "Stopped: '" + timerName + "' (duration: " + (duration.TotalMilliseconds / 1000) + " seconds)");
+                    message: $"Stopped: '{timerName}' (duration: {(duration.TotalMilliseconds / 1000)} seconds)");
 
                 return duration;
             }
 
-            throw new Exception("Timer '" + timerName + "' does not exist.");
+            throw new Exception($"Timer \'{timerName}\' does not exist.");
         }
     }
 }
