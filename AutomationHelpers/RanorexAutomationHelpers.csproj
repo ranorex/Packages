@@ -118,11 +118,15 @@
     <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs">
       <id>714b7602-990d-4e30-9bf8-3b6dac95ec89</id>
     </Compile>
-    <Compile Include="UserCodeCollections\StringLibrary.cs" />
+    <Compile Include="UserCodeCollections\StringLibrary.cs">
+      <id>054a3af3-0014-455e-93b4-5a246c4d8cd4</id>
+    </Compile>
     <Compile Include="UserCodeCollections\SystemLibrary.cs">
       <id>4f25c772-9142-463a-9f55-635d1747fa57</id>
     </Compile>
-    <Compile Include="UserCodeCollections\ValidationLibrary.cs" />
+    <Compile Include="UserCodeCollections\ValidationLibrary.cs">
+      <id>8331baf6-8378-4cde-b35a-b1ed70e726b7</id>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

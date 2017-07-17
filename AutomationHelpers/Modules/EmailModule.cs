@@ -186,6 +186,9 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void OnTestSuiteCompletedSendZippedReport(object sender, EventArgs e)
         {
+            //Necessary to end the testreport in order to update the duration
+            TestReport.EndTestModule();
+
             // zip the current report
             var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
             var name = TestReport.ReportEnvironment.ReportName;

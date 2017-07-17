@@ -50,8 +50,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         public void RemovePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
-
-            if (watchers.TryGetValue(key, out var watcher))
+            PopupWatcher watcher = null;
+            if (watchers.TryGetValue(key, out watcher))
             {
                 watcher.Clear();
                 watcher.Stop();
