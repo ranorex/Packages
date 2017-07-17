@@ -91,9 +91,15 @@
     <Compile Include="AssemblyInfo.cs">
       <id>13d5e985-b6c1-4bec-84de-4a367b7117f8</id>
     </Compile>
-    <Compile Include="Modules\ReportToPDFModule.cs" />
-    <Compile Include="Modules\SendReportViaEmailModule.cs" />
-    <Compile Include="UserCodeCollections\EmailLibrary.cs" />
+    <Compile Include="Modules\ReportToPDFModule.cs">
+      <id>e71a1a8b-dc03-4ca0-8204-0b55bd6ba0a0</id>
+    </Compile>
+    <Compile Include="Modules\SendReportViaEmailModule.cs">
+      <id>0fce2cc0-704c-4149-a632-47a9999c9b47</id>
+    </Compile>
+    <Compile Include="UserCodeCollections\EmailLibrary.cs">
+      <id>9faa4683-dc20-40d7-9d04-211fd2d43c46</id>
+    </Compile>
     <Compile Include="Modules\EmailModule.cs">
       <id>29daa101-7f84-4c55-a528-7f644e230140</id>
     </Compile>
@@ -109,12 +115,22 @@
     <Compile Include="Ranorex_Helper_ReportSendByMail.cs">
       <id>c9bde2cb-ec10-4431-b051-cd5f6872d30f</id>
     </Compile>
-    <Compile Include="UserCodeCollections\FileLibrary.cs" />
-    <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs" />
-    <Compile Include="UserCodeCollections\SystemLibrary.cs" />
+    <Compile Include="UserCodeCollections\FileLibrary.cs">
+      <id>ff3015ce-bbec-41c3-a46a-6040e20136ce</id>
+    </Compile>
+    <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs">
+      <id>714b7602-990d-4e30-9bf8-3b6dac95ec89</id>
+    </Compile>
+    <Compile Include="UserCodeCollections\StringLibrary.cs" />
+    <Compile Include="UserCodeCollections\SystemLibrary.cs">
+      <id>4f25c772-9142-463a-9f55-635d1747fa57</id>
+    </Compile>
+    <Compile Include="UserCodeCollections\ValidationLibrary.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <id>bd96e9e9-2c23-443c-ac89-905ed797822b</id>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RanorexTargetsPath)" Condition="Exists('$(RanorexTargetsPath)')" />
