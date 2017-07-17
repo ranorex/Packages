@@ -100,18 +100,6 @@
     <Compile Include="Modules\EmailModule.cs">
       <id>29daa101-7f84-4c55-a528-7f644e230140</id>
     </Compile>
-    <Compile Include="Ranorex_Helper_File.cs">
-      <id>b020100c-a5d9-44b7-b5ff-2c29576a8340</id>
-    </Compile>
-    <Compile Include="Ranorex_Helper_General.cs">
-      <id>a6897c8e-14ec-4fd8-809c-a4b5ca06fb63</id>
-    </Compile>
-    <Compile Include="Ranorex_Helper_ReportToPdf.cs">
-      <id>ead7a19f-683d-491e-acd2-1f69f824df8c</id>
-    </Compile>
-    <Compile Include="Ranorex_Helper_ReportSendByMail.cs">
-      <id>c9bde2cb-ec10-4431-b051-cd5f6872d30f</id>
-    </Compile>
     <Compile Include="UserCodeCollections\FileLibrary.cs">
       <id>ff3015ce-bbec-41c3-a46a-6040e20136ce</id>
     </Compile>
