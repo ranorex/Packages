@@ -50,7 +50,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         {
             if (timers.ContainsKey(timerName))
             {
-                throw new ArgumentException($"Timer with name '{timerName}' already exists");
+                throw new ArgumentException(string.Format("Timer with name '{timerName}' already exists"));
             }
 
             timers.Add(timerName, System.DateTime.Now);
@@ -76,12 +76,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 Report.Log(
                     level: ReportLevel.Info,
                     category: "Timer",
-                    message: $"Stopped: '{timerName}' (duration: {(duration.TotalMilliseconds / 1000)} seconds)");
+                    message: string.Format("Stopped: '{timerName}' (duration: {(duration.TotalMilliseconds / 1000)} seconds)"));
 
                 return duration;
             }
 
-            throw new Exception($"Timer \'{timerName}\' does not exist.");
+            throw new Exception(string.Format("Timer \'{timerName}\' does not exist."));
         }
     }
 }
