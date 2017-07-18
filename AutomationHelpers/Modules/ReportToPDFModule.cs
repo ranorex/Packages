@@ -6,7 +6,7 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.Modules
 {
     /// <summary>
-    /// Allows conversion of Ranorex report files to PDF
+    /// Allows conversion of the default Ranorex report to PDF.
     /// </summary>
     [TestModule("FFA0759D-37D2-4ABB-89A7-411F0FCF2DFE", ModuleType.UserCode, 1)]
     public class ReportToPDFModule : ITestModule

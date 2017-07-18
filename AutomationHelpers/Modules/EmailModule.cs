@@ -54,7 +54,7 @@ namespace Ranorex.AutomationHelpers.Modules
         /// <summary>
         ///     Gets or sets the value to send the mail when the test suite completes with a failure (<c>true</c> or <c>false</c>).
         /// </summary>
-        /// <remarks>If <c>true</c> Sends an email if the testsuite finishes (at the end of the testsuite run) with a failure.</remarks>
+        /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a failure.</remarks>
         [TestVariable("07580bd9-744c-4666-83a6-ba22c0c8d909")]
         public string SendResultOnFailure
         {
@@ -74,7 +74,7 @@ namespace Ranorex.AutomationHelpers.Modules
         /// <summary>
         ///     Gets or sets the value to send the mail when the test suite completes successfully (<c>true</c> or <c>false</c>).
         /// </summary>
-        /// <remarks>If <c>true</c> Sends an email if the testsuite finishes (at the end of the testsuite run) with a success.</remarks>
+        /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a success.</remarks>
         [TestVariable("670a378a-e239-43e7-8325-c216fd11f190")]
         public string SendResultOnSuccess
         {
