@@ -1,4 +1,6 @@
-﻿using System;
+﻿// TODO: Add Header
+
+using System;
 using System.Net;
 using System.Net.Mail;
 using Ranorex.Core.Reporting;
@@ -7,13 +9,13 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     /// <summary>
-    ///     Used to send emails from a recording or module.
+    /// Used to send emails from a recording or module.
     /// </summary>
     [UserCodeCollection]
     public class EmailLibrary
     {
         /// <summary>
-        ///     Send an email.
+        ///     Sends an email.
         /// </summary>
         /// <param name="subject">Email subject</param>
         /// <param name="body">Email message</param>
@@ -55,7 +57,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        ///     Send current zipped pdf report via email.
+        /// Sends current zipped PDF report via email.
         /// </summary>
         /// <param name="subject">Email subject</param>
         /// <param name="body">Email message</param>

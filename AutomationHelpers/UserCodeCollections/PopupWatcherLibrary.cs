@@ -19,10 +19,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <summary>
         /// Waits for a popup window to appear and clicks an element to close the window.
         /// </summary>
-        /// <param name="findElement">Element to be waited for.</param>
-        /// <param name="clickElement">Elment which should be clicked after the popup appeard.</param>
-        /// <exception cref="ArgumentException"> if the watcher with given parameters is already running </exception>
-        /// <returns>Refference to a newly created <see cref="PopupWatcher"/>></returns>
+        /// <param name="findElement">Element to wait for</param>
+        /// <param name="clickElement">Element to click after the popup appears</param>
+        /// <exception cref="ArgumentException"> if the watcher with given parameters is already running</exception>
+        /// <returns>Reference to a newly created <see cref="PopupWatcher"/>></returns>
         [UserCodeMethod]
         public PopupWatcher CreatePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
@@ -30,7 +30,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
             if (watchers.ContainsKey(key))
             {
-                throw new ArgumentException("Watcher with given parameters aleardy exists.");
+                throw new ArgumentException("Popup watcher with given parameters already exists.");
             }
 
             var watcher = new PopupWatcher();
@@ -42,10 +42,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Remove an active watcher.
+        /// Remove an active popup watcher.
         /// </summary>
-        /// <param name="findElement">Element to be waited for.</param>
-        /// <param name="clickElement">Elment which should be clicked after the popup appeard.</param>
+        /// <param name="findElement">Element to wait for</param>
+        /// <param name="clickElement">Element to click after the popup appears</param>
         [UserCodeMethod]
         public void RemovePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
@@ -59,14 +59,14 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             else
             {
-                Report.Warn("The watcher you have tried to remove does not exist.");
+                Report.Warn("The popup watcher you tried to remove does not exist.");
             }
         }
 
         /// <summary>
-        /// Stops the popup watcher.
+        /// Stops a popup watcher.
         /// </summary>
-        /// <param name="watcher">A watcher to be stopped.</param>
+        /// <param name="watcher">The popup watcher to stop</param>
         [UserCodeMethod]
         public static void StopPopupWatcher(PopupWatcher watcher)
         {

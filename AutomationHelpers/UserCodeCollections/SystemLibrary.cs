@@ -1,4 +1,6 @@
-﻿using System;
+﻿// TODO: Add Header
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         private static readonly Dictionary<string, System.DateTime> timers = new Dictionary<string, System.DateTime>();
 
         /// <summary>
-        /// Kills a process
+        /// Kills a process.
         /// </summary>
         /// <param name="processname">Name of the process to kill</param>
         [UserCodeMethod]
@@ -42,7 +44,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Starts a new timer.
         /// </summary>
         /// <param name="timerName">Name of the timer</param>
-        /// <exception cref="ArgumentException"> if timer with given name already exists </exception>
+        /// <exception cref="ArgumentException"> if timer with given name already exists</exception>
         [UserCodeMethod]
         public static void StartTimer(string timerName)
         {
@@ -58,7 +60,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <summary>
         /// Stops a timer.
         /// </summary>
-        /// <param name="timerName">Name of the timer to stop.</param>
+        /// <param name="timerName">Name of the timer to stop</param>
         /// <exception cref="Exception"></exception>
         [UserCodeMethod]
         public static TimeSpan StopTimer(string timerName)
