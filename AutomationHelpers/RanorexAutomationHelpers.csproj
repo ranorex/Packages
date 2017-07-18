@@ -65,7 +65,6 @@
     <Reference Include="Ranorex.Plugin.Qt" />
     <Reference Include="Ranorex.Plugin.RawText" />
     <Reference Include="Ranorex.Plugin.Sap" />
-    <Reference Include="Ranorex.Plugin.Test" />
     <Reference Include="Ranorex.Plugin.Uia" />
     <Reference Include="Ranorex.Plugin.Web" />
     <Reference Include="Ranorex.Plugin.WebDriver" />
