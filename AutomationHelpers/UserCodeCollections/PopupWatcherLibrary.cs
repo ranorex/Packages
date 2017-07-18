@@ -23,8 +23,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// </summary>
         /// <param name="findElement">Element to wait for</param>
         /// <param name="clickElement">Element to click after the popup appears</param>
-        /// <exception cref="ArgumentException"> if the watcher with given parameters is already running</exception>
-        /// <returns>Reference to a newly created <see cref="PopupWatcher"/>></returns>
+        /// <exception cref="ArgumentException">If the watcher with given parameters is already running</exception>
+        /// <returns>Reference to a newly created <see cref="PopupWatcher"/></returns>
         [UserCodeMethod]
         public PopupWatcher CreatePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {

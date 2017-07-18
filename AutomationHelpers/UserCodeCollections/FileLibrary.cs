@@ -17,7 +17,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     public class FileLibrary
     {
         /// <summary>
-        /// Creates a log file containing a custom test in the output folder.
+        /// Creates a log file containing a custom text in the output folder.
         /// </summary>
         /// <param name="text">Text that the log file should contain</param>
         /// <param name="filenamePrefix">Prefix used for the log filename</param>
@@ -100,10 +100,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <summary>
         /// Repeatedly checks if files in a directory exist.
         /// </summary>
-        /// <param name="path">>The relative or absolute path to search for the files</param>
+        /// <param name="path">The relative or absolute path to search for the files</param>
         /// <param name="pattern">The pattern to search for in the filename</param>
         /// <param name="duration">Defines the search timeout in milliseconds</param>
-        /// <param name="intervall">Sets the interval in ms at which the files are checked for the pattern</param>
+        /// <param name="intervall">Sets the interval in milliseconds at which the files are checked for the pattern</param>
         [UserCodeMethod]
         public static void WaitForFile(string path, string pattern, int duration, int intervall)
         {

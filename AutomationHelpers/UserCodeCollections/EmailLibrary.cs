@@ -59,7 +59,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Sends current zipped PDF report via email.
+        /// Sends current zipped report via email.
         /// </summary>
         /// <param name="subject">Email subject</param>
         /// <param name="body">Email message</param>
