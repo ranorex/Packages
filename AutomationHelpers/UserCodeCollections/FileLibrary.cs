@@ -9,17 +9,17 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     /// <summary>
-    /// Description of UserCodeModule1.
+    /// A collection of useful file methods.
     /// </summary>
     [UserCodeCollection]
     public class FileLibrary
     {
         /// <summary>
-        /// Creates a log file in the output folder and saves two values in it.
+        /// Creates a log file containing a custom test in the output folder.
         /// </summary>
-        /// <param name="text">Text which is saved in the log file.</param>
-        /// <param name="filenamePrefix">Prefix used for the log filename. </param>
-        /// <param name="fileExtension">Sets the extension of the file.</param>
+        /// <param name="text">Text that the log file should contain</param>
+        /// <param name="filenamePrefix">Prefix used for the log filename</param>
+        /// <param name="fileExtension">Extension of the log file</param>
         [UserCodeMethod]
         public static void WriteToFile(string text, string filenamePrefix, string fileExtension)
         {
@@ -45,12 +45,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Checks if files in a directory exist and t
+        /// Checks if files in a directory exist.
         /// </summary>
-        /// <param name="path">The relative or absolute where to search for the files.</param>
-        /// <param name="pattern">The search string to match against the files in the path.</param>
-        /// <param name="expectedCount">Number of expected files to be found.</param>
-        /// <param name="timeout">Defines the timeout (seconds) to look for the searched files </param>
+        /// <param name="path">The relative or absolute path to search for the files</param>
+        /// <param name="pattern">The pattern to search for in the filename</param>
+        /// <param name="expectedCount">Number of expected files to be found</param>
+        /// <param name="timeout">Defines the search timeout in seconds</param>
         [UserCodeMethod]
         public static void CheckFilesExist(string path, string pattern, int expectedCount, int timeout)
         {
@@ -67,10 +67,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Deletes files with in a specific path and a certain filename pattern.
+        /// Deletes files.
         /// </summary>
-        /// <param name="path">The relative or absolute where to search for the files.</param>
-        /// <param name="pattern">The search string to match against the files in the path.</param>
+        /// <param name="path">The relative or absolute path to search for the files</param>
+        /// <param name="pattern">The pattern to search for in the filename</param>
         [UserCodeMethod]
         public static void DeleteFiles(string path, string pattern)
         {
@@ -96,12 +96,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Checks in an interval if files with a specific filename pattern exist.
+        /// Repeatedly checks if files in a directory exist.
         /// </summary>
-        /// <param name="path">The relative or absolute where to search for the files.</param>
-        /// <param name="pattern">The search string to match against the files in the path.</param>
-        /// <param name="duration">The duration for how long to wait for the files in milliseconds.</param>
-        /// <param name="intervall">Sets the interval in seconds for how often to check the files in milliseconds.</param>
+        /// <param name="path">>The relative or absolute path to search for the files</param>
+        /// <param name="pattern">The pattern to search for in the filename</param>
+        /// <param name="duration">Defines the search timeout in milliseconds</param>
+        /// <param name="intervall">Sets the interval in ms at which the files are checked for the pattern</param>
         [UserCodeMethod]
         public static void WaitForFile(string path, string pattern, int duration, int intervall)
         {
