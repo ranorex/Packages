@@ -1,4 +1,8 @@
-﻿using System;
+﻿//
+// Copyright © 2017 Ranorex All rights reserved
+//
+
+using System;
 using System.IO;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
