@@ -1,4 +1,6 @@
-﻿// TODO: Add Header
+﻿//
+// Copyright © 2017 Ranorex All rights reserved
+//
 
 using System;
 using System.IO;
