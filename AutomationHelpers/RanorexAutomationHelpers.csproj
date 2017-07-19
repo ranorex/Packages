@@ -48,6 +48,9 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ranorex.Core" />
     <Reference Include="Ranorex.PDF, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
