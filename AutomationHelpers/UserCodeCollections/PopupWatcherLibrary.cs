@@ -26,7 +26,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <exception cref="ArgumentException">If the watcher with given parameters is already running</exception>
         /// <returns>Reference to a newly created <see cref="PopupWatcher"/></returns>
         [UserCodeMethod]
-        public static PopupWatcher CreatePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
+        public static PopupWatcher StartPopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
 
@@ -44,12 +44,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Remove an active popup watcher.
+        /// Stops and removes an active popup watcher.
         /// </summary>
         /// <param name="findElement">Element to wait for</param>
         /// <param name="clickElement">Element to click after the popup appears</param>
         [UserCodeMethod]
-        public static void RemovePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
+        public static void StopPopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
             PopupWatcher watcher = null;
