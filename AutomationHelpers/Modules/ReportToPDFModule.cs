@@ -23,31 +23,31 @@ namespace Ranorex.AutomationHelpers.Modules
         public ReportToPDFModule()
         {
             //Init variables
+            this.registered = false;
             this.PdfName = "";
             this.Xml = "";
-            this.Registered = false;
 
             //Possible values: none | failed | all
             this.Details = "all";
 
         }
 
-        [TestVariable("64842eff-ddac-41d8-86db-e8f803b9a2a7")]
-        public bool Registered { get; set; }
+        private bool registered { get; set; }
 
-        [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
-        public string Details { get; set; }
-
-        [TestVariable("c15f25ea-9409-4e1a-b76e-cd208bae6c56")]
-        public string Xml { get; set; }
+        private DirectoryInfo ZippedReportFileDirectoryInfo { get; set; }
 
         [TestVariable("1d09c6b5-db7a-4ed0-a13c-ee2add5d3d37")]
         public string PdfName { get; set; }
 
-        public DirectoryInfo ZippedReportFileDirectoryInfo { get; set; }
+        [TestVariable("c15f25ea-9409-4e1a-b76e-cd208bae6c56")]
+        public string Xml { get; set; }
+
+        [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
+        public string Details { get; set; }
 
         /// <summary>
-        /// Performs the playback of actions in this module.
+        /// Converts the Ranorex Report into PDF after the test run completed. Use this module in
+        /// the TearDown of your TestCase to ensure that it is executed even on failing test runs.
         /// </summary>
         /// <remarks>You should not call this method directly, instead pass the module
         /// instance to the <see cref="TestModuleRunner.Run(ITestModule)"/> method
@@ -55,18 +55,18 @@ namespace Ranorex.AutomationHelpers.Modules
         void ITestModule.Run()
         {
             //Delegate must be registered only once
-            if (!this.Registered)
+            if (!this.registered)
             {
-                //PDF will be generated at the very end of the testsuite
+                //PDF will be generated at the very end of the TestSuite
                 TestSuite.TestSuiteCompleted += delegate {
 
-                    //Specify report name if not already set
+                    //Specify Ranorex Report name if not already set
                     if (String.IsNullOrEmpty(this.PdfName))
                     {
                         this.PdfName = CreatePDFName();
                     }
 
-                    //Necessary to end the testreport in order to update the duration
+                    //Necessary to end the Ranorex Report in order to update the duration
                     TestReport.EndTestModule();
 
                     //Comment out if ConvertReportToPDF() is called directly
@@ -91,7 +91,7 @@ namespace Ranorex.AutomationHelpers.Modules
                     UpdateError();
                 };
 
-                this.Registered = true;
+                this.registered = true;
             }
         }
 
@@ -118,7 +118,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string CreateTempReportFileDirectory()
         {
-            //Create new temp directory for zipped report
+            //Create new temp directory for zipped Report
             try
             {
                 this.ZippedReportFileDirectoryInfo = System.IO.Directory.CreateDirectory(String.Format(@"{0}\temp", TestReport.ReportEnvironment.ReportFileDirectory));
@@ -144,7 +144,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private static string CreatePDFName()
         {
-            //Report Status is not part of the ReportName at this stage of the test
+            //Report status is not part of the Report name at this stage of the test
             var name = TestReport.ReportEnvironment.ReportName;
 
             //Get status from TestSuite
