@@ -16,7 +16,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public sealed class PopupWatcherLibrary
     {
-    	private static readonly Dictionary<string, PopupWatcher> watchers = new Dictionary<string, PopupWatcher>();
+        private static readonly Dictionary<string, PopupWatcher> watchers = new Dictionary<string, PopupWatcher>();
 
         /// <summary>
         /// Waits for a popup window to appear and clicks an element to close the window.
@@ -26,7 +26,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <exception cref="ArgumentException">If the watcher with given parameters is already running</exception>
         /// <returns>Reference to a newly created <see cref="PopupWatcher"/></returns>
         [UserCodeMethod]
-        public PopupWatcher CreatePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
+        public static PopupWatcher CreatePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
 
@@ -49,7 +49,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="findElement">Element to wait for</param>
         /// <param name="clickElement">Element to click after the popup appears</param>
         [UserCodeMethod]
-        public void RemovePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
+        public static void RemovePopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
             PopupWatcher watcher = null;
