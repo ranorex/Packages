@@ -134,16 +134,6 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
         }
 
-        /// <summary>
-        /// Performs the playback of actions in this module.
-        /// </summary>
-        [UserCodeMethod]
-        public static void WordCompare()
-        {
-            // TODO: Implement/specify
-            throw new NotImplementedException();
-        }
-
         private static string getPathForFile(string path)
         {
             return path.StartsWith(".") ? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, path)) : path;
