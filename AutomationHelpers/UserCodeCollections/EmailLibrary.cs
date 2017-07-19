@@ -120,7 +120,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             else
             {
-                Report.Warn(string.Format("The zipped report '{zippedFilename}' does not exist. Please make sure the path is correct."));
+                Report.Warn(string.Format("The zipped report '{0}' does not exist. Please make sure the path is correct.", zippedFilename));
             }
         }
     }
