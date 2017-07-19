@@ -57,6 +57,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             {
                 watcher.Clear();
                 watcher.Stop();
+                Report.Info("Popup watcher stopped.");
                 watchers.Remove(key);
             }
             else
