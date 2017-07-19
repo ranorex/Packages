@@ -27,6 +27,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         public static void KillProcess(string processname)
         {
             Process[] processes = Process.GetProcessesByName(processname);
+            if (processes.Length == 0)
+            {
+                Report.Error(string.Format("Process '{0}' not found.", processname));
+            }
 
             foreach (Process p in processes)
             {
