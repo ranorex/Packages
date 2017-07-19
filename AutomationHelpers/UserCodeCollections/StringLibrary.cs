@@ -3,15 +3,12 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     [UserCodeCollection]
-    public sealed class StringLibrary
+    public static class StringLibrary
     {
         /// <summary>
         /// Concatenates two strings and returns the new string.

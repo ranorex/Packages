@@ -14,7 +14,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// Used to send emails from a recording or module.
     /// </summary>
     [UserCodeCollection]
-    public sealed class EmailLibrary
+    public static class EmailLibrary
     {
         /// <summary>
         ///     Sends an email.

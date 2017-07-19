@@ -2,16 +2,12 @@
 // Copyright © 2017 Ranorex All rights reserved
 //
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     [UserCodeCollection]
-    public sealed class ValidationLibrary
+    public static class ValidationLibrary
     {
         /// <summary>
         /// Compares two values.

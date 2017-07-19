@@ -5,8 +5,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -15,7 +13,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of usefull general helper methods.
     /// </summary>
     [UserCodeCollection]
-    public sealed class SystemLibrary
+    public static class SystemLibrary
     {
         private static readonly Dictionary<string, System.DateTime> timers = new Dictionary<string, System.DateTime>();
 

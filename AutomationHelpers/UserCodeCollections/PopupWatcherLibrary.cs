@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
@@ -14,7 +13,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of popup watcher helper methods.
     /// </summary>
     [UserCodeCollection]
-    public sealed class PopupWatcherLibrary
+    public static class PopupWatcherLibrary
     {
         private static readonly Dictionary<string, PopupWatcher> watchers = new Dictionary<string, PopupWatcher>();
 

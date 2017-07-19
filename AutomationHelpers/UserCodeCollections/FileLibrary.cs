@@ -4,7 +4,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Ranorex.Core.Testing;
 
@@ -14,7 +13,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of useful file methods.
     /// </summary>
     [UserCodeCollection]
-    public sealed class FileLibrary
+    public static class FileLibrary
     {
         /// <summary>
         /// Creates a log file containing a custom text in the output folder.
