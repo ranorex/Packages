@@ -67,14 +67,18 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Stops a popup watcher.
+        /// Stops all active popup watchers.
         /// </summary>
         /// <param name="watcher">The popup watcher to stop</param>
         [UserCodeMethod]
-        public static void StopPopupWatcher(PopupWatcher watcher)
+        public static void StopAllPopupWatchers()
         {
-            watcher.Stop();
-            Report.Info("Popup watcher stopped.");
+            foreach (var watcher in watchers.Values)
+            {
+                watcher.Clear();
+                watcher.Stop();
+                Report.Info("Popup watcher stopped.");
+            }
         }
     }
 }
