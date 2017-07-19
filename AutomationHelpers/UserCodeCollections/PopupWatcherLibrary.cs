@@ -14,7 +14,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of popup watcher helper methods.
     /// </summary>
     [UserCodeCollection]
-    public class PopupWatcherLibrary
+    public sealed class PopupWatcherLibrary
     {
     	private static readonly Dictionary<string, PopupWatcher> watchers = new Dictionary<string, PopupWatcher>();
 

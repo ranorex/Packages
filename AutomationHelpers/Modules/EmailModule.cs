@@ -13,7 +13,7 @@ namespace Ranorex.AutomationHelpers.Modules
     ///     Used to send emails from a testsuite.
     /// </summary>
     [TestModule("D8198CC7-82F5-46B2-81E7-3ED789544877", ModuleType.UserCode)]
-    public class EmailModule : ITestModule
+    public sealed class EmailModule : ITestModule
     {
         private bool sendResultOnFailure;
         private bool sendResultOnSuccess;

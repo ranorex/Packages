@@ -14,7 +14,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of useful file methods.
     /// </summary>
     [UserCodeCollection]
-    public class FileLibrary
+    public sealed class FileLibrary
     {
         /// <summary>
         /// Creates a log file containing a custom text in the output folder.

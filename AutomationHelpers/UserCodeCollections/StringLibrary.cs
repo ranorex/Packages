@@ -11,7 +11,7 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     [UserCodeCollection]
-    public class StringLibrary
+    public sealed class StringLibrary
     {
         /// <summary>
         /// Concatenates two strings and returns the new string.

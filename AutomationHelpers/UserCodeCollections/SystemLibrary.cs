@@ -15,7 +15,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     /// A collection of usefull general helper methods.
     /// </summary>
     [UserCodeCollection]
-    public class SystemLibrary
+    public sealed class SystemLibrary
     {
         private static readonly Dictionary<string, System.DateTime> timers = new Dictionary<string, System.DateTime>();
 

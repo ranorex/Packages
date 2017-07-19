@@ -13,7 +13,7 @@ namespace Ranorex.AutomationHelpers.Modules
     /// Allows conversion of the default Ranorex report to PDF.
     /// </summary>
     [TestModule("FFA0759D-37D2-4ABB-89A7-411F0FCF2DFE", ModuleType.UserCode, 1)]
-    public class ReportToPDFModule : ITestModule
+    public sealed class ReportToPDFModule : ITestModule
     {
         //Variables
 
