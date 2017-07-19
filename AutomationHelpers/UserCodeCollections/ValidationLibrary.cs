@@ -11,7 +11,7 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     [UserCodeCollection]
-    class ValidationLibrary
+    public class ValidationLibrary
     {
         /// <summary>
         /// Compares two values.
