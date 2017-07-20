@@ -72,11 +72,11 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 client.Send(message);
 
-                Report.Success(string.Format("Report has been sent to '{0}", to));
+                Report.Success(string.Format("Email has been sent to '{0}", to));
             }
             catch (Exception ex)
             {
-                Report.Failure("Mail Error: " + ex);
+                Report.Failure("Email Error: " + ex);
             }
         }
     }
