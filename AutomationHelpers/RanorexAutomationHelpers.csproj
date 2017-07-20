@@ -96,28 +96,28 @@
     <Compile Include="AssemblyInfo.cs">
       <id>13d5e985-b6c1-4bec-84de-4a367b7117f8</id>
     </Compile>
-    <Compile Include="Modules\ReportToPDFModule.cs">
+    <Compile Include="src\Modules\ReportToPDFModule.cs">
       <id>e71a1a8b-dc03-4ca0-8204-0b55bd6ba0a0</id>
     </Compile>
-    <Compile Include="UserCodeCollections\EmailLibrary.cs">
+    <Compile Include="src\UserCodeCollections\EmailLibrary.cs">
       <id>9faa4683-dc20-40d7-9d04-211fd2d43c46</id>
     </Compile>
-    <Compile Include="Modules\EmailModule.cs">
+    <Compile Include="src\Modules\EmailModule.cs">
       <id>29daa101-7f84-4c55-a528-7f644e230140</id>
     </Compile>
-    <Compile Include="UserCodeCollections\FileLibrary.cs">
+    <Compile Include="src\UserCodeCollections\FileLibrary.cs">
       <id>ff3015ce-bbec-41c3-a46a-6040e20136ce</id>
     </Compile>
-    <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs">
+    <Compile Include="src\UserCodeCollections\PopupWatcherLibrary.cs">
       <id>714b7602-990d-4e30-9bf8-3b6dac95ec89</id>
     </Compile>
-    <Compile Include="UserCodeCollections\StringLibrary.cs">
+    <Compile Include="src\UserCodeCollections\StringLibrary.cs">
       <id>054a3af3-0014-455e-93b4-5a246c4d8cd4</id>
     </Compile>
-    <Compile Include="UserCodeCollections\SystemLibrary.cs">
+    <Compile Include="src\UserCodeCollections\SystemLibrary.cs">
       <id>4f25c772-9142-463a-9f55-635d1747fa57</id>
     </Compile>
-    <Compile Include="UserCodeCollections\ValidationLibrary.cs">
+    <Compile Include="src\UserCodeCollections\ValidationLibrary.cs">
       <id>8331baf6-8378-4cde-b35a-b1ed70e726b7</id>
     </Compile>
   </ItemGroup>
