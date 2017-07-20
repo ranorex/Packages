@@ -123,6 +123,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void OnTestSuiteCompletedSendResult(object sender, EventArgs e)
         {
+            var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
             var zippedReportFile = string.Empty;
             if (bool.Parse(this.SendZippedReportOnComplete))
             {
@@ -138,8 +139,8 @@ namespace Ranorex.AutomationHelpers.Modules
                 zippedReportFile = TestReport.ReportEnvironment.ReportName + ".rxzlog";
             }
 
-            if ((bool.Parse(this.SendEmailOnFailure) && TestReport.CurrentTestSuiteActivity.Status == ActivityStatus.Failed)
-                || (bool.Parse(this.SendEmailOnSuccess) && TestReport.CurrentTestSuiteActivity.Status == ActivityStatus.Success)
+            if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
+                || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
                 || bool.Parse(this.SendZippedReportOnComplete))
             {
                 EmailLibrary.SendEmail(
