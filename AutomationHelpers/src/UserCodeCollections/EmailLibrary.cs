@@ -3,8 +3,10 @@
 //
 
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 
@@ -29,7 +31,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         [UserCodeMethod]
-        public static void SendMail(
+        public static void SendEmail(
             string subject,
             string body,
             string to,
@@ -71,7 +73,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         [UserCodeMethod]
-        public static void SendReportViaMail(
+        public static void SendReportViaEmail(
             string subject,
             string body,
             string to,
@@ -113,14 +115,15 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         {
             string zippedFilename = TestReport.ReportEnvironment.ReportName + ".rxzlog";
 
-            if (System.IO.File.Exists(zippedFilename))
+            if (File.Exists(zippedFilename))
             {
-                System.Net.Mail.Attachment attachement = new System.Net.Mail.Attachment(zippedFilename);
+                var attachement = new Attachment(zippedFilename);
                 message.Attachments.Add(attachement);
             }
             else
             {
-                Report.Warn(string.Format("The zipped report '{0}' does not exist. Please make sure the path is correct.", zippedFilename));
+                Report.Warn(string.Format("The zipped report '{0}' does not exist. Please make sure the path '{1}' is correct.",
+                    zippedFilename, TestReport.ReportEnvironment));
             }
         }
     }

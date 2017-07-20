@@ -158,7 +158,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void DoSendMail()
         {
-            EmailLibrary.SendMail(
+            EmailLibrary.SendEmail(
                 this.Subject,
                 this.Body,
                 this.To,
@@ -199,7 +199,7 @@ namespace Ranorex.AutomationHelpers.Modules
             Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
             // send ziped report
-            EmailLibrary.SendReportViaMail(
+            EmailLibrary.SendReportViaEmail(
                 subject: this.Subject,
                 body: this.Body,
                 to: this.To,
