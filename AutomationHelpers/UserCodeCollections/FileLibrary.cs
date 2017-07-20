@@ -24,9 +24,9 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void WriteToFile(string text, string filenamePrefix, string fileExtension)
         {
-            System.DateTime now = System.DateTime.Now;
-            string strTimestamp = now.ToString("yyyyMMdd_HHmmss");
-            string filename = filenamePrefix + "_" + strTimestamp + "." + fileExtension;
+            var now = System.DateTime.Now;
+            var strTimestamp = now.ToString("yyyyMMdd_HHmmss");
+            var filename = filenamePrefix + "_" + strTimestamp + "." + fileExtension;
             Report.Info(filename);
 
             try
@@ -34,7 +34,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 //Create the File
                 using (FileStream fs = File.Create(filename))
                 {
-                    Byte[] info = new UTF8Encoding(true).GetBytes(text);
+                    var info = new UTF8Encoding(true).GetBytes(text);
                     fs.Write(info, 0, info.Length);
                 }
             }
@@ -42,7 +42,6 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             {
                 Console.WriteLine(ex.ToString());
             }
-            filenamePrefix = filename;
         }
 
         /// <summary>
@@ -55,15 +54,15 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void CheckFilesExist(string path, string pattern, int expectedCount, int timeout)
         {
-            string[] listofFiles = System.IO.Directory.GetFiles(path, pattern);
-            System.DateTime start = System.DateTime.Now;
+            var listofFiles = Directory.GetFiles(path, pattern);
+            var start = System.DateTime.Now;
 
             while (listofFiles.Length != expectedCount && System.DateTime.Now < start.AddSeconds(timeout))
             {
-                listofFiles = System.IO.Directory.GetFiles(path, pattern);
+                listofFiles = Directory.GetFiles(path, pattern);
             }
 
-            Ranorex.Report.Info("Check if '" + expectedCount + "' file(s) with pattern '" + pattern + "' exist in the directory '" + path + "'. Search time " + timeout + " seconds.");
+            Report.Info("Check if '" + expectedCount + "' file(s) with pattern '" + pattern + "' exist in the directory '" + path + "'. Search time " + timeout + " seconds.");
             Validate.AreEqual(listofFiles.Length, expectedCount);
         }
 
@@ -75,23 +74,23 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void DeleteFiles(string path, string pattern)
         {
-            string[] listofFiles = System.IO.Directory.GetFiles(path, pattern);
+            var listofFiles = Directory.GetFiles(path, pattern);
 
             if (listofFiles.Length == 0)
             {
-                Ranorex.Report.Warn("No files have been found in '" + path + "' with the pattern '" + pattern + "'.");
+                Report.Warn("No files have been found in '" + path + "' with the pattern '" + pattern + "'.");
             }
 
             foreach (string file in listofFiles)
             {
                 try
                 {
-                    System.IO.File.Delete(file);
-                    Ranorex.Report.Info("File has been deleted: " + file.ToString());
+                    File.Delete(file);
+                    Report.Info("File has been deleted: " + file.ToString());
                 }
                 catch (Exception ex)
                 {
-                    Ranorex.Report.Error(ex.Message);
+                    Report.Error(ex.Message);
                 }
             }
         }
@@ -102,15 +101,15 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="path">The relative or absolute path to search for the files</param>
         /// <param name="pattern">The pattern to search for in the filename</param>
         /// <param name="duration">Defines the search timeout in milliseconds</param>
-        /// <param name="intervall">Sets the interval in milliseconds at which the files are checked for the pattern</param>
+        /// <param name="interval">Sets the interval in milliseconds at which the files are checked for the pattern</param>
         [UserCodeMethod]
-        public static void WaitForFile(string path, string pattern, int duration, int intervall)
+        public static void WaitForFile(string path, string pattern, int duration, int interval)
         {
-            path = getPathForFile(path);
-            bool bFound = Directory.GetFiles(path, pattern).Length > 0;
-            System.DateTime start = System.DateTime.Now;
+            path = GetPathForFile(path);
+            var bFound = Directory.GetFiles(path, pattern).Length > 0;
+            var start = System.DateTime.Now;
 
-            while (!bFound && (System.DateTime.Now < start + new Duration(duration)))
+            while (!bFound && (System.DateTime.Now < start + TimeSpan.FromMilliseconds(duration)))
             {
 
                 bFound = Directory.GetFiles(path, pattern).Length > 0;
@@ -120,20 +119,20 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     break;
                 }
 
-                Delay.Duration(intervall, false);
+                Delay.Duration(Duration.FromMilliseconds(interval), false);
             }
 
             if (bFound)
             {
-                Ranorex.Report.Success("Validation", "File with pattern '" + pattern + "' was found in directory '" + path + "'.");
+                Report.Success("Validation", "File with pattern '" + pattern + "' was found in directory '" + path + "'.");
             }
             else
             {
-                Ranorex.Report.Failure("Validation", "File with pattern '" + pattern + "' wasn't found in directory '" + path + "'.");
+                Report.Failure("Validation", "File with pattern '" + pattern + "' wasn't found in directory '" + path + "'.");
             }
         }
 
-        private static string getPathForFile(string path)
+        private static string GetPathForFile(string path)
         {
             return path.StartsWith(".") ? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, path)) : path;
         }
