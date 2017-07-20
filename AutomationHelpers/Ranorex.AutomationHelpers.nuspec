@@ -7,19 +7,20 @@
         <authors>Ranorex Community</authors>
         <owners>Ranorex GmbH</owners>
         <projectUrl>https://github.com/ranorex/Ranorex-Automation-Helpers</projectUrl>
+        <licenseUrl>https://github.com/ranorex/Packages/blob/master/AutomationHelpers/LICENSE.txt</licenseUrl>
         <iconUrl>https://www.ranorex.com/blog/wp-content/uploads/2016/03/rx_logo-1.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Extend your solution with a collection of small and handy modules and methods to comfortably handle daily challenges in test automation.</description>
         <copyright>Copyright 2017</copyright>
         <tags>Ranorex TestAutomation</tags>
-		<frameworkAssemblies>
-			<frameworkAssembly assemblyName="System" />
-			<frameworkAssembly assemblyName="System.Data" />
-			<frameworkAssembly assemblyName="System.Xml" />
-			<frameworkAssembly assemblyName="System.Windows.Forms" />
-			<frameworkAssembly assemblyName="System.Drawing" />
-		</frameworkAssemblies>
-		<dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System" />
+            <frameworkAssembly assemblyName="System.Data" />
+            <frameworkAssembly assemblyName="System.Xml" />
+            <frameworkAssembly assemblyName="System.Windows.Forms" />
+            <frameworkAssembly assemblyName="System.Drawing" />
+        </frameworkAssemblies>
+        <dependencies>
             <dependency id="Ranorex.ReportToPdf" version="[1.0.9,1.1)"  />
         </dependencies>
     </metadata>
