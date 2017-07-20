@@ -4,7 +4,6 @@
    - [Studio](#studio)
    - [Clone](#clone)
    - [NuGet](#nuget)
-2. [Contribute](#contribute)
 
 ## HowTo
 
