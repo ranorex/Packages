@@ -7,6 +7,9 @@ using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
+    /// <summary>
+    /// A collection of string helper methods.
+    /// </summary>
     [UserCodeCollection]
     public static class StringLibrary
     {

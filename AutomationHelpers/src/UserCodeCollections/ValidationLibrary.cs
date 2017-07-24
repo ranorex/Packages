@@ -6,6 +6,9 @@ using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
+    /// <summary>
+    /// A collection of useful validation helper methods.
+    /// </summary>
     [UserCodeCollection]
     public static class ValidationLibrary
     {

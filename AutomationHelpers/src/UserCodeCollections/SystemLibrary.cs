@@ -10,7 +10,7 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     /// <summary>
-    /// A collection of usefull general helper methods.
+    /// A collection of useful general helper methods.
     /// </summary>
     [UserCodeCollection]
     public static class SystemLibrary
@@ -48,7 +48,6 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Starts a new timer.
         /// </summary>
         /// <param name="timerName">Name of the timer</param>
-        /// <exception cref="ArgumentException"> if timer with given name already exists</exception>
         [UserCodeMethod]
         public static void StartTimer(string timerName)
         {
@@ -65,7 +64,6 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Stops a timer.
         /// </summary>
         /// <param name="timerName">Name of the timer to stop</param>
-        /// <exception cref="Exception"></exception>
         [UserCodeMethod]
         public static TimeSpan StopTimer(string timerName)
         {
