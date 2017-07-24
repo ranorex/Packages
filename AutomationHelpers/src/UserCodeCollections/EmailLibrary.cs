@@ -21,15 +21,15 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Sends an email.
         /// </summary>
         /// <param name="subject">Email subject</param>
-        /// <param name="body">Email message</param>
         /// <param name="to">Email recipient</param>
         /// <param name="from">Email sender</param>
+        /// <param name="body">Email message</param>
+        /// <param name="attachment">Path of a file to attach</param>
         /// <param name="serverHostname">Server hostname</param>
         /// <param name="serverPort">Server port</param>
         /// <param name="useSSL">Defines whether SSL is used or not (true or false)</param>
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
-        /// <param name="attachment">Path of a file to attach</param>
         [UserCodeMethod]
         public static void SendEmail(
             string subject,
