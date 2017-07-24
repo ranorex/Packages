@@ -135,7 +135,9 @@ namespace Ranorex.AutomationHelpers.Modules
                 var name = TestReport.ReportEnvironment.ReportName;
 
                 TestReport.SaveReport();
+
                 Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+                Report.Info("Zipped report has been generated.");
                 zippedReportFile = TestReport.ReportEnvironment.ReportName + ".rxzlog";
             }
 
