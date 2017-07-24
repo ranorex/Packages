@@ -141,7 +141,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
             if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
                 || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
-                || bool.Parse(this.SendZippedReportOnComplete))
+                || (bool.Parse(this.SendZippedReportOnComplete) && !bool.Parse(this.SendEmailOnFailure) && !bool.Parse(this.SendEmailOnSuccess)))
             {
                 EmailLibrary.SendEmail(
                     this.Subject,
