@@ -65,14 +65,15 @@ namespace Ranorex.AutomationHelpers.Modules
                     {
                         this.PdfName = CreatePDFName();
                     }
-
-                    //Necessary to end the Ranorex Report in order to update the duration
-                    TestReport.EndTestModule();
-
-                    //Comment out if ConvertReportToPDF() is called directly
                     try
                     {
-                        Report.LogHtml(ReportLevel.Success, "PDFReport", "Successfully created PDF: <a href='" + ConvertReportToPDF(this.PdfName, this.Xml, this.Details) + "' target='_blank'>Open PDF</a>");
+                        var pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.Xml, this.Details);
+                        Report.LogHtml(
+                            ReportLevel.Success,
+                            "PDFReport",
+                            string.Format(
+                                "Successfully created PDF: <a href='{0}' target='_blank'>Open PDF</a>",
+                                pdfReportFilePath));
                     }
                     catch (Exception e)
                     {
@@ -97,6 +98,10 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string ConvertReportToPDF(string pdfName, string xml, string details)
         {
+            //Necessary to end the Ranorex Report in order to update the duration and finalize the status
+            TestReport.EndTestModule();
+            Report.End();
+
             var zippedReportFileDirectory = CreateTempReportFileDirectory();
             var reportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
             var name = TestReport.ReportEnvironment.ReportName;

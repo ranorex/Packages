@@ -127,8 +127,9 @@ namespace Ranorex.AutomationHelpers.Modules
             var zippedReportFile = string.Empty;
             if (bool.Parse(this.SendZippedReportOnComplete))
             {
-                //Necessary to end the testreport in order to update the duration
+                //Necessary to end the Ranorex Report in order to update the duration and finalize the status
                 TestReport.EndTestModule();
+                Report.End();
 
                 // zip the current report
                 var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
