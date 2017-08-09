@@ -21,7 +21,7 @@
             <frameworkAssembly assemblyName="System.Drawing" />
         </frameworkAssemblies>
         <dependencies>
-            <dependency id="Ranorex.ReportToPdf" version="[1.0.9,1.1)"  />
+            <dependency id="Ranorex.ReportToPDF" version="[1.0.9,1.1)" />
         </dependencies>
     </metadata>
     <files>
