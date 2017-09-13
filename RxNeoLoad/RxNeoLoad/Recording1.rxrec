@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="8cb22375-4bc3-4f40-bd06-5e523f86f6b8"
+mode="Global"
+rxversion="7.2">
+	<name>
+		Recording1
+	</name>
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="Recording1"
+	namespace="nln01">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="NeoLoadCodeCollection"
+		enabled="True"
+		isexternaltestmethod="True"
+		methodname="SendTimingValues"
+		namespace="Ranorex.NeoLoad"
+		optional="False"
+		varname="">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="98f8ad11-3240-4c68-89aa-0410dac8c3da">
+				<argument
+				argname="domNode"
+				id="2eb49775-30dd-4cad-8dcc-1201bf5e0999">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="7d953371-592c-4aee-9af2-95a7bfe0f5c3"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/dom[@domain='orf.at']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="transactionName"
+				id="8cab3b03-39ea-4155-8f43-03ad3d0c62a2">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+						scenario1
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="1c1c3ca5-0dae-45be-a59c-79486f7ebede"
+	name="RxNeoLoad"
+	relativepath="RxNeoLoad.rxrep"
+	rxversion="7.2">
+		<codegen
+		classname="RxNeoLoad"
+		namespace="nln01">
+		</codegen>
+		<rootfolder
+		id="a7c09f68-c6e2-4c56-9f2a-8ab32cc2fe0b"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		Recording1.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

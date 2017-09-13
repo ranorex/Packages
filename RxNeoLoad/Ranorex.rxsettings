@@ -1,0 +1,656 @@
+﻿<configuration
+rxversion="7.2">
+	<adapter.defaultsearchtimeout>
+		10000ms
+	</adapter.defaultsearchtimeout>
+	<adapter.defaultuseensurevisible>
+		True
+	</adapter.defaultuseensurevisible>
+	<imaging.defaultfindoptions>
+		1;None;0,0,0,0;True;10000000;0ms
+	</imaging.defaultfindoptions>
+	<imaging.usehiddenimagecapture>
+		True
+	</imaging.usehiddenimagecapture>
+	<pointer.checkisvalidlocation>
+		True
+	</pointer.checkisvalidlocation>
+	<recorder.useDefaultLogging>
+		True
+	</recorder.useDefaultLogging>
+	<recorder.enablecoordinates>
+		True
+	</recorder.enablecoordinates>
+	<recorder.coordinatemode>
+		Pixel
+	</recorder.coordinatemode>
+	<recorder.UseConfiguredTimingsOnRecord>
+		True
+	</recorder.UseConfiguredTimingsOnRecord>
+	<recorder.mousemovetime>
+		300ms
+	</recorder.mousemovetime>
+	<recorder.mouseactiontime>
+		500ms
+	</recorder.mouseactiontime>
+	<recorder.keyactiontime>
+		100ms
+	</recorder.keyactiontime>
+	<recorder.keysequencesplittime>
+		1000ms
+	</recorder.keysequencesplittime>
+	<repository.appfoldertimeout>
+		30000ms
+	</repository.appfoldertimeout>
+	<repository.foldertimeout>
+		30000ms
+	</repository.foldertimeout>
+	<repository.itemtimeout>
+		30000ms
+	</repository.itemtimeout>
+	<repository.useappfoldercache>
+		True
+	</repository.useappfoldercache>
+	<repository.autogeneratefolders>
+		True
+	</repository.autogeneratefolders>
+	<rxpath.maxmatchtextlen>
+		25
+	</rxpath.maxmatchtextlen>
+	<rxpath.buildmode>
+		StepCostReduce
+	</rxpath.buildmode>
+	<rxpath.weights>
+		<rxpathweights>
+			<rule
+			attribute="class"
+			capability="nativewindow"
+			conditionsoperator="and"
+			enabled="True"
+			name="RxWinForms ControlNet11 Classnames"
+			setweight="0">
+				<condition
+				attribute="class"
+				match="^WindowsForms10.Window"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="True"
+			name="RxWeb YUI (Yahoo User Interface Library)"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="^yui(_\d+)"
+				negate="False"
+				source="self">
+				</condition>
+				<condition
+				attribute="id"
+				match="^yui-gen.*"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="True"
+			name="RxWeb JS Frameworks (ExtJS, Sencha, Ozone Widget ,...)"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="^ext-.*\d+.*"
+				negate="False"
+				source="self">
+				</condition>
+				<condition
+				attribute="id"
+				match="^[a-z]+-\d{4}(-[a-z]*(-\d*)?)?"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="True"
+			name="RxWeb jQuery"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="^ui-id-\d+"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="False"
+			name="RxWeb ASP.net"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="^ctl00(\$|_)(.*(\$|_))"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="True"
+			name="RxWeb GWT"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="^gwt-uid-\d+.*"
+				negate="False"
+				source="self">
+				</condition>
+				<condition
+				attribute="id"
+				match="^isc_.+"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="id"
+			capability="webelement"
+			conditionsoperator="or"
+			enabled="True"
+			name="RxWeb MS Dynamics CRM"
+			setweight="0">
+				<condition
+				attribute="id"
+				match="[a-zA-Z_]+_\{[0-9 A-F-]+\}_\d+"
+				negate="False"
+				source="self">
+				</condition>
+			</rule>
+			<rule
+			attribute="controlid"
+			capability="nativewindow"
+			conditionsoperator="or"
+			enabled="False"
+			name="RxWin32 Random ControlIds"
+			setweight="0">
+			</rule>
+		</rxpathweights>
+	</rxpath.weights>
+	<rxpath.enableuidsearch>
+		True
+	</rxpath.enableuidsearch>
+	<rxpath.pathbuildoptions>
+		<pathbuildoptions
+		defcapcost="20"
+		kattr="0.5"
+		kcap="1.0"
+		ksib="10.0"
+		q="0.5">
+			<cap
+			cost="10"
+			name="unknown">
+			</cap>
+			<cap
+			cost="20"
+			name="container">
+			</cap>
+			<cap
+			cost="10"
+			name="cell">
+			</cap>
+			<cap
+			cost="10"
+			name="text">
+			</cap>
+			<cap
+			cost="20"
+			name="treeitem">
+			</cap>
+			<cap
+			cost="40"
+			name="listitem">
+			</cap>
+			<cap
+			cost="40"
+			name="row">
+			</cap>
+			<cap
+			cost="40"
+			name="column">
+			</cap>
+			<cap
+			cost="40"
+			name="button">
+			</cap>
+			<cap
+			cost="60"
+			name="form">
+			</cap>
+			<cap
+			cost="60"
+			name="toolbar">
+			</cap>
+			<cap
+			cost="60"
+			name="list">
+			</cap>
+			<cap
+			cost="60"
+			name="tree">
+			</cap>
+			<cap
+			cost="60"
+			name="tabpage">
+			</cap>
+			<cap
+			cost="60"
+			name="combobox">
+			</cap>
+			<cap
+			cost="60"
+			name="table">
+			</cap>
+			<cap
+			cost="60"
+			name="scrollbar">
+			</cap>
+			<cap
+			cost="60"
+			name="titlebar">
+			</cap>
+			<cap
+			cost="80"
+			name="flexobject">
+			</cap>
+			<cap
+			cost="80"
+			name="airwindow">
+			</cap>
+			<cap
+			cost="80"
+			name="mobiledevice">
+			</cap>
+			<cap
+			cost="80"
+			name="mobileapp">
+			</cap>
+			<cap
+			cost="80"
+			name="mobilewebdocument">
+			</cap>
+			<cap
+			cost="80"
+			name="excelworksheet">
+			</cap>
+			<cap
+			cost="80"
+			name="sapwindow">
+			</cap>
+			<cap
+			cost="80"
+			name="webdocument">
+			</cap>
+			<cap
+			cost="80"
+			name="windowsapp">
+			</cap>
+			<cap
+			cost="60"
+			name="formtag">
+			</cap>
+			<cap
+			cost="60"
+			name="selecttag">
+			</cap>
+			<cap
+			cost="80"
+			name="frametag">
+			</cap>
+			<cap
+			cost="80"
+			name="iframetag">
+			</cap>
+			<cap
+			cost="60"
+			name="oltag">
+			</cap>
+			<cap
+			cost="60"
+			name="ultag">
+			</cap>
+			<cap
+			cost="60"
+			name="tabletag">
+			</cap>
+			<cap
+			cost="60"
+			name="sectiontag">
+			</cap>
+			<cap
+			cost="60"
+			name="navtag">
+			</cap>
+			<cap
+			cost="50"
+			name="maptag">
+			</cap>
+			<cap
+			cost="50"
+			name="articletag">
+			</cap>
+			<cap
+			cost="50"
+			name="menutag">
+			</cap>
+			<cap
+			cost="20"
+			name="webelement">
+			</cap>
+		</pathbuildoptions>
+	</rxpath.pathbuildoptions>
+	<spy.CompleteAncestorSnapshot>
+		True
+	</spy.CompleteAncestorSnapshot>
+	<plugins.win32.enablebitbridge>
+		True
+	</plugins.win32.enablebitbridge>
+	<plugins.rawtext.whitelist>
+		<rawtextconfig>
+		</rawtextconfig>
+	</plugins.rawtext.whitelist>
+	<Endpoints.Data>
+		&lt;![CDATA[{
+  &quot;mobile.android.remote&quot;: [
+    {
+      &quot;Id&quot;: &quot;52eb108d-6158-4070-89d0-d856a46c1234&quot;,
+      &quot;ControlFlags&quot;: 0,
+      &quot;CoreData&quot;: {},
+      &quot;PluginData&quot;: {
+        &quot;Platform&quot;: &quot;Android&quot;,
+        &quot;ConnectionType&quot;: &quot;WLAN&quot;
+      },
+      &quot;MetaData&quot;: {},
+      &quot;Description&quot;: &quot;&quot;,
+      &quot;DisplayName&quot;: &quot;Nexus 5X Web&quot;,
+      &quot;Url&quot;: &quot;172.26.223.177&quot;,
+      &quot;Tags&quot;: []
+    }
+  ],
+  &quot;mobile.ios.remote&quot;: [
+    {
+      &quot;Id&quot;: &quot;fce257f3-f0dd-4bee-ac6f-b282858dcad6&quot;,
+      &quot;ControlFlags&quot;: 0,
+      &quot;CoreData&quot;: {},
+      &quot;PluginData&quot;: {
+        &quot;Platform&quot;: &quot;Ios&quot;,
+        &quot;ConnectionType&quot;: &quot;USB&quot;
+      },
+      &quot;MetaData&quot;: {},
+      &quot;Description&quot;: &quot;&quot;,
+      &quot;DisplayName&quot;: &quot;RX-IOS-006 iPad&quot;,
+      &quot;Url&quot;: &quot;686c36352493295a6220e930cfa722fac24e061d&quot;,
+      &quot;Tags&quot;: []
+    },
+    {
+      &quot;Id&quot;: &quot;ab789ec6-00ca-498f-b5ec-07d5be460222&quot;,
+      &quot;ControlFlags&quot;: 0,
+      &quot;CoreData&quot;: {},
+      &quot;PluginData&quot;: {
+        &quot;Platform&quot;: &quot;Ios&quot;,
+        &quot;ConnectionType&quot;: &quot;WLAN&quot;
+      },
+      &quot;MetaData&quot;: {},
+      &quot;Description&quot;: &quot;&quot;,
+      &quot;DisplayName&quot;: &quot;iPad von sgrgic&quot;,
+      &quot;Url&quot;: &quot;172.26.223.241&quot;,
+      &quot;Tags&quot;: []
+    }
+  ],
+  &quot;webdriver.remote&quot;: [
+    {
+      &quot;Id&quot;: &quot;bc960814-e1ba-4552-92e7-284b27a1fa1a&quot;,
+      &quot;ControlFlags&quot;: 0,
+      &quot;CoreData&quot;: {},
+      &quot;PluginData&quot;: {
+        &quot;Configurations&quot;: &quot;[{\&quot;Name\&quot;:\&quot;New Configuration\&quot;,\&quot;Json\&quot;:\&quot;\&quot;,\&quot;Description\&quot;:\&quot;\&quot;},{\&quot;Name\&quot;:\&quot;New Configuration 2\&quot;,\&quot;Json\&quot;:\&quot;dafdadsf\&quot;,\&quot;Description\&quot;:\&quot;\&quot;}]&quot;,
+        &quot;DefaultConfiguration&quot;: &quot;New Configuration 2&quot;
+      },
+      &quot;MetaData&quot;: {},
+      &quot;Description&quot;: &quot;&quot;,
+      &quot;DisplayName&quot;: &quot;webdriver&quot;,
+      &quot;Url&quot;: &quot;http://localhost:4444/wd/hub&quot;,
+      &quot;Tags&quot;: []
+    }
+  ]
+}]]&gt;
+	</Endpoints.Data>
+	<plugins.win32.EnableBasicDelphiSupport>
+		True
+	</plugins.win32.EnableBasicDelphiSupport>
+	<plugins.win32.UseLegacyFormRole>
+		False
+	</plugins.win32.UseLegacyFormRole>
+	<plugins.win32.EnableDynamicMsaa>
+		True
+	</plugins.win32.EnableDynamicMsaa>
+	<plugins.win32.ProcessWhitelist>
+	</plugins.win32.ProcessWhitelist>
+	<plugins.msaa.FilterEnabled>
+		True
+	</plugins.msaa.FilterEnabled>
+	<plugins.msaa.WinFormsFilterEnabled>
+		True
+	</plugins.msaa.WinFormsFilterEnabled>
+	<plugins.msaa.FilterCompatibilityLevel>
+		Current
+	</plugins.msaa.FilterCompatibilityLevel>
+	<plugins.msaa.ExpensiveAttributesEnabled>
+		False
+	</plugins.msaa.ExpensiveAttributesEnabled>
+	<plugins.msaa.FromPointRefineEnabled>
+		True
+	</plugins.msaa.FromPointRefineEnabled>
+	<plugins.web.EnableEmbeddedWebDocuments>
+		True
+	</plugins.web.EnableEmbeddedWebDocuments>
+	<plugins.wpfnative.enablewpfdebug>
+		False
+	</plugins.wpfnative.enablewpfdebug>
+	<plugins.wpfnative.applicationtrees>
+		WpfImprovedOnly
+	</plugins.wpfnative.applicationtrees>
+	<plugins.wpfnative.proc.ignorelist>
+		devenv;Luxafor.Tray;
+	</plugins.wpfnative.proc.ignorelist>
+	<plugins.wpfnative.tree.WpfImprovedAlreadyForcedAsDefault>
+		True
+	</plugins.wpfnative.tree.WpfImprovedAlreadyForcedAsDefault>
+	<plugins.wpfnative.item.filter.attributes.prefixlist>
+		AreAnyTouches;IsKeyboard;IsMouse;IsStylus;IsFocused;IsVisible;IsEnabled;Ranorex;
+	</plugins.wpfnative.item.filter.attributes.prefixlist>
+	<plugins.wpfnative.attributes.allow>
+	</plugins.wpfnative.attributes.allow>
+	<plugins.wpfnative.tree.showall>
+		False
+	</plugins.wpfnative.tree.showall>
+	<plugins.wpfnative.tree.realizedvirtualizeditems>
+		False
+	</plugins.wpfnative.tree.realizedvirtualizeditems>
+	<plugins.wpfnative.tree.showvisual.never>
+		System.Windows.Controls.Primitives.CalendarDayButton;System.Windows.Controls.Primitives.CalendarButton;System.Windows.Controls.Primitives.DocumentPageView;System.Windows.Controls.Primitives.DocumentViewerBase;System.Windows.Controls.TextBoxView;System.Windows.Controls.ProgressBar;System.Windows.Controls.PasswordBox;System.Windows.Controls.Primitives.DatePickerTextBox;System.Windows.Controls.TabItem;
+	</plugins.wpfnative.tree.showvisual.never>
+	<plugins.wpfnative.tree.showvisual.always>
+		System.Windows.Controls.FlowDocumentReader;System.Windows.Controls.FlowDocumentPageViewer;System.Windows.Controls.ScrollViewer;System.Windows.Controls.ContentControl;System.Windows.Controls.ContentPresenter;Infragistics.Windows.DataPresenter.XamDataGrid;Infragistics.Windows.DataPresenter.HeaderPresenter;Infragistics.Windows.Ribbon.ApplicationMenu2010;System.Windows.Controls.ListBox;System.Windows.Controls.ToolBar;System.Windows.Controls.Primitives.ToolBarOverflowPanel;Microsoft.VisualStudio.PlatformUI.LayoutSynchronizedItemsControl;Microsoft.VisualStudio.PlatformUI.Shell.Controls.CustomChromeWindow;Microsoft.VisualStudio.PlatformUI.MainWindow;Microsoft.VisualStudio.PlatformUI.SolutionPivotTreeView;System.Windows.Controls.Grid|Microsoft.VisualStudio.PlatformUI.LayoutSynchronizedItemsControl;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|Microsoft.TeamFoundation.Controls.WPF.DraggableListView;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|Microsoft.Internal.VisualStudio.PlatformUI.VirtualizingTreeView;System.Windows.Documents.NonLogicalAdornerDecorator;System.Windows.Controls.Ribbon.Ribbon;Telerik.Windows.Controls.GridView.GridViewVirtualizingPanel;Xceed.Wpf.Toolkit.Chart.ChartPrimitive;
+	</plugins.wpfnative.tree.showvisual.always>
+	<plugins.wpfnative.tree.skip>
+		System.Windows.Shapes.Rectangle|System.Windows.Controls.Grid|System.Windows.Controls.Calendar;System.Windows.Documents.FlowDocument|System.Windows.Controls.FlowDocumentReader;System.Windows.Controls.Grid|System.Windows.Controls.Grid|System.Windows.Controls.DatePicker;System.Windows.Controls.DefinitionBase;System.Windows.Controls.VirtualizingStackPanel|System.Windows.Controls.ItemsPresenter|System.Windows.Controls.ListBox;Xceed.Wpf.DataGrid.Views.TableflowViewItemsHost|System.Windows.Controls.ScrollContentPresenter|System.Windows.Controls.Grid;
+	</plugins.wpfnative.tree.skip>
+	<plugins.wpfnative.tree.skipanddescend.singlechild>
+		System.Windows.Controls.DockPanel;System.Windows.Controls.Grid;System.Windows.Controls.StackPanel;System.Windows.Controls.UniformGrid;System.Windows.Controls.WrapPanel;
+	</plugins.wpfnative.tree.skipanddescend.singlechild>
+	<plugins.wpfnative.tree.skipanddescend>
+		System.Windows.Controls.Primitives.CalendarItem;System.Windows.Controls.Grid|System.Windows.Controls.Primitives.CalendarItem|System.Windows.Controls.Calendar;System.Windows.Controls.Grid|System.Windows.Controls.Border|System.Windows.Controls.Calendar;System.Windows.Controls.Primitives.DataGridCellsPresenter;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|System.Windows.Controls.DataGrid;System.Windows.Controls.Primitives.SelectiveScrollingGrid|System.Windows.Controls.Border|System.Windows.Controls.DataGridRow;System.Windows.Controls.DataGridCellsPanel|System.Windows.Controls.ItemsPresenter|System.Windows.Controls.DataGridRow;System.Windows.Controls.DataGridCellsPanel|System.Windows.Controls.ItemsPresenter|System.Windows.Controls.Primitives.DataGridColumnHeadersPresenter;System.Windows.Controls.Grid|System.Windows.Controls.Primitives.DataGridColumnHeadersPresenter|System.Windows.Controls.Primitives.DataGridColumnHeadersPresenter;System.Windows.Controls.Grid|System.Windows.Controls.Primitives.DataGridColumnHeader|System.Windows.Controls.Primitives.DataGridColumnHeader;System.Windows.Controls.DockPanel|System.Windows.Controls.FlowDocumentReader|System.Windows.Controls.FlowDocumentReader;System.Windows.Controls.Grid|System.Windows.Controls.DockPanel|System.Windows.Controls.FlowDocumentReader;System.Windows.Controls.Decorator;System.Windows.Controls.ContentPresenter;System.Windows.Documents.AdornerLayer;System.Windows.Shapes.Shape|System.Windows.Controls.Primitives.ButtonBase;System.Windows.Controls.Grid|System.Windows.Controls.Button|System.Windows.Controls.Button;System.Windows.Controls.Grid|System.Windows.Controls.Grid|System.Windows.Controls.Button;System.Windows.Shapes.Shape|System.Windows.Controls.Grid|System.Windows.Controls.Button;System.Windows.Controls.Grid|System.Windows.Controls.Primitives.ToggleButton|System.Windows.Controls.Primitives.ToggleButton;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|System.Windows.Controls.Primitives.TextBoxBase;System.Windows.Controls.Grid|System.Windows.Controls.Border|System.Windows.Controls.Slider;System.Windows.Controls.Primitives.Track|System.Windows.Controls.Grid|System.Windows.Controls.Slider;System.Windows.Shapes.Path|System.Windows.Controls.Grid|System.Windows.Controls.Primitives.Thumb;System.Windows.Shapes.Rectangle|System.Windows.Controls.Primitives.Thumb|System.Windows.Controls.Primitives.Thumb;System.Windows.Controls.Grid|System.Windows.Controls.Border|System.Windows.Controls.DatePicker;System.Windows.Controls.ScrollViewer;System.Windows.Controls.ItemsPresenter;System.Windows.Controls.StackPanel||System.Windows.Controls.TreeView;System.Windows.Controls.Grid||System.Windows.Controls.TreeView;System.Windows.Controls.StackPanel|System.Windows.Controls.Grid|System.Windows.Controls.TreeView;System.Windows.Shapes.Rectangle||System.Windows.Controls.TreeView;System.Windows.Controls.Grid|System.Windows.Controls.TreeViewItem;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|System.Windows.Controls.ListBox;System.Windows.Controls.Grid|System.Windows.Controls.ToolBar|System.Windows.Controls.ToolBar;System.Windows.Controls.DockPanel|System.Windows.Controls.Border|System.Windows.Controls.ToolBar;System.Windows.Controls.Grid|System.Windows.Controls.GroupBox|System.Windows.Controls.GroupBox;System.Windows.Controls.Grid||System.Windows.Controls.Primitives.PopupRoot;System.Windows.Controls.StackPanel||System.Windows.Controls.Primitives.PopupRoot;System.Windows.Controls.VirtualizingStackPanel||System.Windows.Controls.Primitives.PopupRoot;System.Windows.Controls.Grid|System.Windows.Controls.Border|System.Windows.Controls.MenuItem;System.Windows.Controls.ContextMenu|System.Windows.Documents.NonLogicalAdornerDecorator|System.Windows.Controls.Primitives.PopupRoot;System.Windows.Controls.Ribbon.Primitives.RibbonMenuItemsPanel||System.Windows.Controls.Primitives.PopupRoot;|System.Windows.Controls.Primitives.ScrollBar;System.Windows.Controls.Grid|SpreadsheetGear.Windows.Controls.ColumnHeader;System.Windows.Controls.Grid|SpreadsheetGear.Windows.Controls.RowHeader;System.Windows.Controls.TextBlock|System.Windows.Controls.ContentPresenter|System.Windows.Controls.TabItem;System.Windows.Controls.Grid|System.Windows.Controls.TabItem|System.Windows.Controls.TabItem;System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.RibbonTextBox|System.Windows.Controls.Ribbon.RibbonTextBox;System.Windows.Controls.Grid|System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.RibbonTextBox;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|System.Windows.Controls.Ribbon.RibbonTextBox;System.Windows.Controls.Ribbon.Primitives.RibbonTabHeadersPanel|System.Windows.Controls.ItemsPresenter|System.Windows.Controls.Ribbon.RibbonTabHeaderItemsControl;System.Windows.Controls.Grid|System.Windows.Controls.ScrollViewer|System.Windows.Controls.Ribbon.RibbonTabHeaderItemsControl;System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.Ribbon|System.Windows.Controls.Ribbon.Ribbon;System.Windows.Controls.Ribbon.Primitives.RibbonTabsPanel||System.Windows.Controls.Ribbon.Ribbon;System.Windows.Controls.ContentControl|System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.Ribbon;System.Windows.Controls.DockPanel|System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.Ribbon;System.Windows.Controls.StackPanel|System.Windows.Controls.Border|System.Windows.Controls.Ribbon.RibbonButton;System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.RibbonTwoLineText|System.Windows.Controls.Ribbon.RibbonTwoLineText;System.Windows.Controls.DockPanel|System.Windows.Controls.Grid|System.Windows.Controls.Ribbon.RibbonTwoLineText;System.Windows.Controls.Grid|Xceed.Wpf.DataGrid.DataGridControl|Xceed.Wpf.DataGrid.DataGridControl;Xceed.Wpf.DataGrid.Views.TableflowViewItemsHost|System.Windows.Controls.Grid|Xceed.Wpf.DataGrid.DataGridControl;
+	</plugins.wpfnative.tree.skipanddescend>
+	<plugins.wpfnative.flags>
+	</plugins.wpfnative.flags>
+	<plugins.wpf.ExpensiveAttributesEnabled>
+		True
+	</plugins.wpf.ExpensiveAttributesEnabled>
+	<plugins.wpf.ForceVirtualItemRealization>
+		True
+	</plugins.wpf.ForceVirtualItemRealization>
+	<plugins.wpf.UseItemContainerPattern>
+		False
+	</plugins.wpf.UseItemContainerPattern>
+	<plugins.wpf.EnableNativeUiaSupport>
+		True
+	</plugins.wpf.EnableNativeUiaSupport>
+	<plugins.wpf.UseWinAppDebugMode>
+		True
+	</plugins.wpf.UseWinAppDebugMode>
+	<plugins.wpf.EnableWinAppFrameFiltering>
+		True
+	</plugins.wpf.EnableWinAppFrameFiltering>
+	<plugins.java.classnames>
+	</plugins.java.classnames>
+	<plugins.java.swtlegacymode>
+		False
+	</plugins.java.swtlegacymode>
+	<plugins.java.swtuserdata>
+		False
+	</plugins.java.swtuserdata>
+	<plugins.java.fxfilter>
+		True
+	</plugins.java.fxfilter>
+	<plugins.qt.legacymode>
+		False
+	</plugins.qt.legacymode>
+	<plugins.qt.quickfiltered>
+		True
+	</plugins.qt.quickfiltered>
+	<plugin.mobile.android.ConnectTimout>
+		10000ms
+	</plugin.mobile.android.ConnectTimout>
+	<plugin.mobile.android.rpccalltimeout>
+		5000ms
+	</plugin.mobile.android.rpccalltimeout>
+	<plugin.mobile.DiscoveryTimeout>
+		15000ms
+	</plugin.mobile.DiscoveryTimeout>
+	<plugin.mobile.deploytimeout>
+		60000ms
+	</plugin.mobile.deploytimeout>
+	<plugin.mobile.instrumenttimeout>
+		120000ms
+	</plugin.mobile.instrumenttimeout>
+	<plugin.mobile.usbdiscoverytimeout>
+		60000ms
+	</plugin.mobile.usbdiscoverytimeout>
+	<plugin.mobile.generaltooltimeout>
+		25000ms
+	</plugin.mobile.generaltooltimeout>
+	<plugin.mobile.ios.maxcollectionviewvcellcount>
+		50
+	</plugin.mobile.ios.maxcollectionviewvcellcount>
+	<plugin.mobile.android.UseAndroidOS>
+		False
+	</plugin.mobile.android.UseAndroidOS>
+	<plugin.mobile.android.FetchAndroidOSScreenshots>
+		True
+	</plugin.mobile.android.FetchAndroidOSScreenshots>
+	<plugin.cef.processblacklist>
+		spotify;chrome;
+	</plugin.cef.processblacklist>
+	<plugin.cef.wpffulltypewhitelist>
+	</plugin.cef.wpffulltypewhitelist>
+	<plugin.cef.enabledebugcapability>
+		False
+	</plugin.cef.enabledebugcapability>
+	<plugin.webdriver.commandtimeout>
+		10000ms
+	</plugin.webdriver.commandtimeout>
+	<plugin.webdriver.domfetchmode>
+		Always
+	</plugin.webdriver.domfetchmode>
+	<plugin.webdriver.tabautomation>
+		True
+	</plugin.webdriver.tabautomation>
+	<plugin.webdriver.attachToOpenSessions>
+		True
+	</plugin.webdriver.attachToOpenSessions>
+	<plugin.webdriver.domUpdateInterval>
+		1000ms
+	</plugin.webdriver.domUpdateInterval>
+	<plugin.webdriver.screenshotUpdateInterval>
+		3000ms
+	</plugin.webdriver.screenshotUpdateInterval>
+	<plugin.webdriver.screenshotUpdate>
+		False
+	</plugin.webdriver.screenshotUpdate>
+	<plugin.mobile.managedevicesgroupby>
+		Enabled
+	</plugin.mobile.managedevicesgroupby>
+	<plugin.mobile.managedevicessortby>
+		Status
+	</plugin.mobile.managedevicessortby>
+	<plugin.webdriver.autoupdatewindowsize>
+		500ms
+	</plugin.webdriver.autoupdatewindowsize>
+	<plugin.webdriver.autoupdatewindowsizemultiplier>
+		2
+	</plugin.webdriver.autoupdatewindowsizemultiplier>
+	<Endspoints.Data>
+	</Endspoints.Data>
+	<Endpoints.WebDriver.Cababilities>
+		&lt;![CDATA[[
+  {
+    &quot;Id&quot;: &quot;2048dea6-8996-4a68-adc5-9c60d15659b1&quot;,
+    &quot;Name&quot;: &quot;Config01&quot;,
+    &quot;Json&quot;: &quot;{heloo}&quot;
+  },
+  {
+    &quot;Id&quot;: &quot;2457694f-715d-4b74-862f-48d8b96af408&quot;,
+    &quot;Name&quot;: &quot;New Config&quot;,
+    &quot;Json&quot;: &quot;{}&quot;
+  }
+]]]&gt;
+	</Endpoints.WebDriver.Cababilities>
+	<plugin.mobile.ios.p12path>
+		C:\Users\mhuber\Desktop\RanorexDev2.p12
+	</plugin.mobile.ios.p12path>
+	<plugin.mobile.ios.p12password>
+		AAEAAAD/////AQAAAAAAAAAPAQAAAJoAAAACAQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAWm8AORAq
+QE+ftDOGlLPV5gAAAAACAAAAAAADZgAAwAAAABAAAABiv4x1goFkA9V1HYzo8HXNAAAAAASAAACg
+AAAAEAAAAN6MN/JX5hJJz4659Vi0uC8QAAAA2LNEUi1zhrabqleosaXLvBQAAACuPS33I76mn4f9
+HE5AqX0va1mQSAs=
+	</plugin.mobile.ios.p12password>
+	<plugin.mobile.ios.provisionpath>
+		C:\Users\mhuber\Desktop\iOS_Team_Provisioning_Profile.mobileprovision
+	</plugin.mobile.ios.provisionpath>
+	<plugins.wpfnative.magictree.skipanddescend>
+		System.Windows.Controls.Decorator;System.Windows.Documents.AdornerLayer;System.Windows.Controls.DefinitionBase;
+	</plugins.wpfnative.magictree.skipanddescend>
+	<plugins.wpfnative.roles>
+		Xceed.Wpf.DataGrid.DataGridControl|Table;
+	</plugins.wpfnative.roles>
+	<plugin.cef.defaultport>
+		8081
+	</plugin.cef.defaultport>
+	<plugin.cef.debuggerport>
+	</plugin.cef.debuggerport>
+	<browser.clearcachetimeout>
+		5000ms
+	</browser.clearcachetimeout>
+</configuration>
