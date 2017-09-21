@@ -109,6 +109,12 @@ namespace Ranorex.AutomationHelpers.Modules
         public string SendZippedReportOnComplete { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the email should send the pdf version of the report in an attachement, when the TestSuite finishes.
+        /// </summary>
+        [TestVariable("7038d9db-9189-4fe3-9fb3-13f3cacde5a0")]
+        public string SendPdfReportOnComplete { get; set; }
+
+        /// <summary>
         /// Sends the Ranorex Report via Mail after the test run completed. Use this module in
         /// the TearDown of your TestCase to ensure that it is executed even on failing test runs.
         /// </summary>
@@ -124,23 +130,7 @@ namespace Ranorex.AutomationHelpers.Modules
         private void OnTestSuiteCompletedSendResult(object sender, EventArgs e)
         {
             var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
-            var zippedReportFile = string.Empty;
-            if (bool.Parse(this.SendZippedReportOnComplete))
-            {
-                //Necessary to end the Ranorex Report in order to update the duration and finalize the status
-                TestReport.EndTestModule();
-                Report.End();
-
-                // zip the current report
-                var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
-                var name = TestReport.ReportEnvironment.ReportName;
-
-                TestReport.SaveReport();
-
-                Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
-                Report.Info("Zipped report has been generated.");
-                zippedReportFile = TestReport.ReportEnvironment.ReportName + ".rxzlog";
-            }
+            var reportFile = createReports();
 
             if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
                 || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
@@ -151,13 +141,64 @@ namespace Ranorex.AutomationHelpers.Modules
                     this.To,
                     this.From,
                     this.Body,
-                    zippedReportFile,
+                    reportFile,
                     this.ServerHostname,
                     int.Parse(this.ServerPort),
                     bool.Parse(this.UseSSL),
                     this.Username,
                     this.Password);
             }
+        }
+
+        private string CreateCompressedReport()
+        {
+            if (bool.Parse(this.SendZippedReportOnComplete))
+            {
+                //Necessary to end the Ranorex Report in order to update the duration and finalize the status
+                finishTestReport();
+	
+                // zip the current report
+                var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
+                var name = TestReport.ReportEnvironment.ReportName;
+
+                Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+                Report.Info("Zipped report has been generated.");
+                return TestReport.ReportEnvironment.ReportName + ".rxzlog";
+            }
+
+            return string.Empty;
+        }
+        
+        private void finishTestReport()
+        {
+        	Activity activity = ActivityStack.Current ;
+        	
+        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
+        	    {
+        	    	TestReport.EndTestModule();
+                	Report.End();
+        	    }
+        	    
+        	    TestReport.SaveReport();
+        }
+
+        private string CreatePdfReport()
+        {
+            if (bool.Parse(this.SendPdfReportOnComplete))
+            {
+                ReportToPDFModule pdfModule = new ReportToPDFModule();
+                pdfModule.PdfName = TestReport.ReportEnvironment.ReportName + ".pdf";
+                pdfModule.Xml = "";
+                pdfModule.Details = "all";
+                return pdfModule.createPDF();
+            }
+
+            return string.Empty;
+        }
+
+        private string[] createReports()
+        {
+            return new string[] { CreateCompressedReport(), CreatePdfReport() };
         }
     }
 }

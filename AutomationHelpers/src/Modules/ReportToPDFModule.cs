@@ -59,66 +59,89 @@ namespace Ranorex.AutomationHelpers.Modules
             {
                 //PDF will be generated at the very end of the TestSuite
                 TestSuite.TestSuiteCompleted += delegate {
-
-                    //Specify Ranorex Report name if not already set
-                    if (String.IsNullOrEmpty(this.PdfName))
-                    {
-                        this.PdfName = CreatePDFName();
-                    }
-                    try
-                    {
-                        var pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.Xml, this.Details);
-                        Report.LogHtml(
-                            ReportLevel.Success,
-                            "PDFReport",
-                            string.Format(
-                                "Successfully created PDF: <a href='{0}' target='_blank'>Open PDF</a>",
-                                pdfReportFilePath));
-                    }
-                    catch (Exception e)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("ReportToPDF: " + e.Message);
-                        Console.ResetColor();
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadKey();
-                    }
-
-                    //Delete *.rxzlog if not enabled within test suite settings
-                    Cleanup();
-
-                    //Update error value
-                    UpdateError();
+                    createPDF();
                 };
 
                 this.registered = true;
             }
         }
 
+        public string createPDF()
+        {
+            //Specify Ranorex Report name if not already set
+            if (String.IsNullOrEmpty(this.PdfName))
+            {
+                this.PdfName = CreatePDFName();
+            }
+
+            var pdfReportFilePath = "";
+
+            try
+            {
+                pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.Xml, this.Details);
+                Report.LogHtml(
+                    ReportLevel.Success,
+                    "PDFReport",
+                    string.Format(
+                        "Successfully created PDF: <a href='{0}' target='_blank'>Open PDF</a>",
+                        pdfReportFilePath));
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ReportToPDF: " + e.Message);
+                Console.ResetColor();
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
+
+            //Delete *.rxzlog if not enabled within test suite settings
+            Cleanup();
+
+            //Update error value
+            UpdateError();
+
+            return pdfReportFilePath;
+        }
+
         private string ConvertReportToPDF(string pdfName, string xml, string details)
         {
-            //Necessary to end the Ranorex Report in order to update the duration and finalize the status
-            TestReport.EndTestModule();
-            Report.End();
-
-            var zippedReportFileDirectory = CreateTempReportFileDirectory();
+        	var zippedReportFileDirectory = CreateTempReportFileDirectory();
             var reportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
             var name = TestReport.ReportEnvironment.ReportName;
 
             var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);
             var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
+            
+            if (!File.Exists(PDFReportFilePath)) 
+            {
+            	finishReport();
+            	
+            	Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
-            TestReport.SaveReport();
-            Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
-
-            Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
+            	Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
+            }
+            
             return PDFReportFilePath;
         }
 
         private static string AddPdfExtension(string pdfName)
         {
             return pdfName.EndsWith(".pdf") ? pdfName : pdfName + ".pdf";
+        }
+        
+        private void finishReport() {
+        	Activity activity = ActivityStack.Current ;
+        	
+        	//Necessary to end the Ranorex Report in order to update the duration and finalize the status
+        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
+            	{
+            		TestReport.EndTestModule();
+            		Report.End();
+            	}
+
+            	TestReport.SaveReport();
         }
 
         private string CreateTempReportFileDirectory()

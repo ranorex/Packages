@@ -43,41 +43,74 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             string username = "",
             string password = "")
         {
-            try
+            EmailLibrary.SendEmail(subject, to, from, body, new string[] { attachment }, serverHostname, serverPort, useSSL, username, password);
+        }
+
+        /// <summary>
+        /// Sends an email.
+        /// </summary>
+        /// <param name="subject">Email subject</param>
+        /// <param name="to">Email recipient</param>
+        /// <param name="from">Email sender</param>
+        /// <param name="body">Email message</param>
+        /// <param name="attachment">Path of a file to attach</param>
+        /// <param name="serverHostname">Server hostname</param>
+        /// <param name="serverPort">Server port</param>
+        /// <param name="useSSL">Defines whether SSL is used or not (true or false)</param>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        [UserCodeMethod]
+            public static void SendEmail(
+                string subject,
+                string to,
+                string from,
+                string body,
+                string[] attachments,
+                string serverHostname,
+                int serverPort,
+                bool useSSL = false,
+                string username = "",
+                string password = "")
             {
-                var client = new SmtpClient(serverHostname, serverPort)
+                try
                 {
-                    Credentials = new NetworkCredential(username, password),
-                    EnableSsl = useSSL,
-                };
-
-                var message = new MailMessage(from, to)
-                {
-                    Subject = subject,
-                    Body = body
-                };
-
-                if (!string.IsNullOrEmpty(attachment))
-                {
-                    if (File.Exists(attachment))
+                    var client = new SmtpClient(serverHostname, serverPort)
                     {
-                        message.Attachments.Add(new Attachment(attachment));
-                    }
-                    else
+                        Credentials = new NetworkCredential(username, password),
+                        EnableSsl = useSSL,
+                    };
+
+                    var message = new MailMessage(from, to)
                     {
-                        Report.Warn(string.Format("The file '{0}' does not exist. Please make sure the path '{1}' is correct.",
-                            attachment, TestReport.ReportEnvironment));
+                        Subject = subject,
+                        Body = body
+                    };
+
+                    if (attachments != null)
+                    {
+
+                        foreach (string attachment in attachments)
+                        {
+                            if (File.Exists(attachment))
+                            {
+                                message.Attachments.Add(new Attachment(attachment));
+                            }
+                            else if (!string.Empty.Equals(attachment))
+                            {
+                                Report.Warn(string.Format("The file '{0}' does not exist. Please make sure the path '{1}' is correct.",
+                                    attachment, TestReport.ReportEnvironment));
+                            }
+                        }
                     }
+
+                    client.Send(message);
+
+                    Report.Success(string.Format("Email has been sent to '{0}'", to));
                 }
-
-                client.Send(message);
-
-                Report.Success(string.Format("Email has been sent to '{0}'", to));
-            }
-            catch (Exception ex)
-            {
-                Report.Failure("Email Error: " + ex);
+                catch (Exception ex)
+                {
+                    Report.Failure("Email Error: " + ex);
+                }
             }
         }
-    }
 }
