@@ -54,8 +54,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     				
     			}
     		} else {
-    			//TODO: what should happen if file exists and we don't want to overwrite it?
-    		}
+                //TODO: what should happen if file exists and we don't want to overwrite it?
+                string message = String.Format("The file {0} already exists in the local file, the download will be skipped", new FileInfo(localPath).FullName);
+                Report.Log(ReportLevel.Debug, message);
+            }
     	}
     }
 }
