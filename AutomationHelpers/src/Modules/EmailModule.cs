@@ -139,7 +139,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
                 Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
                 Report.Info("Zipped report has been generated.");
-                zippedReportFile = TestReport.ReportEnvironment.ReportName + ".rxzlog";
+                zippedReportFile = string.Format("{0}\\{1}.rxzlog", zippedReportFileDirectory, TestReport.ReportEnvironment.ReportName);
             }
 
             if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
