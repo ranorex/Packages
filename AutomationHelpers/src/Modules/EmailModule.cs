@@ -163,7 +163,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
                 Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
                 Report.Info("Zipped report has been generated.");
-                return TestReport.ReportEnvironment.ReportName + ".rxzlog";
+                return string.Format("{0}\\{1}.rxzlog", zippedReportFileDirectory, TestReport.ReportEnvironment.ReportName);
             }
 
             return string.Empty;
