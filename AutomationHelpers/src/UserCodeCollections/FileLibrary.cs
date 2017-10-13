@@ -50,7 +50,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="text">Text that the file should contain</param>
         /// <param name="path">Full qualified path to load the file including filename and extension</param>
         [UserCodeMethod]
-        public static void appendToExistingFile(string text, string path)
+        public static void AppendToExistingFile(string text, string path)
         {
         	Report.Info("Add new line of text to file: " + path);
         	File.AppendAllText(path, Environment.NewLine + text);
