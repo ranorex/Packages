@@ -38,7 +38,7 @@ namespace RanorexAutomationHelpers.Test
         {
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/form", null, Duration.Zero, true);
-            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
+            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
 
@@ -62,7 +62,7 @@ namespace RanorexAutomationHelpers.Test
         {
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/form", null, Duration.Zero, true);
-            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
+            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
             var watcher = PopupWatcherLibrary.StartPopupWatcher(repoItemInfo, repoItemInfo);
@@ -81,7 +81,7 @@ namespace RanorexAutomationHelpers.Test
         {
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/form", null, Duration.Zero, true);
-            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
+            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
 
@@ -106,7 +106,8 @@ namespace RanorexAutomationHelpers.Test
             PopupWatcherLibrary.StartPopupWatcher(repoItemInfo2, repoItemInfo2);
 
             //Act
-            PopupWatcherLibrary.StopAllPopupWatchers();
+            PopupWatcherLibrary.StopPopupWatcher(repoItemInfo1, repoItemInfo1);
+            PopupWatcherLibrary.StopPopupWatcher(repoItemInfo2, repoItemInfo2);
 
             //Assert
             Report.DetachLogger(logger);

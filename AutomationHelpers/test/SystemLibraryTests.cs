@@ -21,11 +21,11 @@ namespace RanorexAutomationHelpers.Test
             Report.AttachLogger(logger);
 
             //Act
-            SystemLibrary.StartTimer("testTimer");
+            SystemLibrary.StartTimer("testTimerStart");
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual("Started: 'testTimer'", logger.LastLogMessage);
+            Assert.AreEqual("Started: 'testTimerStart'", logger.LastLogMessage);
         }
 
         [TestMethod()]
@@ -36,13 +36,13 @@ namespace RanorexAutomationHelpers.Test
             Report.AttachLogger(logger);
 
             //Act
-            SystemLibrary.StartTimer("testTimer1");
-            SystemLibrary.StartTimer("testTimer2");
-            SystemLibrary.StartTimer("testTimer3");
+            SystemLibrary.StartTimer("testTimerStart1");
+            SystemLibrary.StartTimer("testTimerStart2");
+            SystemLibrary.StartTimer("testTimerStart3");
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual("Started: 'testTimer3'", logger.LastLogMessage);
+            Assert.AreEqual("Started: 'testTimerStart3'", logger.LastLogMessage);
         }
 
 
@@ -56,16 +56,16 @@ namespace RanorexAutomationHelpers.Test
             //Act
             try
             {
-                SystemLibrary.StartTimer("testTimer");
-                SystemLibrary.StartTimer("testTimer");
+                SystemLibrary.StartTimer("testTimerStartTwice");
+                SystemLibrary.StartTimer("testTimerStartTwice");
                 //Assert
                 Assert.Fail();
             }
             catch (ArgumentException ex)
             {
                 Report.DetachLogger(logger);
-                Assert.AreEqual("Started: 'testTimer'", logger.LastLogMessage);
-                Assert.AreEqual("Timer with name 'testTimer' already exists", ex.Message);
+                Assert.AreEqual("Started: 'testTimerStartTwice'", logger.LastLogMessage);
+                Assert.AreEqual("Timer with name 'testTimerStartTwice' already exists", ex.Message);
             }
         }
 
@@ -75,31 +75,31 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
-            SystemLibrary.StartTimer("testTimer");
+            SystemLibrary.StartTimer("testTimerStartAndStop");
 
             //Act
             Thread.Sleep(1);
-            var time = SystemLibrary.StopTimer("testTimer");
+            var time = SystemLibrary.StopTimer("testTimerStartAndStop");
 
             //Assert
             Assert.IsTrue(time.TotalMilliseconds > 0);
             Report.DetachLogger(logger);
-            StringAssert.Contains(logger.LastLogMessage, "Stopped: 'testTimer' (duration: ");
+            StringAssert.Contains(logger.LastLogMessage, "Stopped: 'testTimerStartAndStop' (duration: ");
         }
 
         [TestMethod()]
         public void StopTimerTest_Multiple_Success()
         {
             //Arrange
-            SystemLibrary.StartTimer("testTimer1");
-            SystemLibrary.StartTimer("testTimer2");
-            SystemLibrary.StartTimer("testTimer3");
+            SystemLibrary.StartTimer("testTimerStartAndStop1");
+            SystemLibrary.StartTimer("testTimerStartAndStop2");
+            SystemLibrary.StartTimer("testTimerStartAndStop3");
 
             //Act
             Thread.Sleep(1);
-            var time1 = SystemLibrary.StopTimer("testTimer1");
-            var time2 = SystemLibrary.StopTimer("testTimer2");
-            var time3 = SystemLibrary.StopTimer("testTimer3");
+            var time1 = SystemLibrary.StopTimer("testTimerStartAndStop1");
+            var time2 = SystemLibrary.StopTimer("testTimerStartAndStop2");
+            var time3 = SystemLibrary.StopTimer("testTimerStartAndStop3");
 
             //Assert
             Assert.IsTrue(time1.TotalMilliseconds > 0);
@@ -115,13 +115,13 @@ namespace RanorexAutomationHelpers.Test
             //Act
             try
             {
-                SystemLibrary.StopTimer("testTimer");
+                SystemLibrary.StopTimer("testTimerNoStart");
                 //Assert
                 Assert.Fail();
             }
             catch (Exception ex)
             {
-                Assert.AreEqual("Timer 'testTimer' does not exist.", ex.Message);
+                Assert.AreEqual("Timer 'testTimerNoStart' does not exist.", ex.Message);
             }
         }
 
@@ -130,19 +130,19 @@ namespace RanorexAutomationHelpers.Test
         public void StopTimerTest_StoppedSameTimerTwice_Fail()
         {
             //Arrange
-            SystemLibrary.StartTimer("testTimer");
+            SystemLibrary.StartTimer("testTimerStopTwice");
 
             //Act
             try
             {
-                SystemLibrary.StopTimer("testTimer");
-                SystemLibrary.StopTimer("testTimer");
+                SystemLibrary.StopTimer("testTimerStopTwice");
+                SystemLibrary.StopTimer("testTimerStopTwice");
                 //Assert
                 Assert.Fail();
             }
             catch (Exception ex)
             {
-                Assert.AreEqual("Timer 'testTimer' does not exist.", ex.Message);
+                Assert.AreEqual("Timer 'testTimerStopTwice' does not exist.", ex.Message);
             }
         }
     }
