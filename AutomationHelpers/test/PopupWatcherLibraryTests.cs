@@ -3,7 +3,7 @@
 //
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using NSubstitute;
 using Ranorex;
 using Ranorex.AutomationHelpers.UserCodeCollections;
@@ -12,10 +12,10 @@ using Ranorex.Core.Repository;
 
 namespace RanorexAutomationHelpers.Test
 {
-    [TestClass]
+    [TestFixture]
     public sealed class PopupWatcherLibraryTests
     {
-        [TestMethod()]
+        [Test]
         public void StartPopupWatcherTest_Single_Success()
         {
             //Arrange
@@ -33,7 +33,7 @@ namespace RanorexAutomationHelpers.Test
             Assert.AreEqual("Popup watcher started.", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void StartPopupWatcherTest_Twice_ThrowsException()
         {
             //Arrange
@@ -57,7 +57,7 @@ namespace RanorexAutomationHelpers.Test
             }
         }
 
-        [TestMethod()]
+        [Test]
         public void StopPopupWatcherTest_Single_Success()
         {
             //Arrange
@@ -76,7 +76,7 @@ namespace RanorexAutomationHelpers.Test
             Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void StopPopupWatcherTest_StopWithoutStart_ReportsFail()
         {
             //Arrange
@@ -93,7 +93,7 @@ namespace RanorexAutomationHelpers.Test
             Assert.AreEqual("The popup watcher you tried to remove does not exist.", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void StopAllPopupWatcherTest_StopWithoutStart_Success()
         {
             //Arrange

@@ -10,7 +10,7 @@ namespace RanorexAutomationHelpers.Test
 {
     internal sealed class TestReportLogger : IReportLogger
     {
-        public bool PreFilterMessages { get; }
+        public bool PreFilterMessages { get; private set; }
 
         internal string LastLogMessage { get; set; }
 

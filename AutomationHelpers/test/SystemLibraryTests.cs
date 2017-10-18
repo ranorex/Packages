@@ -4,16 +4,16 @@
 
 using System;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Ranorex;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 
 namespace RanorexAutomationHelpers.Test
 {
-    [TestClass]
+    [TestFixture]
     public sealed class SystemLibraryTests
     {
-        [TestMethod()]
+        [Test]
         public void StartTimerTest_Single_Success()
         {
             //Arrange
@@ -28,7 +28,7 @@ namespace RanorexAutomationHelpers.Test
             Assert.AreEqual("Started: 'testTimerStart'", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void StartTimerTest_Multiple_Success()
         {
             //Arrange
@@ -46,7 +46,7 @@ namespace RanorexAutomationHelpers.Test
         }
 
 
-        [TestMethod()]
+        [Test]
         public void StartTimerTest_StartedSameTimerTwice_ThrowsException()
         {
             //Arrange
@@ -69,7 +69,7 @@ namespace RanorexAutomationHelpers.Test
             }
         }
 
-        [TestMethod()]
+        [Test]
         public void StopTimerTest_Single_Success()
         {
             //Arrange
@@ -84,10 +84,10 @@ namespace RanorexAutomationHelpers.Test
             //Assert
             Assert.IsTrue(time.TotalMilliseconds > 0);
             Report.DetachLogger(logger);
-            StringAssert.Contains(logger.LastLogMessage, "Stopped: 'testTimerStartAndStop' (duration: ");
+            StringAssert.Contains("Stopped: 'testTimerStartAndStop' (duration: ", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void StopTimerTest_Multiple_Success()
         {
             //Arrange
@@ -108,7 +108,7 @@ namespace RanorexAutomationHelpers.Test
         }
 
 
-        [TestMethod()]
+        [Test]
         public void StopTimerTest_StoppedWithoutStart_Fail()
         {
             //Arrange
@@ -126,7 +126,7 @@ namespace RanorexAutomationHelpers.Test
         }
 
 
-        [TestMethod()]
+        [Test]
         public void StopTimerTest_StoppedSameTimerTwice_Fail()
         {
             //Arrange

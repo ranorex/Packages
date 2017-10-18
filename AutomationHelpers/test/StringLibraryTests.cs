@@ -2,15 +2,15 @@
 // Copyright © 2017 Ranorex All rights reserved
 //
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 
 namespace Ranorex.AutomationHelpers.Tests
 {
-	[TestClass()]
+	[TestFixture]
 	public sealed class StringLibraryTests
 	{
-		[TestMethod()]
+		[Test]
 		public void ConcatStringsTest_SomeStrings_Success()
 		{
 			//Arrange
@@ -24,7 +24,7 @@ namespace Ranorex.AutomationHelpers.Tests
 			Assert.AreEqual("value1value2", actual);
 		}
 
-		[TestMethod()]
+		[Test]
 		public void ConcatStringsTest_EmptyStrings_Success()
 		{
 			//Arrange
@@ -38,7 +38,7 @@ namespace Ranorex.AutomationHelpers.Tests
 			Assert.AreEqual(string.Empty, actual);
 		}
 
-		[TestMethod()]
+		[Test]
 		public void ConcatStringsTest_NullStrings_Success()
 		{
 			//Arrange
