@@ -2,16 +2,16 @@
 // Copyright © 2017 Ranorex All rights reserved
 //
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 using RanorexAutomationHelpers.Test;
 
 namespace Ranorex.AutomationHelpers.Tests
 {
-    [TestClass()]
+    [TestFixture]
     public sealed class ValidationLibraryTests
     {
-        [TestMethod()]
+        [Test]
         public void CompareValuesTest_EqualStrings_Success()
         {
             //Arrange
@@ -28,7 +28,7 @@ namespace Ranorex.AutomationHelpers.Tests
             Assert.AreEqual("Objects are equal (actual='value1', expected='value1').", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void CompareValuesTest_NotEqualStrings_ThrowsException()
         {
             //Arrange
@@ -52,7 +52,7 @@ namespace Ranorex.AutomationHelpers.Tests
             }
         }
 
-        [TestMethod()]
+        [Test]
         public void CompareValuesTest_EmptyStrings_Success()
         {
             //Arrange
@@ -69,7 +69,7 @@ namespace Ranorex.AutomationHelpers.Tests
             Assert.AreEqual("Objects are equal (actual='', expected='').", logger.LastLogMessage);
         }
 
-        [TestMethod()]
+        [Test]
         public void CompareValuesTest_NullStrings_Success()
         {
             //Arrange
