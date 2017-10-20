@@ -43,7 +43,7 @@
       <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ranorex.Core, Version=7.2.0.0, Culture=neutral, PublicKeyToken=b798506b574ebc9a, processorArchitecture=MSIL" />
+    <Reference Include="Ranorex.Core" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
