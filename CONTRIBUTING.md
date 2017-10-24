@@ -4,13 +4,13 @@ We believe that software test automation makes the world a better place and this
 
 #### Table Of Contents
 
-[I just have an idea for a feature!!](#i-just-have-an-idea-for-a-feature!!)
+
 
 [Contribute to code](#contribute-to-code)
   * [Fork this repository](#fork-this-repository)
   * [Clone this repository](#clone-this-repository)
   * [Write code](#write-code)
-  * [Run tests](#run-tests)
+  * [Write/run tests](#write/run-tests)
   * [Commit your changes](#commit-your-changes)
   * [Sync your fork](#sync-your-fork)
   * [Update your branch](#update-your-branch)
@@ -19,9 +19,7 @@ We believe that software test automation makes the world a better place and this
   * [Coding guideline](#coding-guideline)
   * [Commit message guideline](#commit-message-guideline)
 
-## I just have an idea for a feature!!
-
-Fill the gap between your needs and our development focus using [Ranorex User voice](https://www.ranorex.com/uservoice.html).
+[I just have an idea for a feature!!](#i-just-have-an-idea-for-a-feature!!)
 
 ## Contribute to Code
 
@@ -47,9 +45,9 @@ and create a new branch for your changes:
 
 Modify the code in your branch now like you want, but we hope that you are planning to submit your change back to this repository, so please keep a few things in mind: [Coding Guideline](#coding-guideline)
 
-### Run tests
+### Write/run tests
 
-Please make sure the run the appropriate unit tests and include tests that fail without your new code, and pass with it.
+Please make sure to provide unit tests for your new functionality, if it is applicable. Run the appropriate unit tests, include tests that fail without your new code and pass with it.
 
 ### Commit your changes
 
@@ -142,3 +140,7 @@ These are guidelines - please use your best judgment in using them. If violation
 3. Reference section **[optional]**
     + Separated from previous section via blank line
     + Reference issues and pull requests
+
+## I just have an idea for a feature!!
+
+Fill the gap between your needs and our development focus using [Ranorex User voice](https://www.ranorex.com/uservoice.html).
