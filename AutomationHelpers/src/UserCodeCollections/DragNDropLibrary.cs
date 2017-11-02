@@ -20,13 +20,13 @@ namespace CheckAutomationHelperIntegration.UserCodeCollections
     [UserCodeCollection]
     public class DragNDropLibrary
     {
-    	
-    	/// <summary>
-    	/// This is a placeholder text. Please describe the purpose of the
-    	/// user code method here. The method is published to the User Code library
-    	/// within a User Code collection.
-    	/// </summary>
-    	[UserCodeMethod]
+
+        /// <summary>
+        /// Picks the source element, drags it to the target element and drop it there.
+        /// <param name="source">The element which should be draged.</param>
+        /// <param name="target">The element where the source elemente will be dropped.</param>
+        /// </summary>
+        [UserCodeMethod]
     	public static void DragAndDrop(Adapter source, Adapter target)
     	{
             source.Focus();

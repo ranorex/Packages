@@ -31,7 +31,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         [UserCodeMethod]
-        public static void SendEmail(
+        public static bool SendEmail(
             string subject,
             string to,
             string from,
@@ -43,7 +43,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             string username = "",
             string password = "")
         {
-            EmailLibrary.SendEmail(subject, to, from, body, new string[] { attachment }, serverHostname, serverPort, useSSL, username, password);
+            return EmailLibrary.SendEmail(subject, to, from, body, new string[] { attachment }, serverHostname, serverPort, useSSL, username, password);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
         [UserCodeMethod]
-            public static void SendEmail(
+            public static bool SendEmail(
                 string subject,
                 string to,
                 string from,
@@ -106,10 +106,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     client.Send(message);
 
                     Report.Success(string.Format("Email has been sent to '{0}'", to));
+                    return true;
                 }
                 catch (Exception ex)
                 {
                     Report.Failure("Email Error: " + ex);
+                    return false;
                 }
             }
         }

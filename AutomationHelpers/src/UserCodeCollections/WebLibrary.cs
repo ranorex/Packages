@@ -48,13 +48,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     					Report.Log(ReportLevel.Success, message);
     				} catch (Exception e)
     				{
-    					string message = String.Format("Downloading a file from: {0} failed faile for the following reason: {1}", uri, e.Message);
+    					string message = String.Format("Downloading a file from: {0} failed for the following reason: {1}", uri, e.Message);
     					Report.Log(ReportLevel.Failure, message);
     				}
     				
     			}
     		} else {
-                //TODO: what should happen if file exists and we don't want to overwrite it?
                 string message = String.Format("The file {0} already exists in the local file, the download will be skipped", new FileInfo(localPath).FullName);
                 Report.Log(ReportLevel.Debug, message);
             }
