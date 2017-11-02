@@ -22,8 +22,8 @@ namespace CheckAutomationHelperIntegration.UserCodeCollections
     {
 
         /// <summary>
-        /// Picks the source element, drags it to the target element and drop it there.
-        /// <param name="source">The element which should be draged.</param>
+        /// Picks the source element, drags it to the target element and drops it there.
+        /// <param name="source">The element which should be dragged.</param>
         /// <param name="target">The element where the source elemente will be dropped.</param>
         /// </summary>
         [UserCodeMethod]
