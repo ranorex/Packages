@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Ranorex.AutomationHelpers</id>
-        <version>1.0.6</version>
+        <version>1.0.8</version>
         <title>Ranorex Automation Helpers</title>
         <authors>Ranorex Community</authors>
         <owners>Ranorex GmbH</owners>
@@ -21,7 +21,7 @@
             <frameworkAssembly assemblyName="System.Drawing" />
         </frameworkAssemblies>
         <dependencies>
-            <dependency id="Ranorex.ReportToPDF" version="[1.0.10,1.1)" />
+            <dependency id="Ranorex.ReportToPDF" version="[1.0.11,1.1)" />
         </dependencies>
     </metadata>
     <files>
