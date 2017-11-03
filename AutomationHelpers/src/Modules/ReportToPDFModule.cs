@@ -59,14 +59,14 @@ namespace Ranorex.AutomationHelpers.Modules
             {
                 //PDF will be generated at the very end of the TestSuite
                 TestSuite.TestSuiteCompleted += delegate {
-                    createPDF();
+                    CreatePDF();
                 };
 
                 this.registered = true;
             }
         }
 
-        public string createPDF()
+        public string CreatePDF()
         {
             //Specify Ranorex Report name if not already set
             if (String.IsNullOrEmpty(this.PdfName))
@@ -116,7 +116,7 @@ namespace Ranorex.AutomationHelpers.Modules
             
             if (!File.Exists(PDFReportFilePath)) 
             {
-            	finishReport();
+            	FinishReport();
             	
             	Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
@@ -131,7 +131,7 @@ namespace Ranorex.AutomationHelpers.Modules
             return pdfName.EndsWith(".pdf") ? pdfName : pdfName + ".pdf";
         }
         
-        private void finishReport() {
+        private void FinishReport() {
         	Activity activity = ActivityStack.Current ;
         	
         	//Necessary to end the Ranorex Report in order to update the duration and finalize the status

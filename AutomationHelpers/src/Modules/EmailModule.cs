@@ -130,7 +130,7 @@ namespace Ranorex.AutomationHelpers.Modules
         private void OnTestSuiteCompletedSendResult(object sender, EventArgs e)
         {
             var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
-            var reportFile = createReports();
+            var reportFile = CreateReports();
 
             if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
                 || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
@@ -155,7 +155,7 @@ namespace Ranorex.AutomationHelpers.Modules
             if (bool.Parse(this.SendZippedReportOnComplete))
             {
                 //Necessary to end the Ranorex Report in order to update the duration and finalize the status
-                finishTestReport();
+                FinishTestReport();
 	
                 // zip the current report
                 var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
@@ -169,7 +169,7 @@ namespace Ranorex.AutomationHelpers.Modules
             return string.Empty;
         }
         
-        private void finishTestReport()
+        private void FinishTestReport()
         {
         	Activity activity = ActivityStack.Current ;
         	
@@ -190,13 +190,13 @@ namespace Ranorex.AutomationHelpers.Modules
                 pdfModule.PdfName = TestReport.ReportEnvironment.ReportName + ".pdf";
                 pdfModule.Xml = "";
                 pdfModule.Details = "all";
-                return pdfModule.createPDF();
+                return pdfModule.CreatePDF();
             }
 
             return string.Empty;
         }
 
-        private string[] createReports()
+        private string[] CreateReports()
         {
             return new string[] { CreateCompressedReport(), CreatePdfReport() };
         }
