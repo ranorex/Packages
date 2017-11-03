@@ -3,10 +3,10 @@
 //
 
 using NUnit.Framework;
+using Ranorex;
 using Ranorex.AutomationHelpers.UserCodeCollections;
-using RanorexAutomationHelpers.Test;
 
-namespace Ranorex.AutomationHelpers.Tests
+namespace RanorexAutomationHelpers.Test
 {
     [TestFixture]
     public sealed class ValidationLibraryTests

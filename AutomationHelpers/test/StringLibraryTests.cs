@@ -5,7 +5,7 @@
 using NUnit.Framework;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 
-namespace Ranorex.AutomationHelpers.Tests
+namespace RanorexAutomationHelpers.Test
 {
 	[TestFixture]
 	public sealed class StringLibraryTests
