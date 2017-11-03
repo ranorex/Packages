@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
-      <id>3bb61b55-d05d-4220-a24c-74dca35bbd05</id>
+      <id>bd96e9e9-2c23-443c-ac89-905ed797822b</id>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
