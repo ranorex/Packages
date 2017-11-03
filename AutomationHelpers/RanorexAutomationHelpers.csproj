@@ -99,6 +99,9 @@
     <Compile Include="src\Modules\ReportToPDFModule.cs">
       <id>e71a1a8b-dc03-4ca0-8204-0b55bd6ba0a0</id>
     </Compile>
+    <Compile Include="src\UserCodeCollections\DragNDropLibrary.cs">
+      <id>edc3e671-8c0a-4335-85d8-1c80a2d2fab2</id>
+    </Compile>
     <Compile Include="src\UserCodeCollections\EmailLibrary.cs">
       <id>9faa4683-dc20-40d7-9d04-211fd2d43c46</id>
     </Compile>
@@ -119,6 +122,9 @@
     </Compile>
     <Compile Include="src\UserCodeCollections\ValidationLibrary.cs">
       <id>8331baf6-8378-4cde-b35a-b1ed70e726b7</id>
+    </Compile>
+    <Compile Include="src\UserCodeCollections\WebLibrary.cs">
+      <id>ea5ff409-14a0-48a0-9377-50a0778534ba</id>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -44,6 +44,26 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
         }
 
+        // <summary>
+        /// Open an existing file and add a new line of text.
+        /// </summary>
+        /// <param name="text">Text that the file should contain.</param>
+        /// <param name="path">Full qualified path to load the file including filename and extension.</param>
+        /// <param name="addNewLine">If true, a line separation will be added, otherwise only the text will be appended to the file.</param>
+        [UserCodeMethod]
+        public static void AppendStringToExistingFile(string text, string path, bool addNewLine)
+        {
+        	Report.Info("Add new text to file: " + path);
+            if (addNewLine)
+            {
+                File.AppendAllText(path, Environment.NewLine + text);
+            }
+            else
+            {
+                File.AppendAllText(path, text);
+            }
+        }
+
         /// <summary>
         /// Checks if files in a directory exist.
         /// </summary>
