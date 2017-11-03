@@ -44,7 +44,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
         }
 
-        // <summary>
+        /// <summary>
         /// Open an existing file and add a new line of text.
         /// </summary>
         /// <param name="text">Text that the file should contain.</param>
