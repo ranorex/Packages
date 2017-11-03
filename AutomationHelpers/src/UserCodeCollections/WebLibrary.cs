@@ -40,9 +40,14 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     catch (Exception e)
                     {
                         string message = string.Format(
-                            "Downloading a file from: {0} failed for the following reason: {1}",
-                            uri,
-                            e.Message);
+                            "Downloading a file from: {0} failed for the following reason:",
+                            uri);
+                        while (e != null)
+                        {
+                            message = string.Concat(message, Environment.NewLine, e.Message);
+                            e = e.InnerException;
+                        }
+
                         Report.Log(ReportLevel.Failure, message);
                     }
                 }
