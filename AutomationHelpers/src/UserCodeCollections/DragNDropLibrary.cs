@@ -21,6 +21,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void DragAndDrop(Adapter source, Adapter target)
         {
+            Report.Info(string.Format("Drag from {0}", source));
             source.Focus();
             source.MoveTo();
             Mouse.ButtonDown(System.Windows.Forms.MouseButtons.Left);
@@ -30,6 +31,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             currentPoint.X += 5;
             Mouse.MoveTo(currentPoint);
 
+            Report.Info(string.Format("Drop at {0}", target));
             target.Focus();
             target.MoveTo();
             Mouse.ButtonUp(System.Windows.Forms.MouseButtons.Left);
