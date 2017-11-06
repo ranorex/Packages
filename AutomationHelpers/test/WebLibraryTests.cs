@@ -27,7 +27,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual($"Downloading a file from: {address} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: {nameof(address)}", logger.LastLogMessage);
+            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: address", address), logger.LastLogMessage);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual($"Downloading a file from: {address} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: {nameof(fileName)}", logger.LastLogMessage);
+            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: fileName", address), logger.LastLogMessage);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual($"File successfully downloaded to {fileName}", logger.LastLogMessage);
+            Assert.AreEqual(string.Format("File successfully downloaded to {0}", fileName), logger.LastLogMessage);
             Assert.IsTrue(File.Exists(fileName));
             File.Delete(fileName);
         }
@@ -81,8 +81,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual($"Downloading a file from: {address} failed for the following reason:\r\nAn exception occurred during a WebClient request.\r\nAccess to the path '{fileName}' is denied.", logger.LastLogMessage);
-            Assert.IsFalse(File.Exists(fileName));
+            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nAn exception occurred during a WebClient request.\r\nAccess to the path '{1}' is denied.", address, fileName), logger.LastLogMessage);
         }
     }
 }
