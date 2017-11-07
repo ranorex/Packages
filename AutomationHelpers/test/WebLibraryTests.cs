@@ -31,6 +31,19 @@ namespace RanorexAutomationHelpers.Test
         }
 
         [Test]
+        public void WebLibraryTest_IncorrectUri_Fail()
+        {
+            //Arrange
+            string address = "ranorex.com";
+            string fileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+
+            //Act and Assert
+            Assert.Throws<InvalidOperationException>(
+                () => WebLibrary.DownloadFile(address, fileName));
+        }
+
+
+        [Test]
         public void WebLibraryTest_NoLocalPath_Fail()
         {
             //Arrange
@@ -48,7 +61,7 @@ namespace RanorexAutomationHelpers.Test
         }
 
         [Test]
-        public void WebLibraryTest_DownloadHtmlToCurrentDir_Success()
+        public void WebLibraryTest_DownloadHtmlToCurrentDirWithFilePath_Success()
         {
             //Arrange
             string address = "https://www.ranorex.com/release-notes.html";
@@ -59,6 +72,27 @@ namespace RanorexAutomationHelpers.Test
 
             //Act
             WebLibrary.DownloadFile(address, fileName);
+
+            //Assert
+            Report.DetachLogger(logger);
+            Assert.AreEqual(string.Format("File successfully downloaded to {0}", fileName), logger.LastLogMessage);
+            Assert.IsTrue(File.Exists(fileName));
+            File.Delete(fileName);
+        }
+
+        [Test]
+        public void WebLibraryTest_DownloadHtmlToCurrentDirWithDirPath_Success()
+        {
+            //Arrange
+            string address = "https://www.ranorex.com/release-notes.html";
+            string fileDirPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            string fileName = Path.Combine(fileDirPath, "release-notes.html");
+            File.Delete(fileName);
+            var logger = new TestReportLogger();
+            Report.AttachLogger(logger);
+
+            //Act
+            WebLibrary.DownloadFile(address, fileDirPath);
 
             //Assert
             Report.DetachLogger(logger);

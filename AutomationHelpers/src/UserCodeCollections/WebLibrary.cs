@@ -25,6 +25,12 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         public static void DownloadFile(
             string uri, string localPath, string overwriteExisting = "true")
         {
+            Uri result = null;
+            if (Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out result) && localPath != null && !Path.HasExtension(localPath))
+            {
+                localPath = Path.Combine(localPath, Path.GetFileName(result.LocalPath));
+            }
+
             if (!File.Exists(localPath) || bool.Parse(overwriteExisting))
             {
                 using (WebClient client = new WebClient())
