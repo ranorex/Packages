@@ -63,7 +63,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 string message = string.Format(
                     "The file {0} already exists in the local file, the download will be skipped",
                     new FileInfo(localPath).FullName);
-                Report.Log(ReportLevel.Debug, message);
+                Report.Log(ReportLevel.Warn, message);
             }
         }
     }
