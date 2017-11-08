@@ -132,10 +132,23 @@ namespace Ranorex.AutomationHelpers.Modules
             var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
             var reportFile = CreateReports();
 
-            if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
-                || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
-                || (bool.Parse(this.SendZippedReportOnComplete) && !bool.Parse(this.SendEmailOnFailure) && !bool.Parse(this.SendEmailOnSuccess)))
+            var sendEmailOnFailure = true;
+            if (!bool.TryParse(this.SendEmailOnFailure, out sendEmailOnFailure)) sendEmailOnFailure = true;
+            var sendEmailOnSuccess = true;
+            if (!bool.TryParse(this.SendEmailOnSuccess, out sendEmailOnSuccess)) sendEmailOnSuccess = true;
+            var sendZippedReportOnComplete = false;
+            bool.TryParse(this.SendZippedReportOnComplete, out sendZippedReportOnComplete);
+            var sendPdfReportOnComplete = false;
+            bool.TryParse(this.SendPdfReportOnComplete, out sendPdfReportOnComplete);
+
+            if (sendEmailOnFailure && currentTestSuiteStatus.Status == ActivityStatus.Failed
+                || sendEmailOnSuccess && currentTestSuiteStatus.Status == ActivityStatus.Success
+                || sendZippedReportOnComplete && !sendEmailOnFailure && !sendEmailOnSuccess
+                || sendPdfReportOnComplete && !sendEmailOnFailure && !sendEmailOnSuccess)
             {
+                var useSSL = false;
+                bool.TryParse(this.UseSSL, out useSSL);
+
                 EmailLibrary.SendEmail(
                     this.Subject,
                     this.To,
@@ -144,7 +157,7 @@ namespace Ranorex.AutomationHelpers.Modules
                     reportFile,
                     this.ServerHostname,
                     int.Parse(this.ServerPort),
-                    bool.Parse(this.UseSSL),
+                    useSSL,
                     this.Username,
                     this.Password);
             }
@@ -152,11 +165,12 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string CreateCompressedReport()
         {
-            if (bool.Parse(this.SendZippedReportOnComplete))
+            var sendZippedReportOnComplete = false;
+            if (bool.TryParse(this.SendZippedReportOnComplete, out sendZippedReportOnComplete) && sendZippedReportOnComplete)
             {
                 //Necessary to end the Ranorex Report in order to update the duration and finalize the status
                 FinishTestReport();
-	
+
                 // zip the current report
                 var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
                 var name = TestReport.ReportEnvironment.ReportName;
@@ -168,23 +182,24 @@ namespace Ranorex.AutomationHelpers.Modules
 
             return string.Empty;
         }
-        
+
         private void FinishTestReport()
         {
-        	Activity activity = ActivityStack.Current ;
-        	
-        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
-        	    {
-        	    	TestReport.EndTestModule();
-                	Report.End();
-        	    }
-        	    
-        	    TestReport.SaveReport();
+            Activity activity = ActivityStack.Current;
+
+            if (activity.GetType().Name.Equals("TestSuiteActivity"))
+            {
+                TestReport.EndTestModule();
+                Report.End();
+            }
+
+            TestReport.SaveReport();
         }
 
         private string CreatePdfReport()
         {
-            if (bool.Parse(this.SendPdfReportOnComplete))
+            var sendPdfReportOnComplete = false;
+            if (bool.TryParse(this.SendPdfReportOnComplete, out sendPdfReportOnComplete) && sendPdfReportOnComplete)
             {
                 ReportToPDFModule pdfModule = new ReportToPDFModule();
                 pdfModule.PdfName = TestReport.ReportEnvironment.ReportName + ".pdf";
