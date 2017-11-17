@@ -10,20 +10,20 @@ using Ranorex.Core.Testing;
 namespace Ranorex.AutomationHelpers.UserCodeCollections
 {
     /// <summary>
-    /// Collection of methods which helps to automate web and network based tasks.
+    /// A collection of methods to help automate web and network-based tasks.
     /// </summary>
     [UserCodeCollection]
     public static class WebLibrary
     {
         /// <summary>
-        /// Download a file and stores it locally.
+        /// Downloads a file and stores it locally.
         /// </summary>
         /// <param name="uri">The uri of the file to download</param>
-        /// <param name="targetLocation">Local location where the file should be stored</param>
-        /// <param name="overwrite">true / false if existing file should be overwritten</param>
+        /// <param name="localPath">Local location where the file should be stored</param>
+        /// <param name="overwriteExisting">true / false if existing file should be overwritten</param>
         [UserCodeMethod]
         public static void DownloadFile(
-            string uri, string localPath, string overwriteExisting = "true")
+            string uri, string localPath, bool overwriteExisting = true)
         {
             Uri result = null;
             if (Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out result) && localPath != null && !Path.HasExtension(localPath))
@@ -31,7 +31,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 localPath = Path.Combine(localPath, Path.GetFileName(result.LocalPath));
             }
 
-            if (!File.Exists(localPath) || bool.Parse(overwriteExisting))
+            if (!File.Exists(localPath) || overwriteExisting)
             {
                 using (WebClient client = new WebClient())
                 {
