@@ -104,7 +104,7 @@ Now reapply your patch on top of the latest changes:
 
 ### Submit your changes
 
-Please send a [GitHub Pull Request](https://github.com/ranorex/Packages/pull/new/master) with a description of your changes (read more about [pull requests](http://help.github.com/pull-requests/)). Please follow our coding style guide (#coding-styleguide) and make sure all of your commits are there and atomic (one feature per commit).
+Please send a [GitHub Pull Request](https://github.com/ranorex/Packages/pull/new/integration) *to the integration branch* with a description of your changes (read more about [pull requests](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)). Please follow our coding style guide (#coding-styleguide) and make sure all of your commits are there and atomic (one feature per commit).
 Once everything's correct, press "Send pull request". We will then be notified about your submission and provide you with feedback.
 
 ## Style guides
