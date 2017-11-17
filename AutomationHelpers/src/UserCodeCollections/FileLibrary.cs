@@ -45,11 +45,11 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Open an existing file and add a new line of text.
+        /// Opens an existing file and adds a new line of text at the end of it.
         /// </summary>
-        /// <param name="text">Text that the file should contain.</param>
-        /// <param name="path">Full qualified path to load the file including filename and extension.</param>
-        /// <param name="addNewLine">If true, a line separation will be added, otherwise only the text will be appended to the file.</param>
+        /// <param name="text">The text to add to the file.</param>
+        /// <param name="path">The Full qualified path to load the file including filename and extension.</param>
+        /// <param name="addNewLine">If true, adds the text on a newline. Otherwise, adds it without a line break.</param>
         [UserCodeMethod]
         public static void AppendStringToExistingFile(string text, string path, bool addNewLine)
         {
