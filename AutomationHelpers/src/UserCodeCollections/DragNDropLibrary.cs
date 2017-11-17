@@ -16,7 +16,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <summary>
         /// Picks the source element, drags it to the target element and drops it there.
         /// <param name="source">The element which should be dragged.</param>
-        /// <param name="target">The element where the source elemente will be dropped.</param>
+        /// <param name="target">The element where the source element will be dropped.</param>
         /// </summary>
         [UserCodeMethod]
         public static void DragAndDrop(Adapter source, Adapter target)
