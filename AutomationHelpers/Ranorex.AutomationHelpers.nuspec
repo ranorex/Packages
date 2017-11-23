@@ -8,7 +8,7 @@
         <owners>Ranorex GmbH</owners>
         <projectUrl>https://github.com/ranorex/Ranorex-Automation-Helpers</projectUrl>
         <licenseUrl>https://github.com/ranorex/Packages/blob/master/AutomationHelpers/LICENSE.txt</licenseUrl>
-        <iconUrl>https://www.ranorex.com/blog/wp-content/uploads/2016/03/rx_logo-1.png</iconUrl>
+        <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Extend your solution with a collection of small and handy modules and methods to comfortably handle daily challenges in test automation.</description>
         <copyright>Copyright 2017</copyright>

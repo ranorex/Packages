@@ -6,6 +6,7 @@
     <title>Ranorex - NeoLoad integration</title>
     <authors>Ranorex GmbH</authors>
     <owners>Ranorex GmbH</owners>
+    <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Package that integrates Neotys - NeoLoad functionality into the Ranorex system.</description>
     <copyright>Copyright (c) 2017 Ranorex GmbH</copyright>
