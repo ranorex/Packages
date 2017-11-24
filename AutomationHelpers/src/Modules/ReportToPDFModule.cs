@@ -92,8 +92,6 @@ namespace Ranorex.AutomationHelpers.Modules
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("ReportToPDF: " + e.Message);
                 Console.ResetColor();
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
             }
 
             //Delete *.rxzlog if not enabled within test suite settings
@@ -113,16 +111,16 @@ namespace Ranorex.AutomationHelpers.Modules
 
             var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);
             var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
-            
-            if (!File.Exists(PDFReportFilePath)) 
+
+            if (!File.Exists(PDFReportFilePath))
             {
             	FinishReport();
-            	
+
             	Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
             	Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
             }
-            
+
             return PDFReportFilePath;
         }
 
@@ -130,10 +128,10 @@ namespace Ranorex.AutomationHelpers.Modules
         {
             return pdfName.EndsWith(".pdf") ? pdfName : pdfName + ".pdf";
         }
-        
+
         private void FinishReport() {
         	Activity activity = ActivityStack.Current ;
-        	
+
         	//Necessary to end the Ranorex Report in order to update the duration and finalize the status
         	if (activity.GetType().Name.Equals("TestSuiteActivity"))
             	{
