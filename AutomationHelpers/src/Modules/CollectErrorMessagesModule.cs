@@ -1,18 +1,9 @@
-﻿/*
- * User: RobinHood42
- * Date: 19/02/2018
- * Time: 10:36
- */
+﻿//
+// Copyright © 2017 Ranorex All rights reserved
+//
+
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Drawing;
-using System.Threading;
-using WinForms = System.Windows.Forms;
-
-using Ranorex;
-using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Reporting;
 
@@ -22,14 +13,13 @@ namespace Ranorex.AutomationHelpers.Modules
     /// Functionality: Collects all error messages from given test container.
     /// Usage: Use module within a test container with enabled retry count
     /// </summary>
-    [TestModule("E4E50BBC-20F8-461F-B39A-863B6F69DE89", ModuleType.UserCode, 1)]
+    [TestModule("E4E50BBC-20F8-461F-B39A-863B6F69DE89", ModuleType.UserCode)]
     public class CollectErrorMessagesModule : ITestModule
     {
-        public static List<string> builder = new List<string>();
-
-        private static string lastTestContainerName = String.Empty;
+        private static List<string> errorMessages = new List<string>();
+        private static string lastTestContainerName;
         private static int retryIteration;
-        private static bool registered = false;
+        private static bool registered;
 
         public CollectErrorMessagesModule()
         {
@@ -42,44 +32,44 @@ namespace Ranorex.AutomationHelpers.Modules
             Keyboard.DefaultKeyPressTime = 100;
             Delay.SpeedFactor = 1.0;
 
-            //Delegate must be registered only once
-            if (!CollectErrorMessagesModule.registered)
-            {
-                //PDF will be generated at the very end of the TestSuite
-                TestSuite.TestSuiteCompleted += delegate
-                {
-                    LogErrorMessages();
-                };
+            Run();
+        }
 
-                CollectErrorMessagesModule.registered = true;
+        private static void Run()
+        {
+            // Delegate must be registered only once
+            if (!registered)
+            {
+                //Messages will be added to the report at the very end of the TestSuite
+                TestSuite.TestSuiteCompleted += LogErrorMessages;
+                registered = true;
             }
 
-            //Store name of TestContainer and reset retryIteration in case of new TestContainer
-            if (!String.IsNullOrEmpty(lastTestContainerName))
+            // Store name of TestContainer and reset retryIteration in case of new TestContainer
+            if (!string.IsNullOrEmpty(lastTestContainerName))
             {
                 if (lastTestContainerName != TestReport.CurrentTestContainerActivity.FullDisplayName)
                 {
-                    CollectErrorMessagesModule.retryIteration = 1;
+                    retryIteration = 1;
                 }
                 else
                 {
-                    CollectErrorMessagesModule.retryIteration++;
+                    retryIteration++;
                 }
             }
 
-            if (String.IsNullOrEmpty(lastTestContainerName))
+            if (string.IsNullOrEmpty(lastTestContainerName))
             {
-                CollectErrorMessagesModule.lastTestContainerName = TestReport.CurrentTestContainerActivity.FullDisplayName;
-                CollectErrorMessagesModule.retryIteration = 1;
+                lastTestContainerName = TestReport.CurrentTestContainerActivity.FullDisplayName;
+                retryIteration = 1;
             }
 
-            //GetErrorMessages from TestContainer   
+            // GetErrorMessages from TestContainer
             var container = TestReport.CurrentTestContainerActivity;
-
-            //Only collect error messages if the test run failed
+            // Only collect error messages if the test run failed
             if (container.Status == ActivityStatus.Failed)
             {
-                GetErrorMessages((TestContainerActivity)container);
+                GetErrorMessages(container);
             }
         }
 
@@ -87,55 +77,66 @@ namespace Ranorex.AutomationHelpers.Modules
         /// Recursively collects all error messages from given test container
         /// </summary>
         /// <param name="container"></param>
-        private void GetErrorMessages(TestContainerActivity container)
+        private static void GetErrorMessages(ITestContainerActivity container)
         {
             foreach (var containerChild in container.Children)
             {
-                var containerChildType = containerChild.GetType().Name;
-
-                //Check if TestContainerActivity
-                if (containerChildType == "TestContainerActivity")
+                // Check if TestContainerActivity
+                var testContainerActivity = containerChild as TestContainerActivity;
+                if (testContainerActivity != null)
                 {
-                    GetErrorMessages((TestContainerActivity)containerChild);
+                    GetErrorMessages(testContainerActivity);
                 }
 
-                //Check if TestModuleActivity
-                if (containerChildType == "TestModuleActivity")
+                // Check if TestModuleActivity
+                var testModuleActivity = containerChild as TestModuleActivity;
+                if (testModuleActivity != null)
                 {
-                    var castedContainerChild = containerChild as TestModuleActivity;
+                    AddErrorMessages(
+                        testModuleActivity.FullDisplayName,
+                        container.FullDisplayName,
+                        testModuleActivity.Children);
+                }
+            }
+        }
 
-                    foreach (var testModuleChild in castedContainerChild.Children)
-                    {
-                        var testModuleChildType = testModuleChild.GetType().Name;
-
-                        //Check if testModuleChild is ReportItem
-                        if (testModuleChildType == "ReportItem")
-                        {
-                            var castedTestModuleChild = testModuleChild as ReportItem;
-
-                            if (castedTestModuleChild.Level == ReportLevel.Failure || castedTestModuleChild.Level == ReportLevel.Error)
-                            {
-                                //Add error message to string builder
-                                builder.Add(String.Format("Module: {0} | Parent (Iteration): {1}({2}) ReportLevel: {3} | Message: {4}", castedContainerChild.FullDisplayName, container.FullDisplayName, CollectErrorMessagesModule.retryIteration, castedTestModuleChild.Level, castedTestModuleChild.Message));
-                            }
-                        }
-                    }
+        private static void AddErrorMessages(
+            string testModuleActivityFullDisplayName,
+            string containerFullDisplayName,
+            IEnumerable<IReportItem> items)
+        {
+            foreach (var testModuleChild in items)
+            {
+                // Check if testModuleChild is ReportItem
+                var reportItem = testModuleChild as ReportItem;
+                if (reportItem != null
+                    && (reportItem.Level == ReportLevel.Error || reportItem.Level == ReportLevel.Failure))
+                {
+                    // Store error message for report on test suite completed event
+                    errorMessages.Add(
+                        string.Format(
+                            "Module: {0} | Parent (Iteration): {1}({2}) ReportLevel: {3} | Message: {4}",
+                            testModuleActivityFullDisplayName,
+                            containerFullDisplayName,
+                            retryIteration,
+                            reportItem.Level,
+                            reportItem.Message));
                 }
             }
         }
 
         /// <summary>
-        /// Logs all collected error messages to the After Test Suite section of the Ranorex report
+        /// Logs all collected error messages to the "After Test Suite" section of the Ranorex report
         /// </summary>
-        private void LogErrorMessages()
+        private static void LogErrorMessages(object sender, EventArgs e)
         {
-            //End report 
+            // End report
             TestReport.EndTestModule();
 
-            //Report collected error messages
-            foreach (var message in CollectErrorMessagesModule.builder)
+            // Report collected error messages
+            foreach (var message in errorMessages)
             {
-                Report.Info(message);
+                Report.Info("RetryError", message);
             }
         }
     }

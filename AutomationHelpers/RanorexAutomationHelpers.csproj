@@ -96,6 +96,9 @@
     <Compile Include="AssemblyInfo.cs">
       <id>13d5e985-b6c1-4bec-84de-4a367b7117f8</id>
     </Compile>
+    <Compile Include="src\Modules\CollectErrorMessagesModule.cs">
+      <id>63482950-4f64-4a97-8497-60b57bb085e9</id>
+    </Compile>
     <Compile Include="src\Modules\ReportToPDFModule.cs">
       <id>e71a1a8b-dc03-4ca0-8204-0b55bd6ba0a0</id>
     </Compile>
