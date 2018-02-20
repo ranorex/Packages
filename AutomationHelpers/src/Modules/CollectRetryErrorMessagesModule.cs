@@ -14,14 +14,14 @@ namespace Ranorex.AutomationHelpers.Modules
     /// Usage: Use module within a test container with enabled retry count
     /// </summary>
     [TestModule("E4E50BBC-20F8-461F-B39A-863B6F69DE89", ModuleType.UserCode)]
-    public class CollectErrorMessagesModule : ITestModule
+    public class CollectRetryErrorMessagesModule : ITestModule
     {
         private static List<string> errorMessages = new List<string>();
         private static string lastTestContainerName;
         private static int retryIteration;
         private static bool registered;
 
-        public CollectErrorMessagesModule()
+        public CollectRetryErrorMessagesModule()
         {
             // Do not delete - a parameterless constructor is required!
         }
