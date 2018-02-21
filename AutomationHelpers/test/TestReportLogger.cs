@@ -1,5 +1,5 @@
 ﻿//
-// Copyright © 2017 Ranorex All rights reserved
+// Copyright © 2018 Ranorex All rights reserved
 //
 
 using System.Collections.Generic;
