@@ -18,6 +18,15 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         private static readonly Dictionary<string, PopupWatcher> watchers = new Dictionary<string, PopupWatcher>();
 
         /// <summary>
+        /// Gets the currently active watchers which were started using the <see cref="StartPopupWatcher"/>
+        /// method and have not been stopped using the <see cref="StopPopupWatcher"/> method, yet.
+        /// </summary>
+        /// <value>
+        /// The currently active watchers created using the <see cref="PopupWatcherLibrary"/> class.
+        /// </value>
+        public static IList<PopupWatcher> Watchers { get { return new List<PopupWatcher>(watchers.Values); } }
+
+        /// <summary>
         /// Waits for a popup window to appear and clicks an element to close the window.
         /// </summary>
         /// <param name="findElement">Element to wait for</param>
@@ -53,10 +62,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             PopupWatcher watcher = null;
             if (watchers.TryGetValue(key, out watcher))
             {
-                watcher.Clear();
-                watcher.Stop();
-                Report.Info("Popup watcher stopped.");
-                watchers.Remove(key);
+                StopPopupWatcher(key, watcher);
             }
             else
             {
@@ -70,12 +76,18 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void StopAllPopupWatchers()
         {
-            foreach (var watcher in watchers.Values)
+            foreach (var watcher in watchers)
             {
-                watcher.Clear();
-                watcher.Stop();
-                Report.Info("Popup watcher stopped.");
+                StopPopupWatcher(watcher.Key, watcher.Value);
             }
+        }
+
+        private static void StopPopupWatcher(string key, PopupWatcher watcher)
+        {
+            watcher.Clear();
+            watcher.Stop();
+            Report.Info("Popup watcher stopped.");
+            watchers.Remove(key);
         }
     }
 }

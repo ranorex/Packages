@@ -113,5 +113,28 @@ namespace RanorexAutomationHelpers.Test
             Report.DetachLogger(logger);
             Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
         }
+
+        [Test]
+        public void StopAllPopupWatcherTest_RemovesAllEntries_Success()
+        {
+            //Arrange
+            var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/form", null, Duration.Zero, true);
+            var repoItemInfo1 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
+            var repoItemInfo2 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
+            var logger = new TestReportLogger();
+            logger.LogTextCount = 0;
+            Report.AttachLogger(logger);
+            PopupWatcherLibrary.StartPopupWatcher(repoItemInfo1, repoItemInfo1);
+            PopupWatcherLibrary.StartPopupWatcher(repoItemInfo2, repoItemInfo2);
+
+            //Act
+            PopupWatcherLibrary.StopAllPopupWatchers();
+
+            //Assert
+            Report.DetachLogger(logger);
+            Assert.AreEqual(2, logger.LogTextCount);
+            Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
+            Assert.AreEqual(0, PopupWatcherLibrary.Watchers.Count);
+        }
     }
 }

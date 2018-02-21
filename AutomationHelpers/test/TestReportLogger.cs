@@ -14,6 +14,8 @@ namespace RanorexAutomationHelpers.Test
 
         internal string LastLogMessage { get; set; }
 
+        internal int LogTextCount { get; set; }
+
         public void End()
         {
             // Method intentionally left empty.
@@ -27,6 +29,7 @@ namespace RanorexAutomationHelpers.Test
         public void LogText(ReportLevel level, string category, string message, bool escape, IDictionary<string, string> metaInfos)
         {
             this.LastLogMessage = message;
+            this.LogTextCount++;
         }
 
         public void Start()
