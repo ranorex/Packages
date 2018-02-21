@@ -170,9 +170,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void FinishTestReport()
         {
-            Activity activity = ActivityStack.Current;
-
-            if (activity.GetType().Name.Equals("TestSuiteActivity"))
+            if (ActivityStack.Current is TestSuiteActivity)
             {
                 TestReport.EndTestModule();
                 Report.End();
