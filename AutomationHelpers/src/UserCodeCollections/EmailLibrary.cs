@@ -80,6 +80,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                         EnableSsl = useSSL,
                     };
 
+                    to = to.Replace(";", ",");
                     var message = new MailMessage(from, to)
                     {
                         Subject = subject,
