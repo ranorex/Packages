@@ -82,18 +82,18 @@ namespace Ranorex.AutomationHelpers.Modules
             foreach (var containerChild in container.Children)
             {
                 // Check if TestContainerActivity
-                var testContainerActivity = containerChild as TestContainerActivity;
+                var testContainerActivity = containerChild as ITestContainerActivity;
                 if (testContainerActivity != null)
                 {
                     GetErrorMessages(testContainerActivity);
                 }
 
                 // Check if TestModuleActivity
-                var testModuleActivity = containerChild as TestModuleActivity;
+                var testModuleActivity = containerChild as ITestModuleActivity;
                 if (testModuleActivity != null)
                 {
                     AddErrorMessages(
-                        testModuleActivity.FullDisplayName,
+                        testModuleActivity.TestModuleName,
                         container.FullDisplayName,
                         testModuleActivity.Children);
                 }
