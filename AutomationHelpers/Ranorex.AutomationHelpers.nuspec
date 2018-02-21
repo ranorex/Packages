@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Ranorex.AutomationHelpers</id>
-        <version>1.0.10</version>
+        <version>1.1.0</version>
         <title>Ranorex Automation Helpers</title>
         <authors>Ranorex Community</authors>
         <owners>Ranorex GmbH</owners>
@@ -11,7 +11,7 @@
         <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Extend your solution with a collection of small and handy modules and methods to comfortably handle daily challenges in test automation.</description>
-        <copyright>Copyright 2017</copyright>
+        <copyright>Copyright 2018</copyright>
         <tags>Ranorex TestAutomation</tags>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System" />
@@ -21,7 +21,7 @@
             <frameworkAssembly assemblyName="System.Drawing" />
         </frameworkAssemblies>
         <dependencies>
-            <dependency id="Ranorex.ReportToPDF" version="[1.0.11,1.1)" />
+            <dependency id="Ranorex.ReportToPDF" version="[1.0.13,1.1)" />
         </dependencies>
     </metadata>
     <files>
