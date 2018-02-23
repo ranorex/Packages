@@ -10,8 +10,8 @@ using Ranorex.Core.Reporting;
 namespace Ranorex.AutomationHelpers.Modules
 {
     /// <summary>
-    /// Functionality: Collects all error messages from given test container.
-    /// Usage: Use module within a test container with enabled retry count
+    /// When placed in a test container with a retry count >= 1, collects all error messages even if one of the retries
+    /// was successful and adds them to the report.
     /// </summary>
     [TestModule("E4E50BBC-20F8-461F-B39A-863B6F69DE89", ModuleType.UserCode)]
     public class CollectRetryErrorMessagesModule : ITestModule
