@@ -26,12 +26,10 @@ namespace Ranorex.AutomationHelpers.Modules
 
             this.ServerHostname = "";
             this.ServerPort = "";
-            this.UseSSL = false.ToString();
             this.Username = "";
 
-            this.SendEmailOnFailure = true.ToString();
-            this.SendEmailOnSuccess = true.ToString();
-            this.SendZippedReportOnComplete = false.ToString();
+            this.SendEmailOnFailure = true;
+            this.SendEmailOnSuccess = true;
         }
 
         /// <summary>
@@ -74,7 +72,7 @@ namespace Ranorex.AutomationHelpers.Modules
         /// Gets or sets whether SSL is used or not (true or false) to connect to the email-server.
         /// </summary>
         [TestVariable("c898ee67-ee7f-4258-ab69-d855b0d92274")]
-        public string UseSSL { get; set; }
+        public bool UseSSL { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the user name to use when connecting to the email-server.
@@ -93,26 +91,26 @@ namespace Ranorex.AutomationHelpers.Modules
         /// </summary>
         /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a failure.</remarks>
         [TestVariable("07580bd9-744c-4666-83a6-ba22c0c8d909")]
-        public string SendEmailOnFailure { get; set; }
+        public bool SendEmailOnFailure { get; set; }
 
         /// <summary>
         /// Gets or sets the value to send the mail when the test suite completes successfully (<c>true</c> or <c>false</c>).
         /// </summary>
         /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a success.</remarks>
         [TestVariable("670a378a-e239-43e7-8325-c216fd11f190")]
-        public string SendEmailOnSuccess { get; set; }
+        public bool SendEmailOnSuccess { get; set; }
 
         /// <summary>
         /// Gets or sets whether the email should send the report in an attachement, when the TestSuite finishes.
         /// </summary>
         [TestVariable("154c39b9-9dd8-4f75-934e-973ef4c5de5b")]
-        public string SendZippedReportOnComplete { get; set; }
+        public bool SendZippedReportOnComplete { get; set; }
 
         /// <summary>
         /// Gets or sets whether the email should send the pdf version of the report in an attachement, when the TestSuite finishes.
         /// </summary>
         [TestVariable("7038d9db-9189-4fe3-9fb3-13f3cacde5a0")]
-        public string SendPdfReportOnComplete { get; set; }
+        public bool SendPdfReportOnComplete { get; set; }
 
         /// <summary>
         /// Sends the Ranorex Report via Mail after the test run completed. Use this module in
@@ -132,9 +130,10 @@ namespace Ranorex.AutomationHelpers.Modules
             var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
             var reportFile = CreateReports();
 
-            if ((bool.Parse(this.SendEmailOnFailure) && currentTestSuiteStatus.Status == ActivityStatus.Failed)
-                || (bool.Parse(this.SendEmailOnSuccess) && currentTestSuiteStatus.Status == ActivityStatus.Success)
-                || (bool.Parse(this.SendZippedReportOnComplete) && !bool.Parse(this.SendEmailOnFailure) && !bool.Parse(this.SendEmailOnSuccess)))
+            if (this.SendEmailOnFailure && currentTestSuiteStatus.Status == ActivityStatus.Failed
+                || this.SendEmailOnSuccess && currentTestSuiteStatus.Status == ActivityStatus.Success
+                || this.SendZippedReportOnComplete && !this.SendEmailOnFailure && !this.SendEmailOnSuccess
+                || this.SendPdfReportOnComplete && !this.SendEmailOnFailure && !this.SendEmailOnSuccess)
             {
                 EmailLibrary.SendEmail(
                     this.Subject,
@@ -144,7 +143,7 @@ namespace Ranorex.AutomationHelpers.Modules
                     reportFile,
                     this.ServerHostname,
                     int.Parse(this.ServerPort),
-                    bool.Parse(this.UseSSL),
+                    this.UseSSL,
                     this.Username,
                     this.Password);
             }
@@ -152,11 +151,11 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string CreateCompressedReport()
         {
-            if (bool.Parse(this.SendZippedReportOnComplete))
+            if (this.SendZippedReportOnComplete)
             {
                 //Necessary to end the Ranorex Report in order to update the duration and finalize the status
                 FinishTestReport();
-	
+
                 // zip the current report
                 var zippedReportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
                 var name = TestReport.ReportEnvironment.ReportName;
@@ -168,23 +167,21 @@ namespace Ranorex.AutomationHelpers.Modules
 
             return string.Empty;
         }
-        
+
         private void FinishTestReport()
         {
-        	Activity activity = ActivityStack.Current ;
-        	
-        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
-        	    {
-        	    	TestReport.EndTestModule();
-                	Report.End();
-        	    }
-        	    
-        	    TestReport.SaveReport();
+            if (ActivityStack.Current is TestSuiteActivity)
+            {
+                TestReport.EndTestModule();
+                Report.End();
+            }
+
+            TestReport.SaveReport();
         }
 
         private string CreatePdfReport()
         {
-            if (bool.Parse(this.SendPdfReportOnComplete))
+            if (this.SendPdfReportOnComplete)
             {
                 ReportToPDFModule pdfModule = new ReportToPDFModule();
                 pdfModule.PdfName = TestReport.ReportEnvironment.ReportName + ".pdf";
