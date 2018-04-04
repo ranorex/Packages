@@ -4,6 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Ranorex.Core;
+using Ranorex.Core.Reporting;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
@@ -51,6 +54,34 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
+        /// Waits for a popup window to appear and pauses test run until it disappears.
+        /// </summary>
+        /// <param name="findElement">Element to wait for</param>
+        /// <returns>Reference to a newly created <see cref="PopupWatcher"/></returns>
+        [UserCodeMethod]
+        public static PopupWatcher PauseWhileExists(RepoItemInfo findElement)
+        {
+            if (findElement == null)
+            {
+                throw new ArgumentNullException("findElement");
+            }
+
+            var key = findElement.GetMetaInfos()["id"];
+
+            if (watchers.ContainsKey(key))
+            {
+                throw new ArgumentException("Popup watcher with given parameters already exists.");
+            }
+
+            var watcher = new PopupWatcher();
+            watcher.Watch(findElement, RequestPauseWhileExists);
+            watcher.Start();
+            watchers.Add(key, watcher);
+            Report.Info("Started watching for: " + findElement.AbsolutePath);
+            return watcher;
+        }
+
+        /// <summary>
         /// Stops and removes an active popup watcher.
         /// </summary>
         /// <param name="findElement">Element to wait for</param>
@@ -80,6 +111,22 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             {
                 StopPopupWatcher(watcher.Key, watcher.Value);
             }
+        }
+
+        private static void RequestPauseWhileExists(RepoItemInfo info, Element element)
+        {
+            Report.Log(ReportLevel.Info, "Popup Watcher", info.AbsolutePath + " popped up! Requesting pause of test run while it exists.");
+            ActivityStack.Instance.RequestPause();
+
+            var foundElements = Host.Local.Find(info.AbsolutePath);
+            while (foundElements.Count > 0)
+            {
+                Thread.Sleep(100);
+                foundElements = Host.Local.Find(info.AbsolutePath);
+            }
+
+            ActivityStack.Instance.Resume();
+            Report.Log(ReportLevel.Info, "Popup Watcher", "Disappeared: " + info.AbsolutePath);
         }
 
         private static void StopPopupWatcher(string key, PopupWatcher watcher)
