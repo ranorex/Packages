@@ -66,5 +66,33 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 Report.Log(ReportLevel.Warn, message);
             }
         }
+
+        /// <summary>
+        /// Return the http status code from an URL.
+        /// </summary>
+        /// <param name="url">The url from which the response code should be returned.</param>
+        [UserCodeMethod]
+        public static string GetHttpStatusCode(string url)
+        {
+            HttpWebResponse resp = null;
+
+            try
+            {
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+
+                resp = (HttpWebResponse)req.GetResponse();
+            }
+            catch (WebException we)
+            {
+                if ((we.Response as HttpWebResponse).StatusCode == HttpStatusCode.NotFound)
+                {
+                    return "404";
+                }
+
+                return (we.Response as HttpWebResponse).StatusCode.ToString();
+            }
+
+            return ((int)resp.StatusCode).ToString();
+        }
     }
 }

@@ -51,5 +51,45 @@ namespace RanorexAutomationHelpers.Test
 			//Assert
 			Assert.AreEqual(string.Empty, actual);
 		}
+		
+		[Test]
+        public void RandomStringTest_DefaultLength()
+        {
+            //Act
+            var actual = StringLibrary.getRandomString(null);
+
+            //Assert
+            Assert.AreEqual(35, actual.Length);
+        }
+
+        [Test]
+        public void RandomStringTest_EqualToDefault()
+        {
+            //Act
+            var actual = StringLibrary.getRandomString("35");
+
+            //Assert
+            Assert.AreEqual(35, actual.Length);
+        }
+
+        [Test]
+        public void RandomStringTest_ShorterThanDefault()
+        {
+            //Act
+            var actual = StringLibrary.getRandomString("13");
+
+            //Assert
+            Assert.AreEqual(13, actual.Length);
+        }
+
+        [Test]
+        public void RandomStringTest_LongerThanDefault()
+        {
+            //Act
+            var actual = StringLibrary.getRandomString("76");
+
+            //Assert
+            Assert.AreEqual(76, actual.Length);
+        }
 	}
 }

@@ -145,5 +145,17 @@ namespace RanorexAutomationHelpers.Test
                 Assert.AreEqual("Timer 'testTimerStopTwice' does not exist.", ex.Message);
             }
         }
+		
+		[Test]
+        public void GetDateAsStringTest_DefaultFormat()
+        {
+            Assert.AreEqual(System.DateTime.Now.ToString("dd.MM.yyyy"), SystemLibrary.GetDateTimeAsString());
+        }
+
+        [Test]
+        public void GetDateAsStringTest_yyyyMMdd()
+        {
+            Assert.AreEqual(System.DateTime.Now.ToString("yyyy-MM-dd"), SystemLibrary.GetDateTimeAsString("yyyy-MM-dd"));
+        }
     }
 }

@@ -85,5 +85,16 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
             throw new Exception(string.Format("Timer '{0}' does not exist.", timerName));
         }
+
+        /// <summary>
+        /// Return current time as a string in the given format
+        /// </summary>
+        /// <param name="expectedFormat">The string format which is used for the return value. Default is dd.MM.yyyy</param>
+        /// <returns>String representation for the current date and time</returns>
+        [UserCodeMethod]
+        public static string GetDateTimeAsString(string expectedFormat = "dd.MM.yyyy")
+        {
+            return System.DateTime.Now.ToString(expectedFormat);
+        }
     }
 }
