@@ -84,12 +84,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (WebException we)
             {
-                if (((HttpWebResponse) we.Response).StatusCode == HttpStatusCode.NotFound)
-                {
-                    return "404";
-                }
-
-                return ((HttpWebResponse) we.Response).StatusCode.ToString();
+                return ((int)((HttpWebResponse) we.Response).StatusCode).ToString();
             }
 
             return ((int)resp.StatusCode).ToString();

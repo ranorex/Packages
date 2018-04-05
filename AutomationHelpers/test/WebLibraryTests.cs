@@ -139,13 +139,13 @@ namespace RanorexAutomationHelpers.Test
         }
 
         [Test]
-        public void WebLibraryTest_ResponseStatusCode_500()
+        public void WebLibraryTest_ResponseStatusCode_501()
         {
             var logger = new TestReportLogger();
 
             string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/501");
 
-            Assert.AreEqual("NotImplemented", statusCode, logger.LastLogMessage);
+            Assert.AreEqual("501", statusCode, logger.LastLogMessage);
         }
     }
 }
