@@ -120,32 +120,26 @@ namespace RanorexAutomationHelpers.Test
 		
 		[Test]
         public void WebLibraryTest_ResponseStatusCode_404()
-        {
-        	var logger = new TestReportLogger();
-        	
+        {    	
         	string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/404");
         	
-        	Assert.AreEqual("404", statusCode, logger.LastLogMessage);
+        	Assert.AreEqual("404", statusCode);
         }
 
         [Test]
         public void WebLibraryTest_ResponseStatusCode_200()
         {
-            var logger = new TestReportLogger();
-
             string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/200");
 
-            Assert.AreEqual("200", statusCode, logger.LastLogMessage);
+            Assert.AreEqual("200", statusCode);
         }
 
         [Test]
         public void WebLibraryTest_ResponseStatusCode_501()
         {
-            var logger = new TestReportLogger();
-
             string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/501");
 
-            Assert.AreEqual("501", statusCode, logger.LastLogMessage);
+            Assert.AreEqual("501", statusCode);
         }
     }
 }
