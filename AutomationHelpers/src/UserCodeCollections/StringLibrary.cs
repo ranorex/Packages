@@ -31,23 +31,19 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="length">Expected length of the return value (default length is 35)</param>
         /// <returns>Random string</returns>
         [UserCodeMethod]
-        public static string GetRandomString(string length)
+        public static string GetRandomString(string length = "35")
         {
             string returnValue = "";
+            Int32 len = Int32.Parse(length);
 
-            if (length == null || length.Equals(""))
+            if (len > 35)
             {
-                length = "35";
-            }
-
-            if (Int32.Parse(length) > 35)
-            {
-                returnValue = getRandomString((Int32.Parse(length) - 36).ToString());
+                returnValue = GetRandomString((len - 36).ToString());
                 return returnValue + Guid.NewGuid().ToString();
             }
             else
             {
-                returnValue = Guid.NewGuid().ToString().Substring(0, Int32.Parse(length));
+                returnValue = Guid.NewGuid().ToString().Substring(0, len);
             }
 
             return returnValue;

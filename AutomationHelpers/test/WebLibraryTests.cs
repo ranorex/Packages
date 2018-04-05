@@ -123,9 +123,7 @@ namespace RanorexAutomationHelpers.Test
         {
         	var logger = new TestReportLogger();
         	
-        	Report.AttachLogger(logger);
         	string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/404");
-        	Report.DetachLogger(logger);
         	
         	Assert.AreEqual("404", statusCode, logger.LastLogMessage);
         }
@@ -135,9 +133,7 @@ namespace RanorexAutomationHelpers.Test
         {
             var logger = new TestReportLogger();
 
-            Report.AttachLogger(logger);
             string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/200");
-            Report.DetachLogger(logger);
 
             Assert.AreEqual("200", statusCode, logger.LastLogMessage);
         }
@@ -147,9 +143,7 @@ namespace RanorexAutomationHelpers.Test
         {
             var logger = new TestReportLogger();
 
-            Report.AttachLogger(logger);
             string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/501");
-            Report.DetachLogger(logger);
 
             Assert.AreEqual("NotImplemented", statusCode, logger.LastLogMessage);
         }

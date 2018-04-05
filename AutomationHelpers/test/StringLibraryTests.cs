@@ -56,7 +56,7 @@ namespace RanorexAutomationHelpers.Test
         public void RandomStringTest_DefaultLength()
         {
             //Act
-            var actual = StringLibrary.getRandomString(null);
+            var actual = StringLibrary.GetRandomString(null);
 
             //Assert
             Assert.AreEqual(35, actual.Length);
@@ -66,7 +66,7 @@ namespace RanorexAutomationHelpers.Test
         public void RandomStringTest_EqualToDefault()
         {
             //Act
-            var actual = StringLibrary.getRandomString("35");
+            var actual = StringLibrary.GetRandomString("35");
 
             //Assert
             Assert.AreEqual(35, actual.Length);
@@ -76,17 +76,27 @@ namespace RanorexAutomationHelpers.Test
         public void RandomStringTest_ShorterThanDefault()
         {
             //Act
-            var actual = StringLibrary.getRandomString("13");
+            var actual = StringLibrary.GetRandomString("13");
 
             //Assert
             Assert.AreEqual(13, actual.Length);
+        }
+		
+		[Test]
+        public void RandomStringTest_EmptyString()
+        {
+            //Act
+            var actual = StringLibrary.GetRandomString("");
+
+            //Assert
+            Assert.AreEqual(35, actual.Length);
         }
 
         [Test]
         public void RandomStringTest_LongerThanDefault()
         {
             //Act
-            var actual = StringLibrary.getRandomString("76");
+            var actual = StringLibrary.GetRandomString("76");
 
             //Assert
             Assert.AreEqual(76, actual.Length);
