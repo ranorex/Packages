@@ -118,11 +118,9 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             Report.Log(ReportLevel.Info, "Popup Watcher", string.Format("'{0}' popped up. Requesting pause of activity reporting while it exists.", info.FullName));
             ActivityStack.Instance.RequestPause();
 
-            var foundElements = Host.Local.Find(info.AbsolutePath);
-            while (foundElements.Count > 0)
+            while (Host.Local.Find(info.AbsolutePath).Count > 0)
             {
                 Thread.Sleep(100);
-                foundElements = Host.Local.Find(info.AbsolutePath);
             }
 
             ActivityStack.Instance.Resume();
