@@ -2,6 +2,7 @@
 // Copyright © 2018 Ranorex All rights reserved
 //
 
+using System;
 using NUnit.Framework;
 using Ranorex.AutomationHelpers.UserCodeCollections;
 
@@ -56,7 +57,7 @@ namespace RanorexAutomationHelpers.Test
         public void RandomStringTest_DefaultLength()
         {
             //Act
-            var actual = StringLibrary.GetRandomString(null);
+            var actual = StringLibrary.GetRandomString();
 
             //Assert
             Assert.AreEqual(35, actual.Length);
@@ -81,15 +82,19 @@ namespace RanorexAutomationHelpers.Test
             //Assert
             Assert.AreEqual(13, actual.Length);
         }
-		
-		[Test]
+
+        [Test]
+        public void RandomStringTest_NullString()
+        {
+            //Act + Assert
+            Assert.Throws<ArgumentNullException>(() => StringLibrary.GetRandomString(null));
+        }
+
+        [Test]
         public void RandomStringTest_EmptyString()
         {
-            //Act
-            var actual = StringLibrary.GetRandomString("");
-
-            //Assert
-            Assert.AreEqual(35, actual.Length);
+            //Act + Assert
+            Assert.Throws<FormatException>(() => StringLibrary.GetRandomString(""));
         }
 
         [Test]
