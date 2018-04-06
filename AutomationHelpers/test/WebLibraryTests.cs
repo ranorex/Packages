@@ -117,5 +117,29 @@ namespace RanorexAutomationHelpers.Test
             Report.DetachLogger(logger);
             Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nAn exception occurred during a WebClient request.\r\nAccess to the path '{1}' is denied.", address, fileName), logger.LastLogMessage);
         }
+		
+		[Test]
+        public void WebLibraryTest_ResponseStatusCode_404()
+        {    	
+        	string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/404");
+        	
+        	Assert.AreEqual("404", statusCode);
+        }
+
+        [Test]
+        public void WebLibraryTest_ResponseStatusCode_200()
+        {
+            string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/200");
+
+            Assert.AreEqual("200", statusCode);
+        }
+
+        [Test]
+        public void WebLibraryTest_ResponseStatusCode_501()
+        {
+            string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/501");
+
+            Assert.AreEqual("501", statusCode);
+        }
     }
 }
