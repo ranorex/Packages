@@ -77,7 +77,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             watcher.Watch(findElement, RequestPauseWhileExists);
             watcher.Start();
             watchers.Add(key, watcher);
-            Report.Info("Started watching for: " + findElement.AbsolutePath);
+            Report.Info(string.Format("Started watching for: '{0}'", findElement.FullName));
             return watcher;
         }
 
@@ -115,7 +115,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
         private static void RequestPauseWhileExists(RepoItemInfo info, Element element)
         {
-            Report.Log(ReportLevel.Info, "Popup Watcher", info.AbsolutePath + " popped up! Requesting pause of test run while it exists.");
+            Report.Log(ReportLevel.Info, "Popup Watcher", string.Format("'{0}' popped up. Requesting pause of activity reporting while it exists.", info.FullName));
             ActivityStack.Instance.RequestPause();
 
             var foundElements = Host.Local.Find(info.AbsolutePath);
@@ -126,7 +126,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
 
             ActivityStack.Instance.Resume();
-            Report.Log(ReportLevel.Info, "Popup Watcher", "Disappeared: " + info.AbsolutePath);
+            Report.Log(ReportLevel.Info, "Popup Watcher", string.Format("Resume activity reporting as '{0}' does not exist anymore.", info.FullName));
         }
 
         private static void StopPopupWatcher(string key, PopupWatcher watcher)
