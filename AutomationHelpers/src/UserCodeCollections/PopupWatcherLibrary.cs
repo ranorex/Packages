@@ -77,7 +77,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             watcher.Watch(findElement, RequestPauseWhileExists);
             watcher.Start();
             watchers.Add(key, watcher);
-            Report.Info(string.Format("Started watching for: '{0}'", findElement.FullName));
+            Report.Info(string.Format("Started watching for '{0}'.", findElement.FullName));
             return watcher;
         }
 
