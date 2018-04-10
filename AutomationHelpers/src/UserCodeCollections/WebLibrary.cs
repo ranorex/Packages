@@ -68,9 +68,9 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Return the http status code from an URL.
+        /// Returns the HTTP status code from a URL.
         /// </summary>
-        /// <param name="url">The url from which the response code should be returned.</param>
+        /// <param name="url">The URL to query for the status code.</param>
         [UserCodeMethod]
         public static string GetHttpStatusCode(string url)
         {

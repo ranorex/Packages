@@ -87,10 +87,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Return current time as a string in the given format
+        /// Returns the current time and date as a string in the specified format.
         /// </summary>
-        /// <param name="expectedFormat">The string format which is used for the return value. Default is dd.MM.yyyy</param>
-        /// <returns>String representation for the current date and time</returns>
+        /// <param name="expectedFormat">The format the time and date are returned in. Default = dd.MM.yyyy</param>
+        /// <returns>The current time and date as a string.</returns>
         [UserCodeMethod]
         public static string GetDateTimeAsString(string expectedFormat = "dd.MM.yyyy")
         {

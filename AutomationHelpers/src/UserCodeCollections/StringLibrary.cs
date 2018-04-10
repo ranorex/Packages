@@ -26,9 +26,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Creates and returns a random string. If a string shorter than 35 characters is used it may not be unique.
+        /// Creates and returns a random string.
         /// </summary>
-        /// <param name="length">Expected length of the return value (default length is 35)</param>
+        /// <param name="length">Length of the returned string in characters. Default = 35. Lower values increase
+        /// chance of duplicate strings.</param>
         /// <returns>Random string</returns>
         [UserCodeMethod]
         public static string GetRandomString(string length = "35")
