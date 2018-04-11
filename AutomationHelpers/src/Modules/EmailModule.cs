@@ -39,49 +39,49 @@ namespace Ranorex.AutomationHelpers.Modules
         public string Subject { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the Email body.
+        /// Gets or sets the value of the email body.
         /// </summary>
         [TestVariable("ef2dc4ee-14a8-483f-92ad-f2c6bd6d67db")]
         public string Body { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the email recipient.
+        /// Gets or sets the value of the email recipients. Separate recipients by comma or semicolon.
         /// </summary>
         [TestVariable("12fd536f-980f-4e5a-a921-acaf0c6247e5")]
         public string To { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the Email sender.
+        /// Gets or sets the value of the email sender.
         /// </summary>
         [TestVariable("718a0466-d3a5-4d93-93a0-91ccd5f1a19e")]
         public string From { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the email-server hostname.
+        /// Gets or sets the value of the email server hostname.
         /// </summary>
         [TestVariable("2436c39d-0705-4ec3-85fb-5e9835a1ab18")]
         public string ServerHostname { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the email-server port.
+        /// Gets or sets the value of the email server port.
         /// </summary>
         [TestVariable("e255daf0-00ef-4b39-a594-273d574839a1")]
         public string ServerPort { get; set; }
 
         /// <summary>
-        /// Gets or sets whether SSL is used or not (true or false) to connect to the email-server.
+        /// Gets or sets whether SSL is used or not (true or false) to connect to the email server.
         /// </summary>
         [TestVariable("c898ee67-ee7f-4258-ab69-d855b0d92274")]
         public bool UseSSL { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the user name to use when connecting to the email-server.
+        /// Gets or sets the value of the user name to use when connecting to the email server.
         /// </summary>
         [TestVariable("38abb172-e49e-4d92-a24f-145709bdd7e3")]
         public string Username { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the user password when connecting to the email-server.
+        /// Gets or sets the value of the user password when connecting to the email server.
         /// </summary>
         [TestVariable("b97a0c41-28c8-44ed-b089-a8ca4b6af9d7")]
         public string Password { get; set; }
@@ -89,34 +89,34 @@ namespace Ranorex.AutomationHelpers.Modules
         /// <summary>
         /// Gets or sets the value to send the mail when the test suite completes with a failure (<c>true</c> or <c>false</c>).
         /// </summary>
-        /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a failure.</remarks>
+        /// <remarks>If <c>true</c> Sends an email when the test suite finishes with a failure.</remarks>
         [TestVariable("07580bd9-744c-4666-83a6-ba22c0c8d909")]
         public bool SendEmailOnFailure { get; set; }
 
         /// <summary>
         /// Gets or sets the value to send the mail when the test suite completes successfully (<c>true</c> or <c>false</c>).
         /// </summary>
-        /// <remarks>If <c>true</c> Sends an email when the testsuite finishes (at the end of the testsuite run) with a success.</remarks>
+        /// <remarks>If <c>true</c> Sends an email when the test suite finishes with a success.</remarks>
         [TestVariable("670a378a-e239-43e7-8325-c216fd11f190")]
         public bool SendEmailOnSuccess { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the email should send the report in an attachement, when the TestSuite finishes.
+        /// Gets or sets whether the email should send the report as an attachement when the test suite finishes.
         /// </summary>
         [TestVariable("154c39b9-9dd8-4f75-934e-973ef4c5de5b")]
         public bool SendZippedReportOnComplete { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the email should send the pdf version of the report in an attachement, when the TestSuite finishes.
+        /// Gets or sets whether the email should send the pdf version of the report as an attachement when the test suite finishes.
         /// </summary>
         [TestVariable("7038d9db-9189-4fe3-9fb3-13f3cacde5a0")]
         public bool SendPdfReportOnComplete { get; set; }
 
         /// <summary>
-        /// Sends the Ranorex Report via Mail after the test run completed. Use this module in
-        /// the TearDown of your TestCase to ensure that it is executed even on failing test runs.
+        /// Sends the report via email after the test run has completed. Use this module in
+        /// the TearDown of your test case to ensure that it is executed even on failing test runs.
         /// </summary>
-        /// <remarks>You should not call this method directly, instead pass the module
+        /// <remarks>You should not call this method directly. Instead, pass the module
         /// instance to the <see cref="TestModuleRunner.Run(ITestModule)"/> method
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
