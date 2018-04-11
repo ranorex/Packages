@@ -21,7 +21,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Sends an email.
         /// </summary>
         /// <param name="subject">Email subject</param>
-        /// <param name="to">Email recipient</param>
+        /// <param name="to">Email recipients, separated by comma or semicolon</param>
         /// <param name="from">Email sender</param>
         /// <param name="body">Email message</param>
         /// <param name="attachment">Path of a file to attach</param>
@@ -50,7 +50,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// Sends an email.
         /// </summary>
         /// <param name="subject">Email subject</param>
-        /// <param name="to">Email recipient</param>
+        /// <param name="to">Email recipients, separated by comma or semicolon</param>
         /// <param name="from">Email sender</param>
         /// <param name="body">Email message</param>
         /// <param name="attachment">Path of a file to attach</param>
