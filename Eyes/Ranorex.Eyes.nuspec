@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Ranorex.Eyes</id>
+        <version>0.1.0</version>
+        <title>Ranorex with Applitools Eyes</title>
+        <authors>Ranorex GmbH</authors>
+        <owners>Ranorex GmbH</owners>
+        <projectUrl>https://github.com/ranorex/Eyes</projectUrl>
+        <licenseUrl>https://github.com/ranorex/Packages/blob/master/Eyes/LICENSE.txt</licenseUrl>
+        <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Use Applitools Eyes automated visual validation with Ranorex.</description>
+        <copyright>Copyright 2018</copyright>
+        <tags>Ranorex TestAutomation Applitools Eyes</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System" />
+            <frameworkAssembly assemblyName="System.Drawing" />
+            <frameworkAssembly assemblyName="System.Windows.Forms" />
+        </frameworkAssemblies>
+        <dependencies>
+            <dependency id="Eyes.Images" version="1.22.0"/>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="src\Modules\*.cs" target="content\Modules" />
+        <file src="src\UserCodeCollections\*.cs" target="content\UserCodeCollections" />
+        <file src="app.config.transform" target="content" />
+    </files>
+</package>
