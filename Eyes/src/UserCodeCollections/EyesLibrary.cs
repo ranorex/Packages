@@ -39,21 +39,6 @@ namespace Ranorex.Eyes
         [UserCodeMethod]
         public static void VisualCheckpoint(string fileOrFolderPath)
         {
-            // Todo: Replace jar-dependence and work with native C# API from applitools + use c# image rendering
-            //       Equivalent in java: https://github.com/yanirta/ImageTester            
-
-            string cli = "-jar {0} -k {1} -f {2}";
-
-            // prepare jar-file
-            string jarfile = System.IO.Directory.GetCurrentDirectory() + @"\Tools\ImageTester.jar";
-            if (!string.IsNullOrEmpty(jarfile))
-            {
-                if (!System.IO.File.Exists(jarfile))
-                {
-                    throw new Exception(String.Format("Required jar-file {0} does not exist", jarfile));
-                }
-            }
-
             // Handling of filename / folder
             fileOrFolderPath = fileOrFolderPath.Trim();
             if (!System.IO.File.Exists(fileOrFolderPath))
@@ -61,30 +46,7 @@ namespace Ranorex.Eyes
                 fileOrFolderPath = System.IO.Directory.GetCurrentDirectory() + @"\" + fileOrFolderPath;
             }
 
-            // Prepare arguments       
-            string arguments = string.Format(cli, jarfile, EyesWrapper.ApiKey, fileOrFolderPath);
-            if (!string.IsNullOrEmpty(EyesWrapper.ServerURL))
-            {
-                arguments += " -s " + EyesWrapper.ServerURL;
-            }
-
-            string testCaseName = TestSuite.Current.CurrentTestContainer.Name;
-            if (!string.IsNullOrEmpty(testCaseName))
-                arguments += " -a " + testCaseName;
-
-            Report.Info("Visual Checkpoint - file comparison (PDF/Images).");
-
-            Report.Debug("Arguments passed to Applitools: '" + arguments + "'.");
-
-            var processInfo = new ProcessStartInfo("java", arguments)
-            {
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-            var proc = Process.Start(processInfo);
-            proc.WaitForExit();
-            int exitCode = proc.ExitCode;
-            proc.Close();
+            EyesWrapper.CheckFolder(fileOrFolderPath, TestSuite.Current.CurrentTestContainer.Name);
         }
 
         /// <summary>

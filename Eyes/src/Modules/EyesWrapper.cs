@@ -2,6 +2,7 @@
 using System.Drawing;
 using Ranorex.Core.Testing;
 using Applitools;
+using Applitools.ImageTester;
 
 namespace Ranorex.Eyes
 {
@@ -55,6 +56,22 @@ namespace Ranorex.Eyes
             }
 
             eyes.CheckImage(image, tag);
+        }
+
+        public static void CheckFolder(string fileOrFolderPath, string appName)
+        {
+            var builder = new SuiteBuilder(fileOrFolderPath, appName, new Size(ViewPortWidth, ViewPortHeight));
+
+            var suite = builder.Build();
+            if (suite == null)
+            {
+                Console.WriteLine("Nothing to test!");
+                return;
+            }
+
+            Report.Info("Visual Checkpoint - file comparison (PDF/Images).");
+
+            suite.Run(eyes);
         }
 
         public static void CloseTest(bool throwException)

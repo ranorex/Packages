@@ -34,6 +34,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Applitools.ImageTester">
+      <HintPath>..\ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll</HintPath>
+    </Reference>
     <Reference Include="Eyes.Images, Version=1.22.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Eyes.Images.1.22.0\lib\net35\Eyes.Images.dll</HintPath>
     </Reference>
