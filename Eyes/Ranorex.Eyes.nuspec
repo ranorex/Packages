@@ -6,8 +6,7 @@
         <title>Ranorex with Applitools Eyes</title>
         <authors>Ranorex GmbH</authors>
         <owners>Ranorex GmbH</owners>
-        <projectUrl>https://github.com/ranorex/Eyes</projectUrl>
-        <licenseUrl>https://github.com/ranorex/Packages/blob/master/Eyes/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/ranorex/Packages</projectUrl>
         <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Use Applitools Eyes automated visual validation with Ranorex.</description>
