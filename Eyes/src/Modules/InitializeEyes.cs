@@ -18,10 +18,10 @@ namespace Ranorex.Eyes
         public string EyesBatchID { get; set; }
 
         [TestVariable("0551bfca-74ea-4fdf-b7de-ec5003239ed5")]
-        public int ViewPortWidth { get; set; }
+        public string ViewPortWidth { get; set; }
 
         [TestVariable("474e2225-adc4-4807-82d6-dffcecca508a")]
-        public int ViewPortHeight { get; set; }
+        public string ViewPortHeight { get; set; }
 
         [TestVariable("f6d65e3f-27b2-4a83-98db-c1328d60e04e")]
         public string BrowserName { get; set; }
@@ -42,8 +42,11 @@ namespace Ranorex.Eyes
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
+            int portHeight, portWidth;
+            int.TryParse(ViewPortHeight, out portHeight);
+            int.TryParse(ViewPortWidth, out portWidth);
             EyesWrapper.Initialize(
-                EyesApiKey, ServerURL, EyesBatchID, ViewPortWidth, ViewPortHeight, BrowserName, MatchLevel);
+                EyesApiKey, ServerURL, EyesBatchID, portWidth, portHeight, BrowserName, MatchLevel);
         }
     }
 }

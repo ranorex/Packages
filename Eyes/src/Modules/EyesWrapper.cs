@@ -60,7 +60,13 @@ namespace Ranorex.Eyes
 
         public static void CheckFolder(string fileOrFolderPath, string appName)
         {
-            var builder = new SuiteBuilder(fileOrFolderPath, appName, new Size(ViewPortWidth, ViewPortHeight));
+            var viewPort = Size.Empty;
+            if (ViewPortWidth > 0 && ViewPortHeight > 0)
+            {
+                viewPort = new Size(ViewPortWidth, ViewPortHeight);
+            }
+
+            var builder = new SuiteBuilder(fileOrFolderPath, appName, viewPort);
 
             var suite = builder.Build();
             if (suite == null)
