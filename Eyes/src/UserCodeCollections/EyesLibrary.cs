@@ -87,7 +87,7 @@ namespace Ranorex.Eyes
         /// Perform a visual check (utilizing Applitools eyes) on the passed element. The parameter stepDescription is optional.
         /// </summary>
         /// <param name="adapter">The element for the visual checkpoint (from any type)</param>///
-        /// <param name="stepDescription">Optional: Description of the element</param>///        
+        /// <param name="stepDescription">Description of the test step</param>///        
         [UserCodeMethod]
         public static void VisualCheckpoint(Adapter adapter, string stepDescription)
         {
@@ -97,12 +97,7 @@ namespace Ranorex.Eyes
                 testCaseName = TestSuite.Current.CurrentTestContainer.Name;
             }
 
-            if (string.IsNullOrWhiteSpace(stepDescription))
-            {
-                stepDescription = "Unnamed test step";
-            }
-
-            EyesWrapper.StartOrContinueTest(stepDescription, testCaseName);
+            EyesWrapper.StartOrContinueTest(testCaseName);
             Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", adapter));
 
             try

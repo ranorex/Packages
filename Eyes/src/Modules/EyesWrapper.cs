@@ -12,6 +12,7 @@ namespace Ranorex.Eyes
 
         private static readonly Applitools.Images.Eyes eyes = new Applitools.Images.Eyes();
         private static readonly BatchInfo batch = new BatchInfo();
+        private static readonly string appName;
 
         public static string CurrentTestName { get; set; }
         public static bool TestRunning { get; set; }
@@ -103,7 +104,7 @@ namespace Ranorex.Eyes
             }
         }
 
-        public static void StartOrContinueTest(string appName, string testName)
+        public static void StartOrContinueTest(string testName)
         {
             if (!TestRunning)
             {
@@ -116,7 +117,7 @@ namespace Ranorex.Eyes
                 if (!testName.Equals(CurrentTestName))
                 {
                     CloseTest(true);
-                    StartOrContinueTest(appName, testName);
+                    StartOrContinueTest(testName);
                 }
             }
         }
