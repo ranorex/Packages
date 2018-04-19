@@ -79,7 +79,7 @@ namespace Ranorex.Eyes
             }
 
             EyesWrapper.StartOrContinueTest(stepDescription, testCaseName);
-            Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", stepDescription));
+            Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", adapter));
 
             try
             {
