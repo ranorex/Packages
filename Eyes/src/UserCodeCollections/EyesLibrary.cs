@@ -11,6 +11,8 @@ namespace Ranorex.Eyes
     [UserCodeCollection]
     internal static class EyesIntegrationCollection
     {
+        private static WebDocument.CapturePageFlags screenshotCaptureFlag = WebDocument.CapturePageFlags.DisableCssTransitions;
+
         /// <summary>
         /// Set the MatchLevel for comparisons between the test and the baseline (default: Strict)
         /// </summary>
@@ -30,6 +32,28 @@ namespace Ranorex.Eyes
         public static void SetBatch(string batchName, string batchId)
         {
             EyesWrapper.SetBatch(batchName, batchId);
+        }
+
+        /// <summary>
+        /// Set the behavior of the screenshot capture operation (default: DisableCssTransitions) for elements of a
+        /// Webdocument for the remaining test run.
+        /// </summary>
+        /// <param name="flagName">The name of the <see cref="WebDocument.CapturePageFlags"/></param>
+        [UserCodeMethod]
+        public static void ChangeScreenshotCaptureBehaviour(string flagName)
+        {
+            WebDocument.CapturePageFlags newFlag;
+            if (!Enum.TryParse(flagName, out newFlag))
+            {
+                throw new ArgumentException(
+                    string.Format(
+                        "Not a valid option '{0}'. Please use: {1}",
+                        flagName,
+                        string.Join(", ", Enum.GetNames(typeof(WebDocument.CapturePageFlags)))));
+            }
+
+            Report.Info(string.Format("Changing screenshot capture from '{0}' to '{1}'", screenshotCaptureFlag, newFlag));
+            screenshotCaptureFlag = newFlag;
         }
 
         /// <summary>
@@ -92,7 +116,7 @@ namespace Ranorex.Eyes
                 }
 
                 var image = adapter.Element.HasCapability("webdocument")
-                    ? adapter.As<WebDocument>().CaptureFullPageScreenshot(WebDocument.CapturePageFlags.DisableCssTransitions)
+                    ? adapter.As<WebDocument>().CaptureFullPageScreenshot(screenshotCaptureFlag)
                     : Imaging.CaptureImage(adapter.Element);
 
                 EyesWrapper.CheckImage(image, stepDescription);
