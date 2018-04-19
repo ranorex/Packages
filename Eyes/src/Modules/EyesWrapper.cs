@@ -12,8 +12,8 @@ namespace Ranorex.Eyes
 
         private static readonly Applitools.Images.Eyes eyes = new Applitools.Images.Eyes();
         private static readonly BatchInfo batch = new BatchInfo();
-        private static readonly string appName;
 
+        private static string appName;
         private static string currentTestName = string.Empty;
         private static bool testRunning;
 
@@ -22,6 +22,7 @@ namespace Ranorex.Eyes
 
         public static void Initialize(
             string apiKey,
+            string appName,
             string serverURL,
             string batchId,
             int portWidth,
@@ -31,6 +32,8 @@ namespace Ranorex.Eyes
         {
             eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
             eyes.ApiKey = apiKey;
+
+            SetAppName(appName);
 
             if (!string.IsNullOrWhiteSpace(serverURL))
             {
@@ -116,6 +119,11 @@ namespace Ranorex.Eyes
                     StartOrContinueTest(testName);
                 }
             }
+        }
+
+        public static void SetAppName(string newAppName)
+        {
+            appName = newAppName;
         }
 
         public static void SetMatchLevel(string matchLevel)

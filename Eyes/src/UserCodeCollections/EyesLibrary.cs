@@ -14,6 +14,16 @@ namespace Ranorex.Eyes
         private static WebDocument.CapturePageFlags screenshotCaptureFlag = WebDocument.CapturePageFlags.DisableCssTransitions;
 
         /// <summary>
+        /// Set the AppName for comparisons between the test and the baseline (default: Test suite name)
+        /// </summary>
+        /// <param name="newAppName">The name of the application under test.</param>
+        [UserCodeMethod]
+        public static void ChangeAppName(string newAppName)
+        {
+            EyesWrapper.SetAppName(newAppName);
+        }
+
+        /// <summary>
         /// Set the MatchLevel for comparisons between the test and the baseline (default: Strict)
         /// </summary>
         /// <param name="matchLevel">Allowed levels: Exact, Strict, Content, Layout.</param>

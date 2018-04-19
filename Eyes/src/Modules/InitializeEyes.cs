@@ -11,6 +11,9 @@ namespace Ranorex.Eyes
         [TestVariable("a88a0537-03c9-4224-88bc-abcd10d396ad")]
         public string EyesApiKey { get; set; }
 
+        [TestVariable("ba71e7cd-b6ef-491a-94b1-9493a0c33c09")]
+        public string AppName { get; set; }
+
         [TestVariable("62220F07-EA02-4629-AF7D-999867F8DE42")]
         public string ServerURL { get; set; }
 
@@ -45,8 +48,14 @@ namespace Ranorex.Eyes
             int portHeight, portWidth;
             int.TryParse(ViewPortHeight, out portHeight);
             int.TryParse(ViewPortWidth, out portWidth);
+
+            if (string.IsNullOrEmpty(AppName))
+            {
+                AppName = TestSuite.Current.Name;
+            }
+
             EyesWrapper.Initialize(
-                EyesApiKey, ServerURL, EyesBatchID, portWidth, portHeight, BrowserName, MatchLevel);
+                EyesApiKey, AppName, ServerURL, EyesBatchID, portWidth, portHeight, BrowserName, MatchLevel);
         }
     }
 }
