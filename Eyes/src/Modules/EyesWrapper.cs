@@ -14,12 +14,11 @@ namespace Ranorex.Eyes
         private static readonly BatchInfo batch = new BatchInfo();
         private static readonly string appName;
 
-        public static string CurrentTestName { get; set; }
-        public static bool TestRunning { get; set; }
+        private static string currentTestName = string.Empty;
+        private static bool testRunning;
+
         public static int ViewPortHeight { get; set; }
         public static int ViewPortWidth { get; set; }
-        public static string ApiKey { get; set; }
-        public static string ServerURL { get; set; }
 
         public static void Initialize(
             string apiKey,
@@ -33,11 +32,9 @@ namespace Ranorex.Eyes
             eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
             eyes.ApiKey = apiKey;
 
-            ApiKey = apiKey;
             if (!string.IsNullOrWhiteSpace(serverURL))
             {
                 eyes.ServerUrl = serverURL;
-                ServerURL = serverURL;
             }
 
             SetMatchLevel(matchLevel);
@@ -46,7 +43,6 @@ namespace Ranorex.Eyes
 
             ViewPortWidth = portWidth;
             ViewPortHeight = portHeight;
-            CurrentTestName = string.Empty;
         }
 
         public static void CheckImage(Bitmap image, string tag)
@@ -83,7 +79,7 @@ namespace Ranorex.Eyes
 
         public static void CloseTest(bool throwException)
         {
-            if (TestRunning)
+            if (testRunning)
             {
                 try
                 {
@@ -99,22 +95,22 @@ namespace Ranorex.Eyes
                 }
                 finally
                 {
-                    TestRunning = false;
+                    testRunning = false;
                 }
             }
         }
 
         public static void StartOrContinueTest(string testName)
         {
-            if (!TestRunning)
+            if (!testRunning)
             {
                 eyes.Open(appName, testName, new Size(ViewPortWidth, ViewPortHeight));
-                CurrentTestName = testName;
-                TestRunning = true;
+                currentTestName = testName;
+                testRunning = true;
             }
             else
             {
-                if (!testName.Equals(CurrentTestName))
+                if (!testName.Equals(currentTestName))
                 {
                     CloseTest(true);
                     StartOrContinueTest(testName);
