@@ -41,10 +41,10 @@ namespace Ranorex.Eyes
             }
 
             SetMatchLevel(matchLevel);
-
+            SetBatchName(TestSuite.Current.Name);
             if (!string.IsNullOrWhiteSpace(batchId))
             {
-                SetBatch(TestSuite.Current.Name, batchId);
+                SetBatchId(batchId);
             }
 
             ViewPortWidth = portWidth;
@@ -159,13 +159,13 @@ namespace Ranorex.Eyes
             }
         }
 
-        public static void SetBatch(string batchName, string batchId)
+        public static void SetBatchId(string batchId)
         {
             batch.Id = batchId;
-            SetBatch(batchName);
+            eyes.Batch = batch;
         }
 
-        public static void SetBatch(string batchName)
+        public static void SetBatchName(string batchName)
         {
             batch.Name = batchName;
             eyes.Batch = batch;

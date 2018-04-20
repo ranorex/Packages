@@ -42,7 +42,11 @@ namespace Ranorex.Eyes
         [UserCodeMethod]
         public static void SetBatch(string batchName, string batchId)
         {
-            EyesWrapper.SetBatch(batchName, batchId);
+            EyesWrapper.SetBatchName(batchName);
+            if (!string.IsNullOrEmpty(batchId))
+            {
+                EyesWrapper.SetBatchId(batchId);
+            }
         }
 
         /// <summary>
