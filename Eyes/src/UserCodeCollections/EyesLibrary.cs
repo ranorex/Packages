@@ -134,7 +134,19 @@ namespace Ranorex.Eyes
                 }
                 else
                 {
-                    EyesWrapper.SetBrowserName(string.Empty);
+                    var browserName = string.Empty;
+                    if (adapter.Element.HasCapability("webelement"))
+                    {
+                        var parent = adapter.Parent;
+                        while (parent.As<WebDocument>() == null)
+                        {
+                            parent = parent.Parent;
+                        }
+
+                        browserName = parent.As<WebDocument>().BrowserName;
+                    }
+
+                    EyesWrapper.SetBrowserName(browserName);
                     image = Imaging.CaptureImage(adapter.Element);
                 }
 
