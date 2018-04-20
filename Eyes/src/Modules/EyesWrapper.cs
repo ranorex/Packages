@@ -42,7 +42,10 @@ namespace Ranorex.Eyes
 
             SetMatchLevel(matchLevel);
 
-            SetBatch(TestSuite.Current.Name, batchId);
+            if (!string.IsNullOrWhiteSpace(batchId))
+            {
+                SetBatch(TestSuite.Current.Name, batchId);
+            }
 
             ViewPortWidth = portWidth;
             ViewPortHeight = portHeight;
