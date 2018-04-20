@@ -65,7 +65,7 @@ namespace Ranorex.Eyes
             eyes.CheckImage(image, tag);
         }
 
-        public static void CheckFolder(string fileOrFolderPath, string appName)
+        public static void CheckFolder(string fileOrFolderPath)
         {
             var viewPort = Size.Empty;
             if (ViewPortWidth > 0 && ViewPortHeight > 0)

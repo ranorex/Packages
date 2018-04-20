@@ -85,7 +85,7 @@ namespace Ranorex.Eyes
                 fileOrFolderPath = System.IO.Directory.GetCurrentDirectory() + @"\" + fileOrFolderPath;
             }
 
-            EyesWrapper.CheckFolder(fileOrFolderPath, TestSuite.Current.CurrentTestContainer.Name);
+            EyesWrapper.CheckFolder(fileOrFolderPath);
         }
 
         /// <summary>
