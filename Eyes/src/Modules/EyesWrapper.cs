@@ -15,6 +15,7 @@ namespace Ranorex.Eyes
 
         private static string appName;
         private static string currentTestName = string.Empty;
+        private static string currentBrowserName = string.Empty;
         private static bool testRunning;
 
         public static int ViewPortHeight { get; set; }
@@ -27,10 +28,9 @@ namespace Ranorex.Eyes
             string batchId,
             int portWidth,
             int portHeight,
-            string browserName,
             string matchLevel)
         {
-            eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
+            eyes.SetAppEnvironment(Host.Local.OSEdition, currentBrowserName);
             eyes.ApiKey = apiKey;
 
             SetAppName(appName);
@@ -166,6 +166,17 @@ namespace Ranorex.Eyes
         {
             batch.Name = batchName;
             eyes.Batch = batch;
+        }
+
+        internal static void SetBrowserName(string browserName)
+        {
+            if (currentBrowserName.Equals(browserName))
+            {
+                return;
+            }
+
+            currentBrowserName = browserName;
+            eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
         }
     }
 }

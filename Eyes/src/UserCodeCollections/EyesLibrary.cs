@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using Ranorex.Controls;
 using Ranorex.Core.Testing;
 
@@ -114,15 +115,20 @@ namespace Ranorex.Eyes
             {
                 ProgressForm.SetOpacity(0);
 
+                Bitmap image;
                 if (adapter.Element.HasCapability("webdocument"))
                 {
-                    adapter.As<WebDocument>().Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
-                    adapter.As<WebDocument>().WaitForDocumentLoaded();
+                    var webDocument = adapter.As<WebDocument>();
+                    EyesWrapper.SetBrowserName(webDocument.BrowserName);
+                    webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
+                    webDocument.WaitForDocumentLoaded();
+                    image = webDocument.CaptureFullPageScreenshot(screenshotCaptureFlag);
                 }
-
-                var image = adapter.Element.HasCapability("webdocument")
-                    ? adapter.As<WebDocument>().CaptureFullPageScreenshot(screenshotCaptureFlag)
-                    : Imaging.CaptureImage(adapter.Element);
+                else
+                {
+                    EyesWrapper.SetBrowserName(string.Empty);
+                    image = Imaging.CaptureImage(adapter.Element);
+                }
 
                 EyesWrapper.CheckImage(image, stepDescription);
             }
