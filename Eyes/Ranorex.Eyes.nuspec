@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Ranorex.Eyes</id>
-        <version>0.1.4</version>
+        <version>0.1.5</version>
         <title>Ranorex with Applitools Eyes</title>
         <authors>Ranorex GmbH</authors>
         <owners>Ranorex GmbH</owners>
