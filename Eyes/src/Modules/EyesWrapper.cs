@@ -41,7 +41,11 @@ namespace Ranorex.Eyes
             }
 
             SetMatchLevel(matchLevel);
-            SetBatchName(TestSuite.Current.Name);
+            if (TestSuite.Current != null)
+            {
+                SetBatchName(TestSuite.Current.Name);
+            }
+
             if (!string.IsNullOrWhiteSpace(batchId))
             {
                 SetBatchId(batchId);

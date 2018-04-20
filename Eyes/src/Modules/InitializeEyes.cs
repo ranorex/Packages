@@ -48,7 +48,10 @@ namespace Ranorex.Eyes
 
             if (string.IsNullOrEmpty(AppName))
             {
-                AppName = TestSuite.Current.Name;
+                if (TestSuite.Current != null)
+                {
+                    AppName = TestSuite.Current.Name;
+                }
             }
 
             EyesWrapper.Initialize(
