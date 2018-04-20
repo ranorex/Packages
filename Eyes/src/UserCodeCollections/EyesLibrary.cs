@@ -49,7 +49,7 @@ namespace Ranorex.Eyes
         /// Set the behavior of the screenshot capture operation (default: DisableCssTransitions) for elements of a
         /// Webdocument for the remaining test run.
         /// </summary>
-        /// <param name="flagName">The name of the <see cref="WebDocument.CapturePageFlags"/></param>
+        /// <param name="flagName">The name of the <see cref="WebDocument.CapturePageFlags"/>: None, DisableCssTransitions or HidePositionFixed</param>
         [UserCodeMethod]
         public static void ChangeScreenshotCaptureBehaviour(string flagName)
         {
