@@ -124,7 +124,11 @@ namespace Ranorex.Eyes
                 {
                     var webDocument = adapter.As<WebDocument>();
                     EyesWrapper.SetBrowserName(webDocument.BrowserName);
-                    webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
+                    if (EyesWrapper.ViewPortWidth > 0 && EyesWrapper.ViewPortHeight > 0)
+                    {
+                        webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
+                    }
+
                     webDocument.WaitForDocumentLoaded();
                     image = webDocument.CaptureFullPageScreenshot(screenshotCaptureFlag);
                 }
