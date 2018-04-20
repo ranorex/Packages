@@ -25,6 +25,7 @@
     </metadata>
     <files>
         <file src="ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll" target="lib" />
+        <file src="ImageTester\src\csharp\bin\Release\Newtonsoft.Json.dll" target="lib" />
         <file src="src\Modules\*.cs" target="content\Modules" />
         <file src="src\UserCodeCollections\*.cs" target="content\UserCodeCollections" />
         <file src="app.config.transform" target="content" />
