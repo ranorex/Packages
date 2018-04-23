@@ -37,23 +37,9 @@
     <Reference Include="Applitools.ImageTester">
       <HintPath>..\ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll</HintPath>
     </Reference>
-    <Reference Include="Eyes.Images, Version=1.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Eyes.Images.1.22.0\lib\net35\Eyes.Images.dll</HintPath>
-    </Reference>
-    <Reference Include="Eyes.Sdk.DotNet, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Eyes.Sdk.2.5.3\lib\net45\Eyes.Sdk.DotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Eyes.Utils.DotNet, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Eyes.Sdk.2.5.3\lib\net45\Eyes.Utils.DotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetZip.Reduced.1.9.1.8\lib\net20\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Eyes.Bundle, Version=1.22.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Bootstrapper">
       <Private>False</Private>

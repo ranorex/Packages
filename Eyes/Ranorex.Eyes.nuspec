@@ -18,15 +18,13 @@
             <frameworkAssembly assemblyName="System.Windows.Forms" />
         </frameworkAssemblies>
         <dependencies>
-            <dependency id="Eyes.Images" version="1.22.0"/>
             <dependency id="PdfiumViewer" version="2.12.0.0"/>
         </dependencies>
     </metadata>
     <files>
         <file src="ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll" target="lib" />
-        <file src="ImageTester\src\csharp\bin\Release\Newtonsoft.Json.dll" target="lib" />
+        <file src="ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll" target="lib" />
         <file src="src\Modules\*.cs" target="content\Modules" />
         <file src="src\UserCodeCollections\*.cs" target="content\UserCodeCollections" />
-        <file src="app.config.transform" target="content" />
     </files>
 </package>
