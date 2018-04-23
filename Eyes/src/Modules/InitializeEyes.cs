@@ -45,9 +45,7 @@ namespace Ranorex.Eyes
         {
             if (Configuration.Current.Tools.UseUiaLauncher)
             {
-                Report.Failure("Ranorex.Eyes is not supporting UIA Launcher and disabled it for this solution. Please start this test again.");
-                Configuration.Current.Tools.UseUiaLauncher = false;
-                Configuration.Current.SaveToUserSettings();
+                Report.Failure("Ranorex.Eyes is not supporting UiaLauncher, please disabled it in Settings/Advanced and run this test again.");
             }
 
             int portHeight, portWidth;
