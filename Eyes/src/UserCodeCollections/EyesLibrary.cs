@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using Ranorex.Controls;
 using Ranorex.Core.Testing;
@@ -10,7 +9,7 @@ namespace Ranorex.Eyes
     /// Ranorex user code collection for Applitools Eyes.
     /// </summary>
     [UserCodeCollection]
-    internal static class EyesIntegrationCollection
+    internal static class EyesLibrary
     {
         private static WebDocument.CapturePageFlags screenshotCaptureFlag = WebDocument.CapturePageFlags.DisableCssTransitions;
 
@@ -102,7 +101,7 @@ namespace Ranorex.Eyes
         /// Perform a visual check (utilizing Applitools eyes) on the passed element. The parameter stepDescription is optional.
         /// </summary>
         /// <param name="adapter">The element for the visual checkpoint (from any type)</param>///
-        /// <param name="stepDescription">Description of the test step</param>///        
+        /// <param name="stepDescription">Description of the test step</param>///
         [UserCodeMethod]
         public static void VisualCheckpoint(Adapter adapter, string stepDescription)
         {
