@@ -1,4 +1,5 @@
-﻿using Ranorex.Core.Testing;
+﻿using Ranorex.Core;
+using Ranorex.Core.Testing;
 
 namespace Ranorex.Eyes
 {
@@ -25,7 +26,7 @@ namespace Ranorex.Eyes
 
         [TestVariable("474e2225-adc4-4807-82d6-dffcecca508a")]
         public string ViewPortHeight { get; set; }
-        
+
         [TestVariable("680F6759-0B46-4F09-8F83-9CCAF1384F1E")]
         public string MatchLevel { get; set; }
 
@@ -42,6 +43,13 @@ namespace Ranorex.Eyes
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
+            if (Configuration.Current.Tools.UseUiaLauncher)
+            {
+                Report.Failure("Ranorex.Eyes is not supporting UIA Launcher and disabled it for this solution. Please start this test again.");
+                Configuration.Current.Tools.UseUiaLauncher = false;
+                Configuration.Current.SaveToUserSettings();
+            }
+
             int portHeight, portWidth;
             int.TryParse(ViewPortHeight, out portHeight);
             int.TryParse(ViewPortWidth, out portWidth);
