@@ -9,7 +9,7 @@ namespace Ranorex.Eyes
     /// Ranorex user code collection for Applitools Eyes.
     /// </summary>
     [UserCodeCollection]
-    internal static class EyesLibrary
+    public static class EyesLibrary
     {
         private static WebDocument.CapturePageFlags screenshotCaptureFlag = WebDocument.CapturePageFlags.DisableCssTransitions;
 
