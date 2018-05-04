@@ -105,6 +105,11 @@ namespace Ranorex.Eyes
         [UserCodeMethod]
         public static void VisualCheckpoint(Adapter adapter, string stepDescription)
         {
+        	if (adapter == null)
+        	{
+        		throw new ArgumentNullException("adapter");
+        	}
+        	
             var testCaseName = string.Empty;
             if (TestSuite.Current != null)
             {
