@@ -79,7 +79,7 @@ namespace Ranorex.Eyes
         {
             // Handling of filename / folder
             fileOrFolderPath = fileOrFolderPath.Trim();
-            if (!System.IO.File.Exists(fileOrFolderPath))
+            if (!System.IO.File.Exists(fileOrFolderPath) && !System.IO.Directory.Exists(fileOrFolderPath))
             {
                 fileOrFolderPath = System.IO.Directory.GetCurrentDirectory() + @"\" + fileOrFolderPath;
             }
