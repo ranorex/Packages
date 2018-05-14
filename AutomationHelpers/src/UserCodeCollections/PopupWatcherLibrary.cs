@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Ranorex.Core;
 using Ranorex.Core.Reporting;
@@ -107,7 +108,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void StopAllPopupWatchers()
         {
-            foreach (var watcher in watchers)
+            foreach (var watcher in watchers.ToList())
             {
                 StopPopupWatcher(watcher.Key, watcher.Value);
             }
