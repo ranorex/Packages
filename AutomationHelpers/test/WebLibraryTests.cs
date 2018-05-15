@@ -102,23 +102,6 @@ namespace RanorexAutomationHelpers.Test
         }
 
         [Test]
-        public void WebLibraryTest_DownloadExeToSystemDir_Fail()
-        {
-            //Arrange
-            string address = "https://www.ranorex.com/download/Ranorex-7.2.0.exe";
-            string fileName = Path.Combine(Environment.SystemDirectory, "Ranorex-7.2.0.exe");
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
-
-            //Act
-            WebLibrary.DownloadFile(address, fileName);
-
-            //Assert
-            Report.DetachLogger(logger);
-            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nAn exception occurred during a WebClient request.\r\nAccess to the path '{1}' is denied.", address, fileName), logger.LastLogMessage);
-        }
-		
-		[Test]
         public void WebLibraryTest_ResponseStatusCode_404()
         {    	
         	string statusCode = WebLibrary.GetHttpStatusCode("https://httpstat.us/404");
