@@ -27,7 +27,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: address", address), logger.LastLogMessage);
+            StringAssert.StartsWith(string.Format("Downloading a file from: {0} failed for the following reason:", address), logger.LastLogMessage);
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace RanorexAutomationHelpers.Test
 
             //Assert
             Report.DetachLogger(logger);
-            Assert.AreEqual(string.Format("Downloading a file from: {0} failed for the following reason:\r\nValue cannot be null.\r\nParameter name: fileName", address), logger.LastLogMessage);
+            StringAssert.StartsWith(string.Format("Downloading a file from: {0} failed for the following reason:", address), logger.LastLogMessage);
         }
 
         [Test]
