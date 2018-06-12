@@ -44,9 +44,11 @@ namespace Ranorex.AutomationHelpers.Modules
 
         [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
         public string Details { get; set; }
-		
+
+#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
         [TestVariable("7f788c18-962c-41ab-b591-9c3122512c5e")]
         public string DeleteRanorexReport { get; set; }
+#endif
 
         /// <summary>
         /// Converts the Ranorex Report into PDF after the test run completed. Use this module in
@@ -69,7 +71,8 @@ namespace Ranorex.AutomationHelpers.Modules
                     CreatePDF();
                 };
 
-				TestSuiteRunner.TestRunCompleted += delegate
+#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
+                TestSuiteRunner.TestRunCompleted += delegate
                 {
                     if (GetCastedDeleteRanorexReport(DeleteRanorexReport))
                     {
@@ -77,6 +80,7 @@ namespace Ranorex.AutomationHelpers.Modules
                         cleaner.Cleanup();
                     }
                 };
+#endif
 
                 this.registered = true;
             }
@@ -227,7 +231,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
             return status;
         }
-		
+
         /// <summary>
         /// Returns a boolean interpretation from the "DeleteRanorexReport" variable
         /// </summary>
