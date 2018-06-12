@@ -44,6 +44,9 @@ namespace Ranorex.AutomationHelpers.Modules
 
         [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
         public string Details { get; set; }
+		
+        [TestVariable("7f788c18-962c-41ab-b591-9c3122512c5e")]
+        public string DeleteRanorexReport { get; set; }
 
         /// <summary>
         /// Converts the Ranorex Report into PDF after the test run completed. Use this module in
@@ -57,9 +60,22 @@ namespace Ranorex.AutomationHelpers.Modules
             //Delegate must be registered only once
             if (!this.registered)
             {
+                System.DateTime testSuiteCompleted = new System.DateTime();
+
                 //PDF will be generated at the very end of the TestSuite
-                TestSuite.TestSuiteCompleted += delegate {
+                TestSuite.TestSuiteCompleted += delegate
+                {
+                    testSuiteCompleted = System.DateTime.Now;
                     CreatePDF();
+                };
+
+				TestSuiteRunner.TestRunCompleted += delegate
+                {
+                    if (GetCastedDeleteRanorexReport(DeleteRanorexReport))
+                    {
+                        var cleaner = new CleanupRanorexReport(testSuiteCompleted);
+                        cleaner.Cleanup();
+                    }
                 };
 
                 this.registered = true;
@@ -105,21 +121,18 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string ConvertReportToPDF(string pdfName, string xml, string details)
         {
-        	var zippedReportFileDirectory = CreateTempReportFileDirectory();
+            var zippedReportFileDirectory = CreateTempReportFileDirectory();
             var reportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
             var name = TestReport.ReportEnvironment.ReportName;
 
             var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);
             var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
 
-            if (!File.Exists(PDFReportFilePath))
-            {
-            	FinishReport();
+            FinishReport();
 
-            	Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+            Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
-            	Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
-            }
+            Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
 
             return PDFReportFilePath;
         }
@@ -130,16 +143,16 @@ namespace Ranorex.AutomationHelpers.Modules
         }
 
         private void FinishReport() {
-        	Activity activity = ActivityStack.Current ;
+            Activity activity = ActivityStack.Current ;
 
-        	//Necessary to end the Ranorex Report in order to update the duration and finalize the status
-        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
-            	{
-            		TestReport.EndTestModule();
-            		Report.End();
-            	}
+            //Necessary to end the Ranorex Report in order to update the duration and finalize the status
+            if (activity.GetType().Name.Equals("TestSuiteActivity"))
+            {
+                TestReport.EndTestModule();
+                Report.End();
+            }
 
-            	TestReport.SaveReport();
+            TestReport.SaveReport();
         }
 
         private string CreateTempReportFileDirectory()
@@ -213,6 +226,26 @@ namespace Ranorex.AutomationHelpers.Modules
             }
 
             return status;
+        }
+		
+        /// <summary>
+        /// Returns a boolean interpretation from the "DeleteRanorexReport" variable
+        /// </summary>
+        private bool GetCastedDeleteRanorexReport(string deleteRanorexReport)
+        {
+            if (String.IsNullOrEmpty(deleteRanorexReport))
+            {
+                return false;
+            }
+
+            switch (deleteRanorexReport.ToLowerInvariant())
+            {
+                    case "yes": return true;
+                    case "true": return true;
+                    case "no": return false;
+                    case "false": return false;
+                    default: return false;
+            }
         }
     }
 }
