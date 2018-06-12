@@ -45,7 +45,13 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ranorex.Core" />
+    <Reference Include="Ranorex.PDF, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.13\lib\net40\Ranorex.PDF.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,6 +62,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="..\src\Modules\*.cs">
+      <Link>Modules\%(FileName)</Link>
+    </Compile>
+    <Compile Include="..\src\UserCodeCollections\*.cs">
+      <Link>UserCodeCollections\%(FileName)</Link>
+    </Compile>
     <Compile Include="WebLibraryTests.cs" />
     <Compile Include="StringLibraryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,12 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RanorexAutomationHelpers.csproj">
-      <Project>{3492d9b2-23bc-4b2f-be72-0e1dfabc369a}</Project>
-      <Name>RanorexAutomationHelpers</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
