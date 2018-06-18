@@ -26,5 +26,7 @@
     </metadata>
     <files>
         <file src="src\**\*.cs" target="content" />
+        <file src="scripts\install.ps1" target="tools\install.ps1" />
+        <file src="scripts\uninstall.ps1" target="tools\uninstall.ps1" />
     </files>
 </package>
