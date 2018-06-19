@@ -78,17 +78,8 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string GetReportExtension()
         {
-            var reportDataFile = TestReport.ReportEnvironment.ReportDataFilePath;
-            var extension = reportDataFile.Substring(reportDataFile.Length - 10).Split('.');
-
-            if (extension.Length == 3)
-            {
-                return "html";
-            }
-            else
-            {
-                return "rxlog";
-            }
+            var extension = TestReport.ReportEnvironment.ReportDataFilePath.Split('.');
+            return extension[extension.Length - 2];
         }
     }
 }
