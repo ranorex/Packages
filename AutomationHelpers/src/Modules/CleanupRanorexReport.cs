@@ -1,16 +1,18 @@
-﻿using System.Collections.Generic;
-using Ranorex.Core;
+﻿//
+// Copyright © 2018 Ranorex All rights reserved
+//
+
 using System;
-using Ranorex.Core.Reporting;
 using System.IO;
+using Ranorex.Core.Reporting;
 
 namespace Ranorex.AutomationHelpers.Modules
 {
-    class CleanupRanorexReport
+    internal sealed class CleanupRanorexReport
     {
-        private System.DateTime testSuiteCompleted;
+        private readonly System.DateTime testSuiteCompleted;
 
-        public CleanupRanorexReport(System.DateTime testSuiteCompleted)
+        internal CleanupRanorexReport(System.DateTime testSuiteCompleted)
         {
             this.testSuiteCompleted = testSuiteCompleted;
         }
@@ -26,7 +28,7 @@ namespace Ranorex.AutomationHelpers.Modules
                 var name = TestReport.ReportEnvironment.ReportName;
 
                 var reportDataFile = TestReport.ReportEnvironment.ReportDataFilePath;
-                var reportFile = String.Format(@"{0}\{1}.{2}", reportFileDirectory, name, GetReportExtension());
+                var reportFile = string.Format(@"{0}\{1}.{2}", reportFileDirectory, name, GetReportExtension());
 
                 DeleteReportImages();
 
@@ -35,7 +37,7 @@ namespace Ranorex.AutomationHelpers.Modules
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to delete Ranorex report files: " + ex.Message);
+                throw new InvalidOperationException("Failed to delete Ranorex report files: " + ex.Message);
             }
         }
 
@@ -61,7 +63,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
                 if(imageFolderDirectoryInfo.Exists)
                 {
-                    foreach (var image in imageFolderDirectoryInfo.GetFiles(String.Format("*{0}*.jpg", shortName)))
+                    foreach (var image in imageFolderDirectoryInfo.GetFiles(string.Format("*{0}*.jpg", shortName)))
                     {
                         var imageCreationTime = File.GetCreationTime(image.FullName);
 
@@ -83,7 +85,6 @@ namespace Ranorex.AutomationHelpers.Modules
             {
                 return "html";
             }
-
             else
             {
                 return "rxlog";

@@ -47,7 +47,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
 #if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
         [TestVariable("7f788c18-962c-41ab-b591-9c3122512c5e")]
-        public string DeleteRanorexReport { get; set; }
+        public bool DeleteRanorexReport { get; set; }
 #endif
 
         /// <summary>
@@ -72,14 +72,14 @@ namespace Ranorex.AutomationHelpers.Modules
                 };
 
 #if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
-                TestSuiteRunner.TestRunCompleted += delegate
+                if (this.DeleteRanorexReport)
                 {
-                    if (GetCastedDeleteRanorexReport(DeleteRanorexReport))
+                    TestSuiteRunner.TestRunCompleted += delegate
                     {
                         var cleaner = new CleanupRanorexReport(testSuiteCompleted);
                         cleaner.Cleanup();
-                    }
-                };
+                    };
+                }
 #endif
 
                 this.registered = true;
@@ -164,12 +164,13 @@ namespace Ranorex.AutomationHelpers.Modules
             //Create new temp directory for zipped Report
             try
             {
-                this.ZippedReportFileDirectoryInfo = System.IO.Directory.CreateDirectory(String.Format(@"{0}\temp", TestReport.ReportEnvironment.ReportFileDirectory));
+                this.ZippedReportFileDirectoryInfo = Directory.CreateDirectory(
+                    string.Format(@"{0}\temp", TestReport.ReportEnvironment.ReportFileDirectory));
                 return this.ZippedReportFileDirectoryInfo.FullName;
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create temp folder: " + ex.Message);
+                throw new InvalidOperationException("Failed to create temp folder: " + ex.Message);
             }
         }
 
@@ -181,7 +182,7 @@ namespace Ranorex.AutomationHelpers.Modules
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to recursively delete zipped report file directory: " + ex.Message);
+                throw new InvalidOperationException("Failed to recursively delete zipped report file directory: " + ex.Message);
             }
         }
 
@@ -195,7 +196,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
             if (testsuite.ReportSettings.ReportFormatString.Contains("%X"))
             {
-                name = name += "_" + GetTestSuiteStatus();
+                name += "_" + GetTestSuiteStatus();
             }
 
             return name;
@@ -203,8 +204,6 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private static void UpdateError()
         {
-            var testsuite = (TestSuite)TestSuite.Current;
-
             if (GetTestSuiteStatus().Contains("Failed"))
             {
                 Report.Failure("Rethrow Exception within PDF Module (Necessary for correct error value)");
@@ -230,26 +229,6 @@ namespace Ranorex.AutomationHelpers.Modules
             }
 
             return status;
-        }
-
-        /// <summary>
-        /// Returns a boolean interpretation from the "DeleteRanorexReport" variable
-        /// </summary>
-        private bool GetCastedDeleteRanorexReport(string deleteRanorexReport)
-        {
-            if (String.IsNullOrEmpty(deleteRanorexReport))
-            {
-                return false;
-            }
-
-            switch (deleteRanorexReport.ToLowerInvariant())
-            {
-                    case "yes": return true;
-                    case "true": return true;
-                    case "no": return false;
-                    case "false": return false;
-                    default: return false;
-            }
         }
     }
 }
