@@ -45,6 +45,11 @@ namespace Ranorex.AutomationHelpers.Modules
         [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
         public string Details { get; set; }
 
+#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
+        [TestVariable("7f788c18-962c-41ab-b591-9c3122512c5e")]
+        public bool DeleteRanorexReport { get; set; }
+#endif
+
         /// <summary>
         /// Converts the Ranorex Report into PDF after the test run completed. Use this module in
         /// the TearDown of your TestCase to ensure that it is executed even on failing test runs.
@@ -57,10 +62,25 @@ namespace Ranorex.AutomationHelpers.Modules
             //Delegate must be registered only once
             if (!this.registered)
             {
+                System.DateTime testSuiteCompleted = new System.DateTime();
+
                 //PDF will be generated at the very end of the TestSuite
-                TestSuite.TestSuiteCompleted += delegate {
+                TestSuite.TestSuiteCompleted += delegate
+                {
+                    testSuiteCompleted = System.DateTime.Now;
                     CreatePDF();
                 };
+
+#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
+                if (this.DeleteRanorexReport)
+                {
+                    TestSuiteRunner.TestRunCompleted += delegate
+                    {
+                        var cleaner = new CleanupRanorexReport(testSuiteCompleted);
+                        cleaner.Cleanup();
+                    };
+                }
+#endif
 
                 this.registered = true;
             }
@@ -105,21 +125,18 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private string ConvertReportToPDF(string pdfName, string xml, string details)
         {
-        	var zippedReportFileDirectory = CreateTempReportFileDirectory();
+            var zippedReportFileDirectory = CreateTempReportFileDirectory();
             var reportFileDirectory = TestReport.ReportEnvironment.ReportFileDirectory;
             var name = TestReport.ReportEnvironment.ReportName;
 
             var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);
             var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
 
-            if (!File.Exists(PDFReportFilePath))
-            {
-            	FinishReport();
+            FinishReport();
 
-            	Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
+            Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
-            	Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
-            }
+            Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
 
             return PDFReportFilePath;
         }
@@ -130,16 +147,16 @@ namespace Ranorex.AutomationHelpers.Modules
         }
 
         private void FinishReport() {
-        	Activity activity = ActivityStack.Current ;
+            Activity activity = ActivityStack.Current ;
 
-        	//Necessary to end the Ranorex Report in order to update the duration and finalize the status
-        	if (activity.GetType().Name.Equals("TestSuiteActivity"))
-            	{
-            		TestReport.EndTestModule();
-            		Report.End();
-            	}
+            //Necessary to end the Ranorex Report in order to update the duration and finalize the status
+            if (activity.GetType().Name.Equals("TestSuiteActivity"))
+            {
+                TestReport.EndTestModule();
+                Report.End();
+            }
 
-            	TestReport.SaveReport();
+            TestReport.SaveReport();
         }
 
         private string CreateTempReportFileDirectory()
@@ -147,12 +164,13 @@ namespace Ranorex.AutomationHelpers.Modules
             //Create new temp directory for zipped Report
             try
             {
-                this.ZippedReportFileDirectoryInfo = System.IO.Directory.CreateDirectory(String.Format(@"{0}\temp", TestReport.ReportEnvironment.ReportFileDirectory));
+                this.ZippedReportFileDirectoryInfo = Directory.CreateDirectory(
+                    string.Format(@"{0}\temp", TestReport.ReportEnvironment.ReportFileDirectory));
                 return this.ZippedReportFileDirectoryInfo.FullName;
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to create temp folder: " + ex.Message);
+                throw new InvalidOperationException("Failed to create temp folder: " + ex.Message);
             }
         }
 
@@ -164,7 +182,7 @@ namespace Ranorex.AutomationHelpers.Modules
             }
             catch (Exception ex)
             {
-                throw new Exception("Failed to recursively delete zipped report file directory: " + ex.Message);
+                throw new InvalidOperationException("Failed to recursively delete zipped report file directory: " + ex.Message);
             }
         }
 
@@ -178,7 +196,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
             if (testsuite.ReportSettings.ReportFormatString.Contains("%X"))
             {
-                name = name += "_" + GetTestSuiteStatus();
+                name += "_" + GetTestSuiteStatus();
             }
 
             return name;
@@ -186,8 +204,6 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private static void UpdateError()
         {
-            var testsuite = (TestSuite)TestSuite.Current;
-
             if (GetTestSuiteStatus().Contains("Failed"))
             {
                 Report.Failure("Rethrow Exception within PDF Module (Necessary for correct error value)");
