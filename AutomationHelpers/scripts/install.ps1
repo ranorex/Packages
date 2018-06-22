@@ -12,6 +12,11 @@ if (!$rxVersion)
     exit
 }
 $rxVersion = "RX$rxVersion"
+if ($rxVersion -ne "RX72" -and $rxVersion -ne "RX80")
+{
+    Write-Warning('Current Ranorex version is fully supported by this package.')
+    exit
+}
 
 $defineConstants = $project.Properties.Item("DefineConstants")
 [array]$symbols = $defineConstants.Value.Split(';')

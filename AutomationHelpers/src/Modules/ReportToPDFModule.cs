@@ -45,7 +45,7 @@ namespace Ranorex.AutomationHelpers.Modules
         [TestVariable("b9993b89-d8cb-45fe-829b-42b0f8dd8a00")]
         public string Details { get; set; }
 
-#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
+#if !RX72 && !RX80 //this requires Ranorex 8.1+
         [TestVariable("7f788c18-962c-41ab-b591-9c3122512c5e")]
         public bool DeleteRanorexReport { get; set; }
 #endif
@@ -71,7 +71,7 @@ namespace Ranorex.AutomationHelpers.Modules
                     CreatePDF();
                 };
 
-#if !RX72 && !RX80 //this requires Ranorex 8.1+ -> make sure 'RX81' is set in conditional compilation symbols in project properties
+#if !RX72 && !RX80 //this requires Ranorex 8.1+
                 if (this.DeleteRanorexReport)
                 {
                     TestSuiteRunner.TestRunCompleted += delegate
