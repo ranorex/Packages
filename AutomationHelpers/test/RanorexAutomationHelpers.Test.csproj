@@ -39,8 +39,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ranorex.Core" />
-    <Reference Include="Ranorex.PDF, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.13\lib\net40\Ranorex.PDF.exe</HintPath>
+    <Reference Include="Ranorex.ReportToPDF, Version=1.0.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ranorex.ReportToPDF.1.0.14\lib\net40\Ranorex.ReportToPDF.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
