@@ -100,8 +100,8 @@ namespace Ranorex.Eyes
         /// <summary>
         /// Perform a visual check (utilizing Applitools eyes) on the passed element. The parameter stepDescription is optional.
         /// </summary>
-        /// <param name="adapter">The element for the visual checkpoint (from any type)</param>///
-        /// <param name="stepDescription">Description of the test step</param>///
+        /// <param name="adapter">The element for the visual checkpoint (from any type)</param>
+        /// <param name="stepDescription">Description of the test step</param>
         [UserCodeMethod]
         public static void VisualCheckpoint(Adapter adapter, string stepDescription)
         {
@@ -109,7 +109,7 @@ namespace Ranorex.Eyes
         	{
         		throw new ArgumentNullException("adapter");
         	}
-        	
+
             var testCaseName = string.Empty;
             if (TestSuite.Current != null)
             {
