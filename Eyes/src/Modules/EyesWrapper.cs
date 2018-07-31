@@ -151,6 +151,10 @@ namespace Ranorex.Eyes
                 {
                     eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Content;
                 }
+                else if (matchLevel.ToUpper().Contains("STRICT"))
+                {
+                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Strict;
+                }
                 else
                 {
                     Report.Warn(string.Format("MatchLevel {0} is not valid; fallback to default (strict)", matchLevel));
