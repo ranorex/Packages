@@ -40,7 +40,7 @@ namespace Ranorex.AutomationHelpers.Modules
         public string PdfName { get; set; }
 
         [TestVariable("536f8a69-f246-4f2b-ae9e-1f62babb2ba9")]
-        public string PdfPath { get; set; }
+        public string PdfDirectoryPath { get; set; }
 
         [TestVariable("c15f25ea-9409-4e1a-b76e-cd208bae6c56")]
         public string Xml { get; set; }
@@ -101,7 +101,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
             try
             {
-                pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.PdfPath, this.Xml, this.Details);
+                pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.PdfDirectoryPath, this.Xml, this.Details);
                 Report.LogHtml(
                     ReportLevel.Success,
                     "PDFReport",
@@ -126,12 +126,12 @@ namespace Ranorex.AutomationHelpers.Modules
             return pdfReportFilePath;
         }
 
-        private string ConvertReportToPDF(string pdfName, string pdfPath, string xml, string details)
+        private string ConvertReportToPDF(string pdfName, string pdfDirectoryPath, string xml, string details)
         {
         	var zippedReportFileDirectory = CreateTempReportFileDirectory();
-            var reportFileDirectory = string.IsNullOrEmpty(pdfPath)
+            var reportFileDirectory = string.IsNullOrEmpty(pdfDirectoryPath)
                 ? TestReport.ReportEnvironment.ReportFileDirectory
-                : pdfPath;
+                : pdfDirectoryPath;
             var name = TestReport.ReportEnvironment.ReportName;
 
             var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);

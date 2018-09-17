@@ -113,7 +113,8 @@ namespace Ranorex.AutomationHelpers.Modules
         public bool SendPdfReportOnComplete { get; set; }
 
         /// <summary>
-        /// If <see cref="SendPdfReportOnComplete"/> set to true, this can be used to set a custom stylesheet.
+        /// If <see cref="SendPdfReportOnComplete"/> is set to true, this can be used to set a custom stylesheet.
+        /// Don't set or set to an empty string to use the default stylesheet.
         /// See https://www.ranorex.com/blog/ranorex-report-to-pdf-conversion#stylesheet
         /// </summary>
         [TestVariable("B56D72A4-8257-4EC5-A054-455D9094B56A")]
