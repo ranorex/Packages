@@ -113,6 +113,14 @@ namespace Ranorex.AutomationHelpers.Modules
         public bool SendPdfReportOnComplete { get; set; }
 
         /// <summary>
+        /// If <see cref="SendPdfReportOnComplete"/> is set to true, this can be used to set a custom stylesheet.
+        /// Don't set or set to an empty string to use the default stylesheet.
+        /// See https://www.ranorex.com/blog/ranorex-report-to-pdf-conversion#stylesheet
+        /// </summary>
+        [TestVariable("B56D72A4-8257-4EC5-A054-455D9094B56A")]
+        public string PdfReportCustomStylesheet { get; set; }
+
+        /// <summary>
         /// Sends the report via email after the test run has completed. Use this module in
         /// the TearDown of your test case to ensure that it is executed even on failing test runs.
         /// </summary>
@@ -185,7 +193,7 @@ namespace Ranorex.AutomationHelpers.Modules
             {
                 ReportToPDFModule pdfModule = new ReportToPDFModule();
                 pdfModule.PdfName = TestReport.ReportEnvironment.ReportName + ".pdf";
-                pdfModule.Xml = "";
+                pdfModule.Xml = this.PdfReportCustomStylesheet ?? "";
                 pdfModule.Details = "all";
                 return pdfModule.CreatePDF();
             }
