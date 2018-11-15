@@ -70,7 +70,13 @@ namespace RanorexAutomationHelpers.Test
         public void StartPopupWatcherTest_WithoutParameters_ThrowsException()
         {
             //Assert
-            Assert.Throws<ArgumentNullException>(() => PopupWatcherLibrary.StartPopupWatcher(null, null));
+            //Arrange
+            var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
+            var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
+            
+            //Act + Assert
+            Assert.Throws<ArgumentNullException>(() => PopupWatcherLibrary.StartPopupWatcher(repoItemInfo, null));
+            Assert.Throws<ArgumentNullException>(() => PopupWatcherLibrary.StartPopupWatcher(null, repoItemInfo));
         }
 
         [Test]
