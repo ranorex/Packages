@@ -69,7 +69,6 @@ namespace RanorexAutomationHelpers.Test
         [Test]
         public void StartPopupWatcherTest_WithoutParameters_ThrowsException()
         {
-            //Assert
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
