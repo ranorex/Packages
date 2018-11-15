@@ -39,6 +39,9 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static PopupWatcher StartPopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
+            CheckArgumentNotNull(findElement, "findElement");
+            CheckArgumentNotNull(clickElement, "clickElement");
+
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
 
             if (watchers.ContainsKey(key))
@@ -62,10 +65,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static PopupWatcher PauseWhileExists(RepoItemInfo findElement)
         {
-            if (findElement == null)
-            {
-                throw new ArgumentNullException("findElement");
-            }
+            CheckArgumentNotNull(findElement, "findElement");
 
             var key = findElement.GetMetaInfos()["id"];
 
@@ -90,6 +90,9 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void StopPopupWatcher(RepoItemInfo findElement, RepoItemInfo clickElement)
         {
+            CheckArgumentNotNull(findElement, "findElement");
+            CheckArgumentNotNull(clickElement, "clickElement");
+
             var key = findElement.GetMetaInfos()["id"] + clickElement.GetMetaInfos()["id"];
             PopupWatcher watcher = null;
             if (watchers.TryGetValue(key, out watcher))
@@ -134,6 +137,14 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             watcher.Stop();
             Report.Info("Popup watcher stopped.");
             watchers.Remove(key);
+        }
+
+        private static void CheckArgumentNotNull(object argument, string argumentName)
+        {
+            if (argument == null)
+            {
+                throw new ArgumentNullException(argumentName);
+            }
         }
     }
 }
