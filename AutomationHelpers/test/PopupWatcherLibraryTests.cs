@@ -15,20 +15,32 @@ namespace RanorexAutomationHelpers.Test
     [TestFixture]
     public sealed class PopupWatcherLibraryTests
     {
+        private TestReportLogger logger;
+
+        [SetUp]
+        public void Init()
+        {
+            logger = new TestReportLogger();
+            Report.AttachLogger(logger);
+        }
+
+        [TearDown]
+        public void Dispose()
+        {
+            Report.DetachLogger(logger);
+        }
+
         [Test]
         public void StartPopupWatcherTest_Single_Success()
         {
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null);
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
 
             //Act
             var watcher = PopupWatcherLibrary.StartPopupWatcher(repoItemInfo, repoItemInfo);
 
             //Assert
-            Report.DetachLogger(logger);
             Assert.IsNotNull(watcher);
             Assert.AreEqual("Popup watcher started.", logger.LastLogMessage);
         }
@@ -39,8 +51,6 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
 
             //Act
             try
@@ -52,9 +62,15 @@ namespace RanorexAutomationHelpers.Test
             }
             catch (ArgumentException ex)
             {
-                Report.DetachLogger(logger);
                 Assert.AreEqual("Popup watcher with given parameters already exists.", ex.Message);
             }
+        }
+
+        [Test]
+        public void StartPopupWatcherTest_WithoutParameters_ThrowsException()
+        {
+            //Assert
+            Assert.Throws<ArgumentNullException>(() => PopupWatcherLibrary.StartPopupWatcher(null, null));
         }
 
         [Test]
@@ -63,15 +79,12 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
             var watcher = PopupWatcherLibrary.StartPopupWatcher(repoItemInfo, repoItemInfo);
 
             //Act
             PopupWatcherLibrary.StopPopupWatcher(repoItemInfo, repoItemInfo);
 
             //Assert
-            Report.DetachLogger(logger);
             Assert.IsNotNull(watcher);
             Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
         }
@@ -82,14 +95,11 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
 
             //Act
             PopupWatcherLibrary.StopPopupWatcher(repoItemInfo, repoItemInfo);
 
             //Assert
-            Report.DetachLogger(logger);
             Assert.AreEqual("The popup watcher you tried to remove does not exist.", logger.LastLogMessage);
         }
 
@@ -100,8 +110,6 @@ namespace RanorexAutomationHelpers.Test
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo1 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
             var repoItemInfo2 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
             PopupWatcherLibrary.StartPopupWatcher(repoItemInfo1, repoItemInfo1);
             PopupWatcherLibrary.StartPopupWatcher(repoItemInfo2, repoItemInfo2);
 
@@ -110,7 +118,6 @@ namespace RanorexAutomationHelpers.Test
             PopupWatcherLibrary.StopPopupWatcher(repoItemInfo2, repoItemInfo2);
 
             //Assert
-            Report.DetachLogger(logger);
             Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
         }
 
@@ -121,8 +128,6 @@ namespace RanorexAutomationHelpers.Test
             var parentFolder = Substitute.For<RepoGenBaseFolder>("Form1", "/notExistent", null, Duration.Zero, true);
             var repoItemInfo1 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
             var repoItemInfo2 = new RepoItemInfo(parentFolder, "self", RxPath.Parse(string.Empty), Duration.Zero, null, Guid.NewGuid().ToString());
-            var logger = new TestReportLogger();
-            Report.AttachLogger(logger);
             PopupWatcherLibrary.StartPopupWatcher(repoItemInfo1, repoItemInfo1);
             PopupWatcherLibrary.StartPopupWatcher(repoItemInfo2, repoItemInfo2);
 
@@ -130,7 +135,6 @@ namespace RanorexAutomationHelpers.Test
             PopupWatcherLibrary.StopAllPopupWatchers();
 
             //Assert
-            Report.DetachLogger(logger);
             Assert.AreEqual("Popup watcher stopped.", logger.LastLogMessage);
             Assert.AreEqual(0, PopupWatcherLibrary.Watchers.Count);
         }
