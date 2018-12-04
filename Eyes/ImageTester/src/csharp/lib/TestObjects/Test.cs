@@ -26,7 +26,6 @@ namespace Applitools.ImageTester.TestObjects
 
         public override void Run(Eyes eyes)
         {
-            eyes.Open(appname, Name(), viewportSize);
             foreach (ITestable step in steps)
             {
                 try
@@ -38,31 +37,6 @@ namespace Applitools.ImageTester.TestObjects
                     Console.WriteLine(string.Format("Error in Step {0}: \\n {1} \\n This step will be skipped!", step.Name(), e.Message));
                     Console.WriteLine(e.StackTrace);
                 }
-            }
-
-            try
-            {
-                TestResults result = eyes.Close(false);
-                PrintTestResults(result);
-                HandleResultsDownload(result);
-            }
-            catch (EyesException e)
-            {
-                Console.WriteLine(string.Format("Error closing test {0} \\nPath: {1} \\nReason: {2}", Name(), file.Name, e.Message));
-                Console.WriteLine("Aborting...");
-                try
-                {
-                    eyes.AbortIfNotClosed();
-                    Console.WriteLine("Aborted!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(string.Format("Error while aborting: {0}", ex.Message));
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
         }
 

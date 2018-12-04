@@ -34,30 +34,14 @@ namespace Applitools.ImageTester.TestObjects
 
         public override void Run(Eyes eyes)
         {
-            Exception ex = null;
-            TestResults result = null;
-            try
-            {
-                var pdfDocument = PdfDocument.Load(this.file, pdfPassword);
-                eyes.Open(appname, Name());
-                for (int i = 0; i < pagesList.Count; i++)
-                {
-                    var bim = pdfDocument.Render(pagesList[i] - 1, this.dpi, this.dpi, false);
-                    eyes.CheckImage(new Bitmap(bim), string.Format("Page-{0}", pagesList[i]));
-                }
+            var pdfDocument = PdfDocument.Load(this.file, pdfPassword);
 
-                result = eyes.Close(false);
-                PrintTestResults(result);
-                HandleResultsDownload(result);
-            }
-            catch (Exception e)
+            for (int i = 0; i < pagesList.Count; i++)
             {
-                Console.WriteLine(e.StackTrace);
+                var bim = pdfDocument.Render(pagesList[i] - 1, this.dpi, this.dpi, false);
+                eyes.CheckImage(new Bitmap(bim), string.Format("Page-{0}", pagesList[i]));
             }
-            finally
-            {
-                eyes.AbortIfNotClosed();
-            }
+
         }
 
         public static bool Supports(FileStream file)
@@ -85,7 +69,9 @@ namespace Applitools.ImageTester.TestObjects
         public virtual List<int> SetPagesList(string pages)
         {
             if (pages != null)
+            {
                 return ParsePagesToList(pages);
+            }
             else
             {
                 var pdfDocument = PdfDocument.Load(this.file, pdfPassword);
@@ -103,7 +89,10 @@ namespace Applitools.ImageTester.TestObjects
         {
             string pagesText = "";
             if (pages != null)
+            {
                 pagesText = " pages [" + pages + "]";
+            }
+
             return file == null ? name + pagesText : file.Name + pagesText;
         }
     }

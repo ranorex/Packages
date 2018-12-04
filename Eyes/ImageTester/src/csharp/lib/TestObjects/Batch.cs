@@ -35,7 +35,6 @@ namespace Applitools.ImageTester.TestObjects
                     test.Dispose();
                 }
             }
-
             eyes.Batch = null;
         }
 

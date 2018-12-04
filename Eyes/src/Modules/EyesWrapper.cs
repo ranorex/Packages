@@ -83,7 +83,6 @@ namespace Ranorex.Eyes
             }
 
             Report.Info("Visual Checkpoint - file comparison (PDF/Images).");
-
             suite.Run(eyes);
         }
 
@@ -106,6 +105,7 @@ namespace Ranorex.Eyes
                 finally
                 {
                     testRunning = false;
+                    eyes.AbortIfNotClosed();
                 }
             }
         }
