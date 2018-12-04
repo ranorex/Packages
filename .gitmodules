@@ -1,4 +1,0 @@
-[submodule "Eyes/ImageTester"]
-	path = Eyes/ImageTester
-	url = https://github.com/Didddy/ImageTester
-	branch = topic/CSharp

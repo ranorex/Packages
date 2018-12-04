@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.applitools.ImageTester.ImageTester
+Class-Path: ./EyesUtilities.jar
