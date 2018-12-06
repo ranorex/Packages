@@ -86,27 +86,33 @@ namespace Ranorex.Eyes
             suite.Run(eyes);
         }
 
+        [Obsolete("Parameter throwException is no longer used, please use CloseTest() instead.", false)]
         public static void CloseTest(bool throwException)
+        {
+            CloseTest();
+        }
+
+        public static void CloseTest()
         {
             if (testRunning)
             {
-                try
+                var results = eyes.Close(throwEx: false);
+
+                if(results.IsNew)
                 {
-                    eyes.Close(throwException);
+                    Report.LogHtml(ReportLevel.Warn, "Visual Testing", string.Format("New baseline created; please approve here: <a href='{0}'>Applitools backend</a>", results.Url));
                 }
-                catch (NewTestException e)
+                if(results.IsPassed)
                 {
-                    Report.LogHtml(ReportLevel.Warn, "Visual Testing", string.Format("New baseline created; please approve here: <a href='{0}'>Applitools backend</a>", e.TestResults.Url));
+                    Report.LogHtml(ReportLevel.Info, "Visual Testing", string.Format("Visual test passed; check results here: <a href='{0}'>Applitools backend</a>", results.Url));
                 }
-                catch (TestFailedException e)
+                else
                 {
-                    Report.LogHtml(ReportLevel.Failure, "Visual Testing", string.Format("Visual test failed; please check results here: <a href='{0}'>Applitools backend</a>", e.TestResults.Url));
+                    Report.LogHtml(ReportLevel.Failure, "Visual Testing", string.Format("Visual test failed; please check results here: <a href='{0}'>Applitools backend</a>", results.Url));
                 }
-                finally
-                {
-                    testRunning = false;
-                    eyes.AbortIfNotClosed();
-                }
+
+                testRunning = false;
+                eyes.AbortIfNotClosed();
             }
         }
 
@@ -122,7 +128,7 @@ namespace Ranorex.Eyes
             {
                 if (!testName.Equals(currentTestName))
                 {
-                    CloseTest(true);
+                    CloseTest();
                     StartOrContinueTest(testName);
                 }
             }
