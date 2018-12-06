@@ -84,6 +84,7 @@ namespace Ranorex.Eyes
                 fileOrFolderPath = System.IO.Directory.GetCurrentDirectory() + @"\" + fileOrFolderPath;
             }
 
+            EyesWrapper.StartOrContinueTest(GetTestCaseName());
             EyesWrapper.CheckFolder(fileOrFolderPath);
         }
 
@@ -110,13 +111,7 @@ namespace Ranorex.Eyes
         		throw new ArgumentNullException("adapter");
         	}
 
-            var testCaseName = string.Empty;
-            if (TestSuite.Current != null)
-            {
-                testCaseName = TestSuite.Current.CurrentTestContainer.Name;
-            }
-
-            EyesWrapper.StartOrContinueTest(testCaseName);
+            EyesWrapper.StartOrContinueTest(GetTestCaseName());
             Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", adapter));
 
             try
@@ -160,6 +155,16 @@ namespace Ranorex.Eyes
             {
                 ProgressForm.SetOpacity(100);
             }
+        }
+
+        private static string GetTestCaseName()
+        {
+            var testCaseName = string.Empty;
+            if (TestSuite.Current != null)
+            {
+                testCaseName = TestSuite.Current.CurrentTestContainer.Name;
+            }
+            return testCaseName;
         }
     }
 }

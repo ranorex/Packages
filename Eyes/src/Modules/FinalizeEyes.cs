@@ -22,7 +22,7 @@ namespace Ranorex.Eyes
         void ITestModule.Run()
         {
             Report.Info("Applitools: Closing Eyes.");
-            EyesWrapper.CloseTest(true);
+            EyesWrapper.CloseTest();
         }
     }
 }
