@@ -23,7 +23,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
         /// <summary>
         /// Gets the currently active watchers which were started using the <see cref="StartPopupWatcher"/>
-        /// method and have not been stopped using the <see cref="StopPopupWatcher"/> method, yet.
+        /// method and have not been stopped using the <see cref="StopPopupWatcher(RepoItemInfo,RepoItemInfo)"/> method, yet.
         /// </summary>
         /// <value>
         /// The currently active watchers created using the <see cref="PopupWatcherLibrary"/> class.

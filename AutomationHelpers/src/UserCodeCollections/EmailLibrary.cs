@@ -53,7 +53,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="to">Email recipients, separated by comma or semicolon</param>
         /// <param name="from">Email sender</param>
         /// <param name="body">Email message</param>
-        /// <param name="attachment">Path of a file to attach</param>
+        /// <param name="attachments">Paths of files to attach</param>
         /// <param name="serverHostname">Server hostname</param>
         /// <param name="serverPort">Server port</param>
         /// <param name="useSSL">Defines whether SSL is used or not (true or false)</param>
