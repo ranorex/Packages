@@ -123,6 +123,9 @@ namespace Ranorex.AutomationHelpers.Modules
             //Update error value
             UpdateError();
 
+            //Reset PDF name - required for multi test suite run
+            this.PdfName = string.Empty;
+
             return pdfReportFilePath;
         }
 
