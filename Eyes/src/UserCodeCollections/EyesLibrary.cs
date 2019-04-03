@@ -114,47 +114,38 @@ namespace Ranorex.Eyes
             EyesWrapper.StartOrContinueTest(GetTestCaseName());
             Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", adapter));
 
-            try
+            Bitmap image;
+            if (adapter.Element.HasCapability("webdocument"))
             {
-                ProgressForm.SetOpacity(0);
-
-                Bitmap image;
-                if (adapter.Element.HasCapability("webdocument"))
+                var webDocument = adapter.As<WebDocument>();
+                EyesWrapper.SetBrowserName(webDocument.BrowserName);
+                if (EyesWrapper.ViewPortWidth > 0 && EyesWrapper.ViewPortHeight > 0)
                 {
-                    var webDocument = adapter.As<WebDocument>();
-                    EyesWrapper.SetBrowserName(webDocument.BrowserName);
-                    if (EyesWrapper.ViewPortWidth > 0 && EyesWrapper.ViewPortHeight > 0)
-                    {
-                        webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
-                    }
-
-                    webDocument.WaitForDocumentLoaded();
-                    image = webDocument.CaptureFullPageScreenshot(screenshotCaptureFlag);
-                }
-                else
-                {
-                    var browserName = string.Empty;
-                    if (adapter.Element.HasCapability("webelement"))
-                    {
-                        var parent = adapter.Parent;
-                        while (parent.As<WebDocument>() == null)
-                        {
-                            parent = parent.Parent;
-                        }
-
-                        browserName = parent.As<WebDocument>().BrowserName;
-                    }
-
-                    EyesWrapper.SetBrowserName(browserName);
-                    image = Imaging.CaptureImage(adapter.Element);
+                    webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
                 }
 
-                EyesWrapper.CheckImage(image, stepDescription);
+                webDocument.WaitForDocumentLoaded();
+                image = webDocument.CaptureFullPageScreenshot(screenshotCaptureFlag);
             }
-            finally
+            else
             {
-                ProgressForm.SetOpacity(100);
+                var browserName = string.Empty;
+                if (adapter.Element.HasCapability("webelement"))
+                {
+                    var parent = adapter.Parent;
+                    while (parent.As<WebDocument>() == null)
+                    {
+                        parent = parent.Parent;
+                    }
+
+                    browserName = parent.As<WebDocument>().BrowserName;
+                }
+
+                EyesWrapper.SetBrowserName(browserName);
+                image = Imaging.CaptureImage(adapter.Element);
             }
+
+            EyesWrapper.CheckImage(image, stepDescription);
         }
 
         private static string GetTestCaseName()
