@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -149,6 +150,149 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             else
             {
                 Report.Failure("Validation", "File with pattern '" + pattern + "' wasn't found in directory '" + path + "'.");
+            }
+        }
+
+        /// <summary>
+        /// Compares content of two binary files .
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        [UserCodeMethod]
+        public static void CompareBinaryFiles(string filePath1, string filePath2)
+        {
+            try
+            {
+                filePath1 = GetPathForFile(filePath1);
+                filePath2 = GetPathForFile(filePath2);
+
+                var fi1 = new FileInfo(filePath1);
+                var fi2 = new FileInfo(filePath2);
+
+                if (!fi1.Exists)
+                {
+                    Report.Failure("File '" + filePath1 + "' does not exist.");
+                    return;
+                }
+
+                if (!fi2.Exists)
+                {
+                    Report.Failure("File '" + filePath2 + "' does not exist.");
+                    return;
+                }
+
+                if (fi1.Length != fi2.Length)
+                {
+                    Report.Error("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                    return;
+                }
+
+                int bufferSize = 65536;
+
+                using (var fs1 = fi1.OpenRead())
+                using (var fs2 = fi2.OpenRead())
+                using (var bs1 = new BufferedStream(fs1, bufferSize))
+                using (var bs2 = new BufferedStream(fs2, bufferSize))
+                {
+                    var tempBufferSize = sizeof(Int64);
+                    var tempBuffer1 = new byte[tempBufferSize];
+                    var tempBuffer2 = new byte[tempBufferSize];
+
+                    for (var i = 0L; i < (fi1.Length / tempBufferSize) + 1; i++)
+                    {
+                        bs1.Read(tempBuffer1, 0, tempBufferSize);
+                        bs2.Read(tempBuffer2, 0, tempBufferSize);
+
+                        if (BitConverter.ToInt64(tempBuffer1, 0) != BitConverter.ToInt64(tempBuffer2, 0))
+                        {
+                            Report.Error("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                            return;
+                        }
+                    }
+                }
+
+                Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are equal.");
+            }
+            catch (Exception ex)
+            {
+                Report.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Compares content of two text files.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        [UserCodeMethod]
+        public static void CompareTextFiles(string filePath1, string filePath2)
+        {
+            try
+            {
+                filePath1 = GetPathForFile(filePath1);
+                filePath2 = GetPathForFile(filePath2);
+
+                if (!File.Exists(filePath1))
+                {
+                    Report.Failure("File '" + filePath1 + "' does not exist.");
+                    return;
+                }
+
+                if (!File.Exists(filePath2))
+                {
+                    Report.Failure("File '" + filePath2 + "' does not exist.");
+                    return;
+                }
+
+                var fileContent1 = File.ReadAllText(filePath1);
+                fileContent1 = Regex.Replace(fileContent1, "(\r\n)|(\n\r)|(\n)|(\r)", "\r\n");
+                var fileContent2 = File.ReadAllText(filePath2);
+                fileContent2 = Regex.Replace(fileContent2, "(\r\n)|(\n\r)|(\n)|(\r)", "\r\n");
+
+                if (fileContent1 != fileContent2)
+                {
+                    Report.Error("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                    return;
+                }
+
+                Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are equal.");
+            }
+            catch (Exception ex)
+            {
+                Report.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Checks if file contains text specified.
+        /// </summary>
+        /// <param name="filePath">The relative or absolute path to the file</param>
+        /// <param name="text">The text to search for</param>
+        [UserCodeMethod]
+        public static void SearchText(string filePath, string text)
+        {
+            try
+            {
+                filePath = GetPathForFile(filePath);
+
+                if (!File.Exists(filePath))
+                {
+                    Console.WriteLine("File '" + filePath + "' does not exists.");
+                    return;
+                }
+
+                if (File.ReadAllText(filePath).Contains(text))
+                {
+                    Console.WriteLine("File '" + filePath + "' contains text '" + text + "'.");
+                }
+                else
+                {
+                    Console.WriteLine("File '" + filePath + "' does not contain text '" + text + "'.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Report.Error(ex.Message);
             }
         }
 
