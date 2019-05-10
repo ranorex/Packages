@@ -277,17 +277,17 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 if (!File.Exists(filePath))
                 {
-                    Report.Error("File '" + filePath + "' does not exists.");
+                    Report.Failure("File '" + filePath + "' does not exist.");
                     return;
                 }
 
                 if (!File.ReadAllText(filePath).Contains(text))
                 {
-                    Report.Error("File '" + filePath + "' contains text '" + text + "'.");
+                    Report.Error("File '" + filePath + "' does not contain text '" + text + "'.");
                     return;
                 }
 
-                Report.Success("File '" + filePath + "' does not contain text '" + text + "'.");
+                Report.Success("File '" + filePath + "' contains text '" + text + "'.");
             }
             catch (Exception ex)
             {
