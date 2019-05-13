@@ -3,8 +3,10 @@
 //
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Net;
+using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -88,6 +90,51 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
 
             return ((int)resp.StatusCode).ToString();
+        }
+
+        /// <summary>
+        /// Takes screenshot of entire web page and reports it.
+        /// </summary>
+        /// <param name="repoItemInfo">Repository item</param>
+        [UserCodeMethod]
+        public static void ReportFullPageScreenshot(RepoItemInfo repoItemInfo)
+        {
+            try
+            {
+                if (repoItemInfo == null)
+                {
+                    Report.Error("Repository item must be provided.");
+                    return;
+                }
+
+                WebDocument webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
+                if (webDocument == null)
+                {
+                    Report.Error("Repository item '" + repoItemInfo.FullName + "' is not web document. " +
+                                 "Screenshot can be taken only for web documents.");
+                    return;
+                }
+
+                var screenshotFilePath = "tmp_screenshot.png";
+
+                var screenshot = webDocument.CaptureFullPageScreenshot();
+                screenshot.Save(screenshotFilePath);
+
+                Report.LogData(ReportLevel.Info, "ScreenShot", screenshot);
+
+                if (File.Exists(screenshotFilePath))
+                {
+                    try
+                    {
+                        File.Delete(screenshotFilePath);
+                    }
+                    catch { }
+                }
+            }
+            catch (Exception ex)
+            {
+                Report.Error(ex.Message);
+            }
         }
     }
 }
