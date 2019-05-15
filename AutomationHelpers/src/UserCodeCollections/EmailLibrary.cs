@@ -17,6 +17,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class EmailLibrary
     {
+        private const string libraryName = "EmailLibrary";
+
         /// <summary>
         /// Sends an email.
         /// </summary>
@@ -111,7 +113,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 }
                 catch (Exception ex)
                 {
-                    Report.Failure("Email Error: " + ex);
+                    Utils.ReportException(ex, libraryName);
                     return false;
                 }
             }

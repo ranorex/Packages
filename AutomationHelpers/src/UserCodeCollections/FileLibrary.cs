@@ -16,6 +16,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class FileLibrary
     {
+        private const string libraryName = "FileLibrary";
+
         /// <summary>
         /// Creates a log file containing a custom text in the output folder.
         /// </summary>
@@ -206,7 +208,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Report.Error(ex.Message);
+                Utils.ReportException(ex, libraryName);
             }
         }
 
@@ -263,7 +265,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Report.Error(ex.Message);
+                Utils.ReportException(ex, libraryName);
             }
         }
 
@@ -310,7 +312,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Report.Error(ex.Message);
+                Utils.ReportException(ex, libraryName);
             }
         }
 

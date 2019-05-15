@@ -17,6 +17,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class WebLibrary
     {
+        private const string libraryName = "WebLibrary";
+
         /// <summary>
         /// Downloads a file and stores it locally.
         /// </summary>
@@ -50,11 +52,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                         string message = string.Format(
                             "Downloading a file from: {0} failed for the following reason:",
                             uri);
-                        while (e != null)
-                        {
-                            message = string.Concat(message, Environment.NewLine, e.Message);
-                            e = e.InnerException;
-                        }
+                        message = string.Concat(message, Environment.NewLine, e.GetFullMessage(Environment.NewLine));
 
                         Report.Log(ReportLevel.Failure, message);
                     }
@@ -101,10 +99,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         {
             try
             {
-                if (repoItemInfo == null)
-                {
-                    throw new ArgumentNullException("repoItemInfo");
-                }
+                Utils.CheckArgumentNotNull(repoItemInfo, "repoItemInfo");
 
                 var webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
 
@@ -137,7 +132,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Report.Error(ex.Message);
+                Utils.ReportException(ex, libraryName);
             }
         }
     }
