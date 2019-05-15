@@ -43,7 +43,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Utils.ReportException(ex, libraryName);
             }
         }
 
@@ -113,7 +113,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 }
                 catch (Exception ex)
                 {
-                    Report.Error(ex.Message);
+                    Utils.ReportException(ex, libraryName);
                 }
             }
         }
