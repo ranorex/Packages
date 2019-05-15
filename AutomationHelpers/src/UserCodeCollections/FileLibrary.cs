@@ -176,7 +176,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 if (fi1.Length != fi2.Length)
                 {
-                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal because they differs in size.");
+                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal because they differ in size.");
                     return;
                 }
 
