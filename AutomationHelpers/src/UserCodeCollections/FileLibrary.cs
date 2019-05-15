@@ -180,12 +180,10 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     return;
                 }
 
-                int bufferSize = 65536;
+                const int bufferSize = 65536;
 
-                using (var fs1 = fi1.OpenRead())
-                using (var fs2 = fi2.OpenRead())
-                using (var bs1 = new BufferedStream(fs1, bufferSize))
-                using (var bs2 = new BufferedStream(fs2, bufferSize))
+                using (var fs1 = new FileStream(filePath1, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
+                using (var fs2 = new FileStream(filePath2, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
                 {
                     var tempBufferSize = sizeof(Int64);
                     var tempBuffer1 = new byte[tempBufferSize];
@@ -193,8 +191,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                     for (var i = 0L; i < (fi1.Length / tempBufferSize) + 1; i++)
                     {
-                        bs1.Read(tempBuffer1, 0, tempBufferSize);
-                        bs2.Read(tempBuffer2, 0, tempBufferSize);
+                        fs1.Read(tempBuffer1, 0, tempBufferSize);
+                        fs2.Read(tempBuffer2, 0, tempBufferSize);
 
                         if (BitConverter.ToInt64(tempBuffer1, 0) != BitConverter.ToInt64(tempBuffer2, 0))
                         {

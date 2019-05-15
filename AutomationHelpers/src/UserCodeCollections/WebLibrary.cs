@@ -103,11 +103,11 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             {
                 if (repoItemInfo == null)
                 {
-                    Report.Error("Repository item must be provided.");
-                    return;
+                    throw new ArgumentNullException("repoItemInfo");
                 }
 
-                WebDocument webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
+                var webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
+
                 if (webDocument == null)
                 {
                     Report.Error("Repository item '" + repoItemInfo.FullName + "' is not a web document. " +
@@ -115,7 +115,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     return;
                 }
 
-                var screenshotFilePath = "tmp_screenshot.png";
+                var screenshotFilePath = Path.GetTempFileName();
 
                 var screenshot = webDocument.CaptureFullPageScreenshot();
                 screenshot.Save(screenshotFilePath);
@@ -128,7 +128,11 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     {
                         File.Delete(screenshotFilePath);
                     }
-                    catch { }
+                    catch
+                    {
+                        // No need to handle exception.
+                        // Temp files are deleted only to prevent piling up of unnecessary files.
+                    }
                 }
             }
             catch (Exception ex)
