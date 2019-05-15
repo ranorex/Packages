@@ -220,6 +220,19 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void ValidateFilesTextEqual(string filePath1, string filePath2)
         {
+            ValidateFilesTextEqual(filePath1, filePath2, true);
+        }
+
+        /// <summary>
+        /// Compares content of two text files.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        /// <param name="normalizeLineEndings">If true, line endings will be normalized before comparison.
+        /// Original files will not be changed.</param>
+        [UserCodeMethod]
+        public static void ValidateFilesTextEqual(string filePath1, string filePath2, bool normalizeLineEndings)
+        {
             try
             {
                 filePath1 = GetPathForFile(filePath1);
@@ -231,10 +244,16 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 }
 
                 var fileContent1 = File.ReadAllText(filePath1);
-                fileContent1 = Regex.Replace(fileContent1, "(\r\n)|(\n\r)|(\n)|(\r)", "\r\n");
+                if (normalizeLineEndings)
+                {
+                    fileContent1 = Regex.Replace(fileContent1, "(\r\n)|(\n)|(\r)", "\r\n");
+                }
 
                 var fileContent2 = File.ReadAllText(filePath2);
-                fileContent2 = Regex.Replace(fileContent2, "(\r\n)|(\n\r)|(\n)|(\r)", "\r\n");
+                if (normalizeLineEndings)
+                {
+                    fileContent2 = Regex.Replace(fileContent2, "(\r\n)|(\n)|(\r)", "\r\n");
+                }
 
                 if (fileContent1 != fileContent2)
                 {
