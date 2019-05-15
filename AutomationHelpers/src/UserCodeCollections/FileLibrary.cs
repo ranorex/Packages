@@ -159,7 +159,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="filePath1">The relative or absolute path of the first file</param>
         /// <param name="filePath2">The relative or absolute path of the second file</param>
         [UserCodeMethod]
-        public static void CompareBinaryFiles(string filePath1, string filePath2)
+        public static void ValidateFilesBinaryEqual(string filePath1, string filePath2)
         {
             try
             {
@@ -218,7 +218,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="filePath1">The relative or absolute path of the first file</param>
         /// <param name="filePath2">The relative or absolute path of the second file</param>
         [UserCodeMethod]
-        public static void CompareTextFiles(string filePath1, string filePath2)
+        public static void ValidateFilesTextEqual(string filePath1, string filePath2)
         {
             try
             {
@@ -256,7 +256,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         /// <param name="filePath">The relative or absolute path to the file</param>
         /// <param name="text">The text to search for</param>
         [UserCodeMethod]
-        public static void SearchText(string filePath, string text)
+        public static void ValidateFileContainsText(string filePath, string text)
         {
             try
             {
