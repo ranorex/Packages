@@ -110,7 +110,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 WebDocument webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
                 if (webDocument == null)
                 {
-                    Report.Error("Repository item '" + repoItemInfo.FullName + "' is not web document. " +
+                    Report.Error("Repository item '" + repoItemInfo.FullName + "' is not a web document. " +
                                  "Screenshot can be taken only for web documents.");
                     return;
                 }

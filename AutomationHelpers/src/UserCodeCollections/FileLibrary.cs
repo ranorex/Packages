@@ -176,7 +176,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 if (fi1.Length != fi2.Length)
                 {
-                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal because they differs in size.");
                     return;
                 }
 
@@ -278,7 +278,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     {
                         if (line.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1)
                         {
-                            Report.Success("The text '" + text + "' was found on the line " + i + ": '" + line + "'.");
+                            Report.Success("Text '" + text + "' was found on line " + i + ": '" + line + "'.");
                             textFound = true;
                         }
 
@@ -288,7 +288,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 if (!textFound)
                 {
-                    Report.Failure("The text '" + text + "' was not found in the file '" + filePath + "'.");
+                    Report.Failure("Text '" + text + "' was not found in file '" + filePath + "'.");
                 }
             }
             catch (Exception ex)
