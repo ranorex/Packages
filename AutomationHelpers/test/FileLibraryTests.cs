@@ -188,8 +188,8 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
-            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB11.tmp");
-            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile2kB.tmp");
+            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB11.file");
+            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile2kB.file");
 
             //Act
             FileLibrary.ValidateFilesBinaryEqual(filePath1, filePath2);
@@ -208,8 +208,8 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
-            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.tmp");
-            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile2kB.tmp");
+            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.file");
+            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile2kB.file");
 
             //Act
             FileLibrary.ValidateFilesBinaryEqual(filePath1, filePath2);
@@ -227,8 +227,8 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
-            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.tmp");
-            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile1kB2.tmp");
+            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.file");
+            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile1kB2.file");
 
             //Act
             FileLibrary.ValidateFilesBinaryEqual(filePath1, filePath2);
@@ -246,8 +246,8 @@ namespace RanorexAutomationHelpers.Test
             //Arrange
             var logger = new TestReportLogger();
             Report.AttachLogger(logger);
-            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.tmp");
-            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.tmp");
+            var filePath1 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.file");
+            var filePath2 = Path.Combine(testFilesDirPath, "BinaryFile1kB1.file");
 
             //Act
             FileLibrary.ValidateFilesBinaryEqual(filePath1, filePath2);
