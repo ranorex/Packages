@@ -410,17 +410,5 @@ namespace RanorexAutomationHelpers.Test
                 string.Format("Text '{0}' was found on line 7: 'Maecenas tristique consequat est, et condimentum lacus bibendum non. Nam semper malesuada risus ut interdum.'.", textToSearchFor),
                 logger.LastLogMessage);
         }
-
-        /*
-         [Test]
-         public void Method_Condition_Result()
-         {
-             //Arrange
-
-             //Act
-
-             //Assert
-         }
-         */
     }
 }
