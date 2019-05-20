@@ -144,6 +144,7 @@ namespace RanorexAutomationHelpers.Test
             Assert.AreEqual(
                 string.Format("File has been deleted: {0}", fileName),
                 logger.LastLogMessage);
+            Assert.IsTrue(!File.Exists(fileName));
         }
 
         [Test]
