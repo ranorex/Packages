@@ -291,7 +291,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         {
             try
             {
-                Encoding encoding = Encoding.GetEncoding(fileEncoding);
+                var encoding = Encoding.GetEncoding(fileEncoding);
 
                 filePath = GetPathForFile(filePath);
 
