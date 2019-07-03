@@ -277,8 +277,31 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void ValidateFileContainsText(string filePath, string text)
         {
+            ValidateFileContainsText(filePath, text, "utf-8");
+        }
+
+        /// <summary>
+        /// Checks if file contains text specified.
+        /// </summary>
+        /// <param name="filePath">The relative or absolute path to the file</param>
+        /// <param name="text">The text to search for</param>
+        /// <param name="fileEncoding">Encoding of a file</param>
+        [UserCodeMethod]
+        public static void ValidateFileContainsText(string filePath, string text, string fileEncoding)
+        {
             try
             {
+                Encoding encoding;
+                try
+                {
+                    encoding = Encoding.GetEncoding(fileEncoding);
+                }
+                catch
+                {
+                    Report.Warn("File encoding '" + fileEncoding + "' was not recognized. UTF-8 encoding is applied.");
+                    encoding = Encoding.UTF8;
+                }
+
                 filePath = GetPathForFile(filePath);
 
                 if (!FilesExist(filePath))
@@ -288,7 +311,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 var textFound = false;
 
-                using (StreamReader sr = new StreamReader(filePath))
+                using (StreamReader sr = new StreamReader(filePath, encoding))
                 {
                     var line = "";
                     var i = 1;
