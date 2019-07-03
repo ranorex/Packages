@@ -291,16 +291,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         {
             try
             {
-                Encoding encoding;
-                try
-                {
-                    encoding = Encoding.GetEncoding(fileEncoding);
-                }
-                catch
-                {
-                    Report.Warn("File encoding '" + fileEncoding + "' was not recognized. UTF-8 encoding is applied.");
-                    encoding = Encoding.UTF8;
-                }
+                Encoding encoding = Encoding.GetEncoding(fileEncoding);
 
                 filePath = GetPathForFile(filePath);
 
