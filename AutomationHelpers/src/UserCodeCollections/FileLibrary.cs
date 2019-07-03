@@ -5,6 +5,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -15,6 +16,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class FileLibrary
     {
+        private const string libraryName = "FileLibrary";
+
         /// <summary>
         /// Creates a log file containing a custom text in the output folder.
         /// </summary>
@@ -40,7 +43,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Utils.ReportException(ex, libraryName);
             }
         }
 
@@ -110,7 +113,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 }
                 catch (Exception ex)
                 {
-                    Report.Error(ex.Message);
+                    Utils.ReportException(ex, libraryName);
                 }
             }
         }
@@ -152,9 +155,200 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
         }
 
+        /// <summary>
+        /// Compares content of two binary files.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        [UserCodeMethod]
+        public static void ValidateFilesBinaryEqual(string filePath1, string filePath2)
+        {
+            try
+            {
+                filePath1 = GetPathForFile(filePath1);
+                filePath2 = GetPathForFile(filePath2);
+
+                if (!FilesExist(filePath1, filePath2))
+                {
+                    return;
+                }
+
+                var fi1 = new FileInfo(filePath1);
+                var fi2 = new FileInfo(filePath2);
+
+                if (fi1.Length != fi2.Length)
+                {
+                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal because they differ in size.");
+                    return;
+                }
+
+                const int bufferSize = 65536;
+
+                using (var fs1 = new FileStream(filePath1, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
+                using (var fs2 = new FileStream(filePath2, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize))
+                {
+                    var tempBufferSize = sizeof(Int64);
+                    var tempBuffer1 = new byte[tempBufferSize];
+                    var tempBuffer2 = new byte[tempBufferSize];
+
+                    for (var i = 0L; i < (fi1.Length / tempBufferSize) + 1; i++)
+                    {
+                        fs1.Read(tempBuffer1, 0, tempBufferSize);
+                        fs2.Read(tempBuffer2, 0, tempBufferSize);
+
+                        if (BitConverter.ToInt64(tempBuffer1, 0) != BitConverter.ToInt64(tempBuffer2, 0))
+                        {
+                            Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                            return;
+                        }
+                    }
+                }
+
+                Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are equal.");
+            }
+            catch (Exception ex)
+            {
+                Utils.ReportException(ex, libraryName);
+            }
+        }
+
+        /// <summary>
+        /// Compares content of two text files.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        [UserCodeMethod]
+        public static void ValidateFilesTextEqual(string filePath1, string filePath2)
+        {
+            ValidateFilesTextEqual(filePath1, filePath2, true);
+        }
+
+        /// <summary>
+        /// Compares content of two text files.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        /// <param name="normalizeLineEndings">If true, line endings will be normalized before comparison.
+        /// Original files will not be changed.</param>
+        [UserCodeMethod]
+        public static void ValidateFilesTextEqual(string filePath1, string filePath2, bool normalizeLineEndings)
+        {
+            try
+            {
+                filePath1 = GetPathForFile(filePath1);
+                filePath2 = GetPathForFile(filePath2);
+
+                if (!FilesExist(filePath1, filePath2))
+                {
+                    return;
+                }
+
+                var fileContent1 = File.ReadAllText(filePath1);
+                if (normalizeLineEndings)
+                {
+                    fileContent1 = Regex.Replace(fileContent1, "(\r\n)|(\n)|(\r)", "\r\n");
+                }
+
+                var fileContent2 = File.ReadAllText(filePath2);
+                if (normalizeLineEndings)
+                {
+                    fileContent2 = Regex.Replace(fileContent2, "(\r\n)|(\n)|(\r)", "\r\n");
+                }
+
+                if (fileContent1 != fileContent2)
+                {
+                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                    return;
+                }
+
+                Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are equal.");
+            }
+            catch (Exception ex)
+            {
+                Utils.ReportException(ex, libraryName);
+            }
+        }
+
+        /// <summary>
+        /// Checks if file contains text specified.
+        /// </summary>
+        /// <param name="filePath">The relative or absolute path to the file</param>
+        /// <param name="text">The text to search for</param>
+        [UserCodeMethod]
+        public static void ValidateFileContainsText(string filePath, string text)
+        {
+            ValidateFileContainsText(filePath, text, "utf-8");
+        }
+
+        /// <summary>
+        /// Checks if file contains text specified.
+        /// </summary>
+        /// <param name="filePath">The relative or absolute path to the file</param>
+        /// <param name="text">The text to search for</param>
+        /// <param name="fileEncoding">Encoding of a file</param>
+        [UserCodeMethod]
+        public static void ValidateFileContainsText(string filePath, string text, string fileEncoding)
+        {
+            try
+            {
+                var encoding = Encoding.GetEncoding(fileEncoding);
+
+                filePath = GetPathForFile(filePath);
+
+                if (!FilesExist(filePath))
+                {
+                    return;
+                }
+
+                var textFound = false;
+
+                using (StreamReader sr = new StreamReader(filePath, encoding))
+                {
+                    var line = "";
+                    var i = 1;
+
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1)
+                        {
+                            Report.Success("Text '" + text + "' was found on line " + i + ": '" + line + "'.");
+                            textFound = true;
+                        }
+
+                        ++i;
+                    }
+                }
+
+                if (!textFound)
+                {
+                    Report.Failure("Text '" + text + "' was not found in file '" + filePath + "'.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.ReportException(ex, libraryName);
+            }
+        }
+
         private static string GetPathForFile(string path)
         {
             return path.StartsWith(".") ? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, path)) : path;
+        }
+
+        private static bool FilesExist(params string[] filePaths)
+        {
+            bool filesExist = true;
+
+            foreach (string filePath in filePaths)
+            {
+                if (!File.Exists(filePath))
+                {
+                    Report.Error("The file '" + filePath + "' does not exist.");
+                    filesExist = false;
+                }
+            }
+
+            return filesExist;
         }
     }
 }

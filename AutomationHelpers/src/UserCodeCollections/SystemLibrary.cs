@@ -15,6 +15,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class SystemLibrary
     {
+        private const string libraryName = "SystemLibrary";
         private static readonly Dictionary<string, System.DateTime> timers = new Dictionary<string, System.DateTime>();
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 }
                 catch (Exception ex)
                 {
-                    Report.Error(ex.Message);
+                    Utils.ReportException(ex, libraryName);
                 }
             }
         }

@@ -3,8 +3,10 @@
 //
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Net;
+using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
 namespace Ranorex.AutomationHelpers.UserCodeCollections
@@ -15,6 +17,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     [UserCodeCollection]
     public static class WebLibrary
     {
+        private const string libraryName = "WebLibrary";
+
         /// <summary>
         /// Downloads a file and stores it locally.
         /// </summary>
@@ -48,11 +52,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                         string message = string.Format(
                             "Downloading a file from: {0} failed for the following reason:",
                             uri);
-                        while (e != null)
-                        {
-                            message = string.Concat(message, Environment.NewLine, e.Message);
-                            e = e.InnerException;
-                        }
+                        message = string.Concat(message, Environment.NewLine, e.GetFullMessage(Environment.NewLine));
 
                         Report.Log(ReportLevel.Failure, message);
                     }
@@ -88,6 +88,52 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             }
 
             return ((int)resp.StatusCode).ToString();
+        }
+
+        /// <summary>
+        /// Takes screenshot of entire web page and reports it.
+        /// </summary>
+        /// <param name="repoItemInfo">Repository item</param>
+        [UserCodeMethod]
+        public static void ReportFullPageScreenshot(RepoItemInfo repoItemInfo)
+        {
+            try
+            {
+                Utils.CheckArgumentNotNull(repoItemInfo, "repoItemInfo");
+
+                var webDocument = repoItemInfo.CreateAdapter<WebDocument>(false);
+
+                if (webDocument == null)
+                {
+                    Report.Error("Repository item '" + repoItemInfo.FullName + "' is not a web document. " +
+                                 "Screenshot can be taken only for web documents.");
+                    return;
+                }
+
+                var screenshotFilePath = Path.GetTempFileName();
+
+                var screenshot = webDocument.CaptureFullPageScreenshot();
+                screenshot.Save(screenshotFilePath);
+
+                Report.LogData(ReportLevel.Info, "ScreenShot", screenshot);
+
+                if (File.Exists(screenshotFilePath))
+                {
+                    try
+                    {
+                        File.Delete(screenshotFilePath);
+                    }
+                    catch
+                    {
+                        // No need to handle exception.
+                        // Temp files are deleted only to prevent piling up of unnecessary files.
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.ReportException(ex, libraryName);
+            }
         }
     }
 }
