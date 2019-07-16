@@ -17,6 +17,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
     public static class FileLibrary
     {
         private const string libraryName = "FileLibrary";
+        private const string newLineRegexPattern = "(\r\n)|(\n)|(\r)";
 
         /// <summary>
         /// Creates a log file containing a custom text in the output folder.
@@ -246,13 +247,13 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 var fileContent1 = File.ReadAllText(filePath1);
                 if (normalizeLineEndings)
                 {
-                    fileContent1 = Regex.Replace(fileContent1, "(\r\n)|(\n)|(\r)", "\r\n");
+                    fileContent1 = Regex.Replace(fileContent1, newLineRegexPattern, "\r\n");
                 }
 
                 var fileContent2 = File.ReadAllText(filePath2);
                 if (normalizeLineEndings)
                 {
-                    fileContent2 = Regex.Replace(fileContent2, "(\r\n)|(\n)|(\r)", "\r\n");
+                    fileContent2 = Regex.Replace(fileContent2, newLineRegexPattern, "\r\n");
                 }
 
                 if (fileContent1 != fileContent2)
@@ -302,20 +303,31 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
 
                 var textFound = false;
 
-                using (StreamReader sr = new StreamReader(filePath, encoding))
+                if (Regex.IsMatch(text, newLineRegexPattern))
                 {
-                    var line = "";
-                    var i = 1;
-
-                    while ((line = sr.ReadLine()) != null)
+                    if (File.ReadAllText(filePath, encoding).Contains(text))
                     {
-                        if (line.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1)
-                        {
-                            Report.Success("Text '" + text + "' was found on line " + i + ": '" + line + "'.");
-                            textFound = true;
-                        }
+                        Report.Success("Text '" + text + "' was found in file " + filePath + "'.");
+                        textFound = true;
+                    }
+                }
+                else
+                {
+                    using (StreamReader sr = new StreamReader(filePath, encoding))
+                    {
+                        var line = "";
+                        var i = 1;
 
-                        ++i;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1)
+                            {
+                                Report.Success("Text '" + text + "' was found on line " + i + ": '" + line + "'.");
+                                textFound = true;
+                            }
+
+                            ++i;
+                        }
                     }
                 }
 
