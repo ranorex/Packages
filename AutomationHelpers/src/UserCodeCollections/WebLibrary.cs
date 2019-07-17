@@ -6,6 +6,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using Ranorex.Controls;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
 
@@ -97,6 +98,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void ReportFullPageScreenshot(RepoItemInfo repoItemInfo)
         {
+            ProgressForm.Hide();
+
             try
             {
                 Utils.CheckArgumentNotNull(repoItemInfo, "repoItemInfo");
@@ -134,6 +137,8 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             {
                 Utils.ReportException(ex, libraryName);
             }
+
+            ProgressForm.Show();
         }
     }
 }
