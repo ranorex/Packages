@@ -118,7 +118,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 var screenshot = webDocument.CaptureFullPageScreenshot();
                 screenshot.Save(screenshotFilePath);
 
-                Report.LogData(ReportLevel.Info, "ScreenShot", screenshot);
+                Report.LogData(ReportLevel.Info, "Screenshot", screenshot);
 
                 if (File.Exists(screenshotFilePath))
                 {
