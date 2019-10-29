@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using Ranorex.AutomationHelpers.UserCodeCollections;
 using Ranorex.Core.Reporting;
 using Ranorex.Core.Testing;
 
@@ -155,7 +156,7 @@ namespace Ranorex.AutomationHelpers.Modules
 
 			Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
 
-			return PDFReportFilePath;
+			return Utils.CreateRelativePath(TestReport.ReportEnvironment.ReportDataFilePath, PDFReportFilePath);
 		}
 
 		private static string AddPdfExtension(string pdfName)
