@@ -32,11 +32,17 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             CheckArgumentNotNull(source, "source");
             CheckArgumentNotNull(target, "target");
 
-            var sourceUri = new Uri(source);
-            var targetUri = new Uri(target);
+            var sourceUri = new Uri(source, UriKind.Absolute);
+            var targetUri = new Uri(target, UriKind.RelativeOrAbsolute);
 
-            var relative = Uri.UnescapeDataString(sourceUri.MakeRelativeUri(targetUri).ToString());
-            return relative;
+            if (targetUri.IsAbsoluteUri)
+            {
+                return Uri.UnescapeDataString(sourceUri.MakeRelativeUri(targetUri).ToString());
+            }
+            else
+            {
+                return target;
+            }
         }
     }
 }

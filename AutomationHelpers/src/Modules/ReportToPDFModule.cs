@@ -156,12 +156,25 @@ namespace Ranorex.AutomationHelpers.Modules
 
 			Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
 
-			return Utils.CreateRelativePath(TestReport.ReportEnvironment.ReportDataFilePath, PDFReportFilePath);
+			return GeneratePathToPdfRelativeToReport(PDFReportFilePath);
 		}
 
 		private static string AddPdfExtension(string pdfName)
 		{
 			return pdfName.EndsWith(".pdf") ? pdfName : pdfName + ".pdf";
+		}
+
+		private static string GeneratePathToPdfRelativeToReport(string currentPdfPath)
+		{
+			var pdfUri = new Uri(currentPdfPath, UriKind.RelativeOrAbsolute);
+			if (!pdfUri.IsAbsoluteUri)
+			{
+				// if the path is relative, its relative to the execution, not report
+				var currentExeUri = new Uri(Environment.CurrentDirectory + "\\");
+				pdfUri = new Uri(currentExeUri, pdfUri);
+			}
+
+			return Utils.CreateRelativePath(TestReport.ReportEnvironment.ReportDataFilePath, pdfUri.AbsoluteUri);
 		}
 
 		private void FinishReport() {
