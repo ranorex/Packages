@@ -26,5 +26,23 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                 exception.GetFullMessage(),
                 new SimpleReportMetadata("stacktrace", exception.StackTrace));
         }
+
+        public static string CreateRelativePath(string source, string target)
+        {
+            CheckArgumentNotNull(source, "source");
+            CheckArgumentNotNull(target, "target");
+
+            var sourceUri = new Uri(source, UriKind.Absolute);
+            var targetUri = new Uri(target, UriKind.RelativeOrAbsolute);
+
+            if (targetUri.IsAbsoluteUri)
+            {
+                return Uri.UnescapeDataString(sourceUri.MakeRelativeUri(targetUri).ToString());
+            }
+            else
+            {
+                return target;
+            }
+        }
     }
 }
