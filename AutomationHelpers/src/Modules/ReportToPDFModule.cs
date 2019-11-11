@@ -298,8 +298,10 @@ namespace Ranorex.AutomationHelpers.Modules
 
 		private void DeleteReportImages()
 		{
+#pragma warning disable CS0618
 			//Check if images are stored within a subdirectory - default
 			if (TestReport.ReportEnvironment.UseScreenshotFolder)
+#pragma warning restore CS0618
 			{
 				var imageFolderDirectoryInfo = new DirectoryInfo(TestReport.ReportEnvironment.ReportScreenshotFolderPath);
 
@@ -330,7 +332,6 @@ namespace Ranorex.AutomationHelpers.Modules
 				}
 			}
 		}
-
 		private string GetReportExtension()
 		{
 			var extension = TestReport.ReportEnvironment.ReportDataFilePath.Split('.');
