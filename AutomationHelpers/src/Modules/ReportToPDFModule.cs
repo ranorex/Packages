@@ -18,6 +18,7 @@ namespace Ranorex.AutomationHelpers.Modules
 	{
 		//Variables
 		private static string lastTestSuiteLogged;
+		private System.DateTime testSuiteCompleted;
 
 		/// <summary>
 		/// Constructs a new instance.
@@ -67,33 +68,21 @@ namespace Ranorex.AutomationHelpers.Modules
 			//Delegate must be registered only once
 			if (!this.registered)
 			{
-				System.DateTime testSuiteCompleted = new System.DateTime();
+				this.testSuiteCompleted = new System.DateTime();
 
 				//PDF will be generated at the very end of the TestSuite
-				TestSuite.TestSuiteCompleted += delegate
-				{
-					testSuiteCompleted = System.DateTime.Now;
+				TestSuite.TestSuiteCompleted += CreatePdfReportDelegate;
 
-					var currentTestSuiteName = TestSuite.Current.Name;
-
-					//Prevent redundant PDF conversion - required for multi test suite run
-					if(ReportToPDFModule.lastTestSuiteLogged != currentTestSuiteName)
-					{
-						CreatePDF();
-						ReportToPDFModule.lastTestSuiteLogged = currentTestSuiteName;
-					}
-				};
-
-				#if !RX72 && !RX80 //this requires Ranorex 8.1+
+#if !RX72 && !RX80 //this requires Ranorex 8.1+
 				if (this.DeleteRanorexReport)
 				{
 					TestSuiteRunner.TestRunCompleted += delegate
 					{
-						var cleaner = new CleanupRanorexReport(testSuiteCompleted);
+						var cleaner = new CleanupRanorexReport(this.testSuiteCompleted);
 						cleaner.Cleanup();
 					};
 				}
-				#endif
+#endif
 
 				this.registered = true;
 			}
@@ -130,13 +119,26 @@ namespace Ranorex.AutomationHelpers.Modules
 			//Delete *.rxzlog if not enabled within test suite settings
 			Cleanup();
 
-			//Reset PDF name - required for multi test suite run
-			this.PdfName = String.Empty;
-
 			//Update error value
 			UpdateError();
 
 			return pdfReportFilePath;
+		}
+
+		private void CreatePdfReportDelegate(object sender, EventArgs e)
+		{
+			this.testSuiteCompleted = System.DateTime.Now;
+
+			var currentTestSuiteName = TestSuite.Current.Name;
+
+			//Prevent redundant PDF conversion - required for multi test suite run
+			if (ReportToPDFModule.lastTestSuiteLogged != currentTestSuiteName)
+			{
+				CreatePDF();
+				ReportToPDFModule.lastTestSuiteLogged = currentTestSuiteName;
+			}
+
+			TestSuite.TestSuiteCompleted -= CreatePdfReportDelegate;
 		}
 
 		private string ConvertReportToPDF(string pdfName, string pdfDirectoryPath, string xml, string details)
@@ -298,10 +300,10 @@ namespace Ranorex.AutomationHelpers.Modules
 
 		private void DeleteReportImages()
 		{
-#pragma warning disable CS0618
+#pragma warning disable 0618
 			//Check if images are stored within a subdirectory - default
 			if (TestReport.ReportEnvironment.UseScreenshotFolder)
-#pragma warning restore CS0618
+#pragma warning restore 0618
 			{
 				var imageFolderDirectoryInfo = new DirectoryInfo(TestReport.ReportEnvironment.ReportScreenshotFolderPath);
 
