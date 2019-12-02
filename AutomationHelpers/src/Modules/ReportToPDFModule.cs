@@ -100,13 +100,14 @@ namespace Ranorex.AutomationHelpers.Modules
 
 			try
 			{
-				pdfReportFilePath = ConvertReportToPDF(this.PdfName, this.PdfDirectoryPath, this.Xml, this.Details);
+				pdfReportFilePath = CreatePdfReportPath(this.PdfName, this.PdfDirectoryPath);
+				var relativePdfReportPath = ConvertReportToPDF(pdfReportFilePath, this.Xml, this.Details);
 				Report.LogHtml(
 					ReportLevel.Success,
 					"PDFReport",
 					string.Format(
 						"Successfully created PDF: <a href='{0}' target='_blank'>Open PDF</a>",
-						pdfReportFilePath));
+						relativePdfReportPath));
 			}
 			catch (Exception e)
 			{
@@ -141,25 +142,29 @@ namespace Ranorex.AutomationHelpers.Modules
 			TestSuite.TestSuiteCompleted -= CreatePdfReportDelegate;
 		}
 
-		private string ConvertReportToPDF(string pdfName, string pdfDirectoryPath, string xml, string details)
+		private string ConvertReportToPDF(string pdfReportPath, string xml, string details)
 		{
 			var zippedReportFileDirectory = CreateTempReportFileDirectory();
-			var reportFileDirectory = string.IsNullOrEmpty(pdfDirectoryPath)
-				? TestReport.ReportEnvironment.ReportFileDirectory
-				: pdfDirectoryPath;
 			var name = TestReport.ReportEnvironment.ReportName;
-
 			var input = String.Format(@"{0}\{1}.rxzlog", zippedReportFileDirectory, name);
-			var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
-
 			FinishReport();
 
 			Report.Zip(TestReport.ReportEnvironment, zippedReportFileDirectory, name);
 
-			Ranorex.PDF.Creator.CreatePDF(input, PDFReportFilePath, xml, details);
+			Ranorex.PDF.Creator.CreatePDF(input, pdfReportPath, xml, details);
 
-			return GeneratePathToPdfRelativeToReport(PDFReportFilePath);
+			return GeneratePathToPdfRelativeToReport(pdfReportPath);
 		}
+
+		private static string CreatePdfReportPath(string pdfName, string pdfDirectoryPath)
+		{
+			var reportFileDirectory = string.IsNullOrEmpty(pdfDirectoryPath)
+				? TestReport.ReportEnvironment.ReportFileDirectory
+				: pdfDirectoryPath;
+			var PDFReportFilePath = String.Format(@"{0}\{1}", reportFileDirectory, AddPdfExtension(pdfName));
+			return PDFReportFilePath;
+		}
+
 
 		private static string AddPdfExtension(string pdfName)
 		{
