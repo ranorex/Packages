@@ -135,6 +135,8 @@ namespace Ranorex.AutomationHelpers.Modules
 
         private void OnTestSuiteCompletedSendResult(object sender, EventArgs e)
         {
+            TestSuite.TestSuiteCompleted -= this.OnTestSuiteCompletedSendResult;
+
             var currentTestSuiteStatus = TestReport.CurrentTestSuiteActivity;
             var reportFile = CreateReports();
 
