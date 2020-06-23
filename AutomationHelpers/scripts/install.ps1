@@ -1,4 +1,4 @@
-# Copyright © 2018 Ranorex All rights reserved
+# Copyright Â© 2018 Ranorex All rights reserved
 
 param($installPath, $toolsPath, $package, $project)
 
@@ -12,11 +12,6 @@ if (!$rxVersion)
     exit
 }
 $rxVersion = "RX$rxVersion"
-if ($rxVersion -ne "RX72" -and $rxVersion -ne "RX80")
-{
-    Write-Warning('Current Ranorex version is fully supported by this package.')
-    exit
-}
 
 $defineConstants = $project.Properties.Item("DefineConstants")
 [array]$symbols = $defineConstants.Value.Split(';')
