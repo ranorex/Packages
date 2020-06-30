@@ -1,10 +1,10 @@
-# Copyright © 2018 Ranorex All rights reserved
+# Copyright Â© 2018 Ranorex All rights reserved
 
 param($installPath, $toolsPath, $package, $project)
 
 Write-Host 'Started removing constant for current Ranorex version from compilation symbols...'
 
-$rxVersion = $project.Properties.Item("RanorexVersion")
+$rxVersion = GET-VARIABLE RanorexVersion
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
 {
