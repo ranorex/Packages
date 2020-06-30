@@ -4,7 +4,7 @@ param($installPath, $toolsPath, $package, $project)
 
 Write-Host 'Started adding constant for current Ranorex version to compilation symbols...'
 
-$rxVersion = $project.Properties.Item("RanorexVersion")
+$rxVersion = GET-VARIABLE RanorexVersion
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
 {
