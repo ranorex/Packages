@@ -4,6 +4,12 @@ param($installPath, $toolsPath, $package, $project)
 
 Write-Host 'Started adding constant for current Ranorex version to compilation symbols...'
 
+if ($project.Name -ne 'Ranorex Automation Helpers')
+{
+    Write-Information('Ignore the non-helper project ' + $project.Name)
+    exit
+}
+
 $rxVersion = GET-VARIABLE RanorexVersion -ErrorAction 'Ignore'
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
