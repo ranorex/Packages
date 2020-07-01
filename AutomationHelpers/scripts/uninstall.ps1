@@ -4,11 +4,11 @@ param($installPath, $toolsPath, $package, $project)
 
 Write-Host 'Started removing constant for current Ranorex version from compilation symbols...'
 
-$rxVersion = GET-VARIABLE RanorexVersion
+$rxVersion = GET-VARIABLE RanorexVersion -ErrorAction 'Ignore'
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
 {
-    Write-Information('Could not find Ranorex version property, ignore removing constant for this project.')
+    Write-Information('Could not find Ranorex version variable, ignore removing constant for this project.')
     exit
 }
 
