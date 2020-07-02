@@ -1,22 +1,23 @@
-# Copyright © 2018 Ranorex All rights reserved
+# Copyright Â© 2018 Ranorex All rights reserved
 
 param($installPath, $toolsPath, $package, $project)
 
 Write-Host 'Started adding constant for current Ranorex version to compilation symbols...'
 
-$rxVersion = $project.Properties.Item("RanorexVersion")
+if ($project.Name -ne 'Ranorex Automation Helpers')
+{
+    Write-Information('Ignore the non-helper project ' + $project.Name)
+    exit
+}
+
+$rxVersion = GET-VARIABLE RanorexVersion -ErrorAction 'Ignore'
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
 {
-    Write-Warning('Could not find Ranorex version property in project.')
+    Write-Warning('Could not find Ranorex version variable.')
     exit
 }
 $rxVersion = "RX$rxVersion"
-if ($rxVersion -ne "RX72" -and $rxVersion -ne "RX80")
-{
-    Write-Warning('Current Ranorex version is fully supported by this package.')
-    exit
-}
 
 $defineConstants = $project.Properties.Item("DefineConstants")
 [array]$symbols = $defineConstants.Value.Split(';')
