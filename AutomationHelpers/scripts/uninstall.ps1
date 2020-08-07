@@ -10,7 +10,7 @@ if ($project.Name -ne 'Ranorex Automation Helpers')
     exit
 }
 
-$rxVersion = GET-VARIABLE RanorexVersion -ErrorAction 'Ignore'
+$rxVersion = GET-VARIABLE RanorexVersion -ErrorAction 'SilentlyContinue'
 $rxVersion = $rxVersion.Value -replace '\.'
 if (!$rxVersion)
 {
