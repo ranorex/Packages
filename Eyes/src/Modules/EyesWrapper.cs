@@ -109,7 +109,7 @@ namespace Ranorex.Eyes
             if (_testRunning)
             {
                 _eyes.CloseAsync(false);
-                var allTestResults = runner.GetAllTestResults(false);
+                var allTestResults = _runner.GetAllTestResults(false);
 
                 foreach (var testResults in allTestResults)
                 {
