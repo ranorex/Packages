@@ -112,12 +112,6 @@
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'log4net'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'AutoMapper'" />
 	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'PdfiumViewer'" />
-      <!--<InputAssemblies Include="..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll" />
-        <InputAssemblies Include="..\packages\Eyes.Images.3.52.0\lib\net45\Eyes.Images.DotNet.dll" />
-        <InputAssemblies Include="..\packages\Eyes.Image.Core.4.16.1\lib\net45\Eyes.Image.Core.DotNet.dll" />
-        <InputAssemblies Include="..\packages\DotNetZip.Reduced.1.9.1.8\lib\net20\Ionic.Zip.Reduced.dll" />
-        <InputAssemblies Include="..\packages\log4net.2.0.0\lib\net40-full\log4net.dll" />
-        <InputAssemblies Include="..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll" />-->
     </ItemGroup>
     <ILRepack AllowDuplicateResources="false" DebugInfo="true" InputAssemblies="@(InputAssemblies)" OutputFile=".\bin\$(Configuration)\Eyes.Bundle.dll" Parallel="true" TargetKind="SameAsPrimaryAssembly" />
   </Target>
