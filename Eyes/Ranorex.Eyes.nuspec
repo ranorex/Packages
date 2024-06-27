@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Ranorex.Eyes</id>
-        <version>1.1.1</version>
+        <version>2.0.0</version>
         <title>Ranorex with Applitools Eyes</title>
         <authors>Ranorex GmbH</authors>
         <owners>Ranorex GmbH</owners>
@@ -24,7 +24,6 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll" target="lib" />
         <file src="ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll" target="lib" />
         <file src="src\Modules\*.cs" target="content\Modules" />
         <file src="src\UserCodeCollections\*.cs" target="content\UserCodeCollections" />

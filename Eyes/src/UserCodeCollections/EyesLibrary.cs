@@ -111,6 +111,7 @@ namespace Ranorex.Eyes
         		throw new ArgumentNullException("adapter");
         	}
 
+            EyesWrapper.SetBrowserName(GetBrowserName(adapter));
             EyesWrapper.StartOrContinueTest(GetTestCaseName());
             Report.Info(string.Format("Applitools 'CheckImage' called with screenshot from repository item '{0}'.", adapter));
 
@@ -118,7 +119,6 @@ namespace Ranorex.Eyes
             if (adapter.Element.HasCapability("webdocument"))
             {
                 var webDocument = adapter.As<WebDocument>();
-                EyesWrapper.SetBrowserName(webDocument.BrowserName);
                 if (EyesWrapper.ViewPortWidth > 0 && EyesWrapper.ViewPortHeight > 0)
                 {
                     webDocument.Browser.Resize(EyesWrapper.ViewPortWidth, EyesWrapper.ViewPortHeight);
@@ -126,6 +126,36 @@ namespace Ranorex.Eyes
 
                 webDocument.WaitForDocumentLoaded();
                 image = webDocument.CaptureFullPageScreenshot(screenshotCaptureFlag);
+            }
+            else
+            {
+                image = Imaging.CaptureImage(adapter.Element);
+            }
+
+            EyesWrapper.CheckImage(image, stepDescription);
+        }
+
+        private static string GetTestCaseName()
+        {
+            var testCaseName = string.Empty;
+            if (TestSuite.Current != null)
+            {
+                testCaseName = TestSuite.Current.CurrentTestContainer.Name;
+            }
+            return testCaseName;
+        }
+
+        private static string GetBrowserName(Adapter adapter)
+        {
+            if (adapter == null)
+            {
+                throw new ArgumentNullException("adapter");
+            }
+
+            if (adapter.Element.HasCapability("webdocument"))
+            {
+                var webDocument = adapter.As<WebDocument>();
+                return webDocument.BrowserName;
             }
             else
             {
@@ -141,21 +171,8 @@ namespace Ranorex.Eyes
                     browserName = parent.As<WebDocument>().BrowserName;
                 }
 
-                EyesWrapper.SetBrowserName(browserName);
-                image = Imaging.CaptureImage(adapter.Element);
+                return browserName;
             }
-
-            EyesWrapper.CheckImage(image, stepDescription);
-        }
-
-        private static string GetTestCaseName()
-        {
-            var testCaseName = string.Empty;
-            if (TestSuite.Current != null)
-            {
-                testCaseName = TestSuite.Current.CurrentTestContainer.Name;
-            }
-            return testCaseName;
         }
     }
 }
