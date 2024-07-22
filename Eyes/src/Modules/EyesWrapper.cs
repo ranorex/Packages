@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using Ranorex.Core.Testing;
 using Applitools;
-using Applitools.ImageTester;
 using Applitools.Images;
-using Applitools.VisualGrid;
+using Ranorex.Core.Testing;
+
 
 namespace Ranorex.Eyes
 {
@@ -84,7 +83,7 @@ namespace Ranorex.Eyes
                 viewPort = new Size(ViewPortWidth, ViewPortHeight);
             }
 
-            var builder = new SuiteBuilder(fileOrFolderPath, _appName, viewPort);
+            var builder = new Applitools.ImageTester.SuiteBuilder(fileOrFolderPath, _appName, viewPort);
 
             var suite = builder.Build();
             if (suite == null)

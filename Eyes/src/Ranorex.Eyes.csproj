@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Ranorex.Eyes</RootNamespace>
     <AssemblyName>Ranorex.Eyes</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RanorexVersion>8.2</RanorexVersion>
     <RanorexTargetsPath>$(MSBuildProgramFiles32)\MSBuild\Ranorex$(RanorexVersion)\Ranorex.MSBuild.Targets</RanorexTargetsPath>
@@ -34,7 +34,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eyes.Bundle, Version=1.22.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Eyes.Bundle, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll</HintPath>
     </Reference>

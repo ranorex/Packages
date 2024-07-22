@@ -92,28 +92,32 @@
     <Content Include="x86\pdfium.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.34\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.34\build\ILRepack.Lib.MSBuild.Task.targets')" />
+  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.34.1\build\ILRepack.LIb.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.34.1\build\ILRepack.LIb.MSBuild.Task.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.34.1\build\ILRepack.LIb.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.Lib.MSBuild.Task.2.0.34.1\build\ILRepack.LIb.MSBuild.Task.targets'))" />
     <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86.v8-xfa.props'))" />
     <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
-    <Error Condition="!Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.34\build\ILRepack.Lib.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.Lib.MSBuild.Task.2.0.34\build\ILRepack.Lib.MSBuild.Task.targets'))" />
   </Target>
   <!-- ILRepack -->
-  <Target Name="ILRepacker" AfterTargets="Build">
+  <Target Name="ILRepacker" BeforeTargets="Build">
     <ItemGroup>
-	  <InputAssemblies Include="$(TargetPath)" />
+      <InputAssemblies Include="$(TargetPath)" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'Newtonsoft.Json'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'Eyes.Images.DotNet'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'Eyes.Image.Core.DotNet'" />
+	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'System.Net.Http'" />
+	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'System.Runtime'" />
+	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'System.Runtime.InteropServices.RuntimeInformation'" />
+	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'System.ValueTuple'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'Ionic.Zip.Reduced'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'log4net'" />
       <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'AutoMapper'" />
-	  <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'PdfiumViewer'" />
+      <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'PdfiumViewer'" />
     </ItemGroup>
-    <ILRepack AllowDuplicateResources="false" DebugInfo="true" InputAssemblies="@(InputAssemblies)" OutputFile=".\bin\$(Configuration)\Eyes.Bundle.dll" Parallel="true" TargetKind="SameAsPrimaryAssembly" />
+    <ILRepack Parallel="true" InputAssemblies="@(InputAssemblies)" TargetKind="Dll" OutputFile="$(OutputPath)Eyes.Bundle.dll" />
   </Target>
   <!-- /ILRepack -->
 </Project>
