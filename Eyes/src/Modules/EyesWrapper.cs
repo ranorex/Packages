@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Drawing;
-using Ranorex.Core.Testing;
 using Applitools;
-using Applitools.ImageTester;
+using Applitools.Images;
+using Ranorex.Core.Testing;
+
 
 namespace Ranorex.Eyes
 {
     internal static class EyesWrapper
     {
-        internal static readonly log4net.LogManager mgr = null; // explicit ref
+        internal static readonly log4net.LogManager _mgr = null; // explicit ref
 
-        private static readonly Applitools.Images.Eyes eyes = new Applitools.Images.Eyes();
-        private static readonly BatchInfo batch = new BatchInfo();
+        private static readonly ClassicRunner _runner = new ClassicRunner();
+        private static readonly Applitools.Images.Eyes _eyes = new Applitools.Images.Eyes(_runner);
+        private static readonly Configuration _suitConfiguration = new Configuration();
+        private static BatchInfo _batch = new BatchInfo();
 
-        private static string appName;
-        private static string currentTestName = string.Empty;
-        private static string currentBrowserName = string.Empty;
-        private static bool testRunning;
+        private static string _appName;
+        private static string _currentTestName = string.Empty;
+        private static string _currentBrowserName = string.Empty;
+        private static bool _testRunning;
 
         public static int ViewPortHeight { get; set; }
         public static int ViewPortWidth { get; set; }
@@ -30,17 +33,21 @@ namespace Ranorex.Eyes
             int portHeight,
             string matchLevel)
         {
-            eyes.SetAppEnvironment(Host.Local.OSEdition, currentBrowserName);
-            eyes.ApiKey = apiKey;
+            _suitConfiguration
+                .SetApiKey(apiKey)
+                .SetAppName(appName)
+                .SetHideCaret(true)
+                .SetHideScrollbars(true)
+                .SetHostOS(Host.Local.OSEdition);
 
             SetAppName(appName);
+            SetMatchLevel(matchLevel);
 
             if (!string.IsNullOrWhiteSpace(serverURL))
             {
-                eyes.ServerUrl = serverURL;
+                _suitConfiguration.SetServerUrl(serverURL);
             }
 
-            SetMatchLevel(matchLevel);
             if (TestSuite.Current != null)
             {
                 SetBatchName(TestSuite.Current.Name);
@@ -53,6 +60,9 @@ namespace Ranorex.Eyes
 
             ViewPortWidth = portWidth;
             ViewPortHeight = portHeight;
+            _suitConfiguration.SetViewportSize(ViewPortWidth, ViewPortHeight);
+
+            _eyes.SetConfiguration(_suitConfiguration);
         }
 
         public static void CheckImage(Bitmap image, string tag)
@@ -62,7 +72,7 @@ namespace Ranorex.Eyes
                 throw new ArgumentNullException("image");
             }
 
-            eyes.CheckImage(image, tag);
+            _eyes.CheckImage(image, tag);
         }
 
         public static void CheckFolder(string fileOrFolderPath)
@@ -73,7 +83,7 @@ namespace Ranorex.Eyes
                 viewPort = new Size(ViewPortWidth, ViewPortHeight);
             }
 
-            var builder = new SuiteBuilder(fileOrFolderPath, appName, viewPort);
+            var builder = new Applitools.ImageTester.SuiteBuilder(fileOrFolderPath, _appName, viewPort);
 
             var suite = builder.Build();
             if (suite == null)
@@ -83,7 +93,7 @@ namespace Ranorex.Eyes
             }
 
             Report.Info("Visual Checkpoint - file comparison (PDF/Images).");
-            suite.Run(eyes);
+            suite.Run(_eyes);
         }
 
         [Obsolete("Parameter throwException is no longer used, please use CloseTest() instead.", false)]
@@ -94,39 +104,45 @@ namespace Ranorex.Eyes
 
         public static void CloseTest()
         {
-            if (testRunning)
+            TestResults results;
+            if (_testRunning)
             {
-                var results = eyes.Close(throwEx: false);
+                _eyes.CloseAsync(false);
+                var allTestResults = _runner.GetAllTestResults(false);
 
-                if(results.IsNew)
+                foreach (var testResults in allTestResults)
                 {
-                    Report.LogHtml(ReportLevel.Warn, "Visual Testing", string.Format("New baseline created; please approve here: <a href='{0}'>Applitools backend</a>", results.Url));
-                }
-                if(results.IsPassed)
-                {
-                    Report.LogHtml(ReportLevel.Info, "Visual Testing", string.Format("Visual test passed; check results here: <a href='{0}'>Applitools backend</a>", results.Url));
-                }
-                else
-                {
-                    Report.LogHtml(ReportLevel.Failure, "Visual Testing", string.Format("Visual test failed; please check results here: <a href='{0}'>Applitools backend</a>", results.Url));
+                    results = testResults.TestResults;
+                    if (results.IsNew)
+                    {
+                        Report.LogHtml(ReportLevel.Warn, "Visual Testing", string.Format("New baseline created; please approve here: <a href='{0}'>Applitools backend</a>", results.Url));
+                    }
+                    if (results.IsPassed)
+                    {
+                        Report.LogHtml(ReportLevel.Info, "Visual Testing", string.Format("Visual test passed; check results here: <a href='{0}'>Applitools backend</a>", results.Url));
+                    }
+                    else
+                    {
+                        Report.LogHtml(ReportLevel.Failure, "Visual Testing", string.Format("Visual test failed; please check results here: <a href='{0}'>Applitools backend</a>", results.Url));
+                    }
                 }
 
-                testRunning = false;
-                eyes.AbortIfNotClosed();
+                _testRunning = false;
+                _eyes.AbortIfNotClosed();
             }
         }
 
         public static void StartOrContinueTest(string testName)
         {
-            if (!testRunning)
+            if (!_testRunning)
             {
-                eyes.Open(appName, testName, new Size(ViewPortWidth, ViewPortHeight));
-                currentTestName = testName;
-                testRunning = true;
+                _eyes.Open(_appName, testName);
+                _currentTestName = testName;
+                _testRunning = true;
             }
             else
             {
-                if (!testName.Equals(currentTestName))
+                if (!testName.Equals(_currentTestName))
                 {
                     CloseTest();
                     StartOrContinueTest(testName);
@@ -136,7 +152,7 @@ namespace Ranorex.Eyes
 
         public static void SetAppName(string newAppName)
         {
-            appName = newAppName;
+            _appName = newAppName;
         }
 
         public static void SetMatchLevel(string matchLevel)
@@ -147,53 +163,66 @@ namespace Ranorex.Eyes
             {
                 if (matchLevel.ToUpper().Contains("LAYOUT"))
                 {
-                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Layout;
+                    _suitConfiguration.MatchLevel = MatchLevel.Layout;
                 }
                 else if (matchLevel.ToUpper().Contains("EXACT"))
                 {
-                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Exact;
+                    _suitConfiguration.MatchLevel = MatchLevel.Exact;
                 }
-                else if (matchLevel.ToUpper().Contains("CONTENT"))
+                else if (matchLevel.ToUpper().Contains("IGNORECOLORS"))
                 {
-                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Content;
+                    _suitConfiguration.MatchLevel = MatchLevel.IgnoreColors;
                 }
                 else if (matchLevel.ToUpper().Contains("STRICT"))
                 {
-                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Strict;
+                    _suitConfiguration.MatchLevel = MatchLevel.Strict;
                 }
                 else
                 {
                     Report.Warn(string.Format("MatchLevel {0} is not valid; fallback to default (strict)", matchLevel));
-                    eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Strict; // Default
+                    _suitConfiguration.MatchLevel = MatchLevel.Strict; // Default
                 }
             }
             else
             {
-                eyes.DefaultMatchSettings.MatchLevel = MatchLevel.Strict; // Default
+                _suitConfiguration.MatchLevel = MatchLevel.Strict; // Default
             }
         }
 
         public static void SetBatchId(string batchId)
         {
-            batch.Id = batchId;
-            eyes.Batch = batch;
+            if (_suitConfiguration.Batch != null) 
+            {
+                _batch = _suitConfiguration.Batch;
+            }
+
+            _batch.Id = batchId;
+            _suitConfiguration.Batch = _batch;
         }
 
         public static void SetBatchName(string batchName)
         {
-            batch.Name = batchName;
-            eyes.Batch = batch;
+            if (_suitConfiguration.Batch != null)
+            {
+                _batch = _suitConfiguration.Batch;
+            }
+
+            _batch.Name = batchName;
+            _suitConfiguration.Batch = _batch;
         }
 
         internal static void SetBrowserName(string browserName)
         {
-            if (currentBrowserName.Equals(browserName))
+            if (_currentBrowserName.Equals(browserName))
             {
                 return;
             }
 
-            currentBrowserName = browserName;
-            eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
+            _currentBrowserName = browserName;
+            var configuration = _eyes.GetConfiguration();
+            configuration.SetHostApp(browserName);
+            _eyes.SetConfiguration(configuration);
+            _eyes.SetAppEnvironment(Host.Local.OSEdition, browserName);
         }
     }
 }

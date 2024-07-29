@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Ranorex.Eyes</RootNamespace>
     <AssemblyName>Ranorex.Eyes</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RanorexVersion>8.2</RanorexVersion>
     <RanorexTargetsPath>$(MSBuildProgramFiles32)\MSBuild\Ranorex$(RanorexVersion)\Ranorex.MSBuild.Targets</RanorexTargetsPath>
@@ -34,78 +34,97 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Applitools.ImageTester">
-      <HintPath>..\ImageTester\src\csharp\bin\Release\Applitools.ImageTester.dll</HintPath>
-    </Reference>
-    <Reference Include="Eyes.Bundle, Version=1.22.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Eyes.Bundle, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Bootstrapper">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Bootstrapper.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Core">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Core.Resolver">
       <Private>True</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Core.Resolver.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Cef">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Cef.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.ChromeWeb">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.ChromeWeb.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Delphi">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Delphi.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.FirefoxWeb">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.FirefoxWeb.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Flex">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Flex.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Java">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Java.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Mobile">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Mobile.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Msaa">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Msaa.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Office">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Office.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Qt">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Qt.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.RawText">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.RawText.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Sap">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Sap.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Test">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Test.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Uia">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Uia.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Web">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Web.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.WebDriver">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Win32">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Win32.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.WinForms">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Plugin.Wpf">
       <Private>False</Private>
+      <HintPath>$(RANOREX_BIN_PATH)\..\$(Configuration)\Ranorex.Plugin.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
