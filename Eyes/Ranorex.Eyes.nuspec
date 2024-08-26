@@ -7,10 +7,11 @@
         <authors>Ranorex GmbH</authors>
         <owners>Ranorex GmbH</owners>
         <projectUrl>https://github.com/ranorex/Packages</projectUrl>
-        <iconUrl>https://www.ranorex.com/rx-studio/rx_logo.png</iconUrl>
+        <readme>docs\README.md</readme>
+        <icon>images\icon.png</icon>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Use Applitools Eyes automated visual validation with Ranorex.</description>
-        <copyright>Copyright 2018</copyright>
+        <copyright>Copyright 2024</copyright>
         <tags>Ranorex TestAutomation Applitools Eyes</tags>
         <frameworkAssemblies>
             <frameworkAssembly assemblyName="System" />
@@ -25,7 +26,11 @@
     </metadata>
     <files>
         <file src="ImageTester\src\csharp\bin\Release\Eyes.Bundle.dll" target="lib" />
+        <file src="ImageTester\src\csharp\lib\Ranorex.Eyes.props" target="build" />
         <file src="src\Modules\*.cs" target="content\Modules" />
         <file src="src\UserCodeCollections\*.cs" target="content\UserCodeCollections" />
+        <file src="ImageTester\src\csharp\packages\Eyes.Image.Core.4.16.1\runtimes\win-x64\native\*.*" target="build\runtimes\win-x64\native" />
+        <file src="ImageTester\README.md" target="docs\" />
+        <file src="ImageTester\icon.png" target="images\" />
     </files>
 </package>
